@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from "react-router-dom";
-import App from './App';
+import Login from './pages/Login';
 import reportWebVitals from './reportWebVitals';
 
 // Root element in HTML DOM to render React components within
@@ -10,7 +10,7 @@ const rootElement = document.getElementById('root')
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App/>
+            <Login/>
         </BrowserRouter>
     </React.StrictMode>,
     rootElement
