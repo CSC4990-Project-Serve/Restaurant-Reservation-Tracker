@@ -1,37 +1,33 @@
-class User {
-    constructor(username, firstName, lastName) {
-        this._username = username;
-        this._firstName = firstName;
-        this._lastName = lastName;
-    }
+const sqlDB = require('./db');
 
-    get username() {
-        return this._username;
-    }
+let User = function (userRequest) {
+    const {username, emailAddress, firstName, lastName} = userRequest; //deconstructing req.body
 
-    set username(value) {
-        this._username = value;
-    }
-
-    get firstName() {
-        return this._firstName;
-    }
-
-    set firstName(value) {
-        this._firstName = value;
-    }
-
-    get lastName() {
-        return this._lastName;
-    }
-
-    set lastName(value) {
-        this._lastName = value;
-    }
+    this.username = username;
+    this.emailAddress = emailAddress;
+    this.firstName = firstName;
+    this.lastName = lastName;
 }
 
-function getAllUsers() {
-    return {id: 1, name: "Jared", age: 21};
+User.getAllUsers = () => {
+    let user = {
+        username: "JSmith01",
+        firstName: "James",
+        lastName: "Smith",
+        age: 18
+    };
+    return user;
 }
 
-module.exports = {User, getAllUsers}
+User.addNewUser = (userData, results) => {
+    // sqlDB.query('INSERT INTO users set ?', userData, (error, results) => {
+    //     if (error) throw error;
+    //     console.log(`Successfully inserted new user`);
+    //     result(results);
+    // })
+    console.log(`Data received in Users: ${userData.firstName}`)
+    results(null, "success")
+    console.log("Executed SQL Query");
+}
+
+module.exports = User;

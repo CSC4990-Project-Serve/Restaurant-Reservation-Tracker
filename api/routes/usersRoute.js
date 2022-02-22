@@ -3,5 +3,6 @@ module.exports = function usersRoute(app) {
 
     app.route('/users')
         .get(controller.get_all_users)
+        .post(controller.create_new_user)
 
 }
