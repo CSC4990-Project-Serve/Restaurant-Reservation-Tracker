@@ -1,18 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from "react-router-dom";
-import Login from './pages/Login';
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {
+    Login,
+    Main,
+    Restaurant,
+    Navbar,
+    Footer,
+} from "./components";
 import reportWebVitals from './reportWebVitals';
 
 // Root element in HTML DOM to render React components within
 const rootElement = document.getElementById('root')
 
 ReactDOM.render(
-    <React.StrictMode>
-        <BrowserRouter>
-            <Login/>
-        </BrowserRouter>
-    </React.StrictMode>,
+    <Router>
+        <Navbar/>
+        <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/Main" element={<Main />} />
+        </Routes>
+        <Footer/>
+    </Router>,
+
     rootElement
 );
 

@@ -42,3 +42,6 @@ td {
     border:solid black;
     height:30px;
 }
+.tableClass {
+    overflow-x:auto;
+}

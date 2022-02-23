@@ -27,3 +27,33 @@
     margin-right: .5rem;
     margin-left: .5rem;
 }
+.navbarHeader {
+    text-align: center;
+}
+.navbarBelow {
+
+}
+.linkLeft {
+    text-align:left;
+    left:10px;
+}
+.linkRight {
+    text-align:right;
+    right:10px;
+}
+.imgBanner {
+    width:100%;
+    height:250px;
+    align-content: center;
+    margin: 20px;
+}
+
+.search-area {
+    padding:20px;
+    border:solid black;
+    background-color: lightgray;
+}
+
+.searchButton {
+    top: 60px;
+}
