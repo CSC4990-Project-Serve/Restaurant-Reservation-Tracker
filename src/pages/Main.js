@@ -1,4 +1,8 @@
 import React from 'react';
+import { NavLink } from "react-router-dom";
+import {
+    SomonaukCountryKitchen,
+} from "../components";
 
 const Main = () => {
     return (
@@ -43,7 +47,11 @@ const Main = () => {
                             <td>the search results</td>
                             <td>and recommended will</td>
                             <td>be displayed.</td>
-                            <td>Recommendatiosn will display</td>
+                            <td>
+                                <NavLink to={"/SomonaukCountryKitchen"}>
+                                SomonaukCountryKitchen
+                                </NavLink>
+                            </td>
                             <td>initially, then be replaced </td>
                             <td>once search is queried</td>
                             <td>999999999999999999999999999999999999999999999999999999999999999</td>

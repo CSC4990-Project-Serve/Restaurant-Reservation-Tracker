@@ -4,9 +4,9 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {
     Login,
     Main,
-    Restaurant,
     Navbar,
     Footer,
+    SomonaukCountryKitchen,
 } from "./components";
 import reportWebVitals from './reportWebVitals';
 
@@ -19,6 +19,7 @@ ReactDOM.render(
         <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/Main" element={<Main />} />
+            <Route path="/SomonaukCountryKitchen" element={<SomonaukCountryKitchen/>}/>
         </Routes>
         <Footer/>
     </Router>,
