@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, {Component} from 'react';
+=======
+import React from 'react';
+>>>>>>> parent of eb12777 (changed components from constants to classes)
 import { NavLink } from "react-router-dom";
 import {
     SomonaukCountryKitchen,
@@ -8,46 +12,44 @@ import {
 import React from 'react';
 >>>>>>> parent of c82ff05 (added dummy restaurant page)
 
-class Main extends Component{
-    render() {
-        return (
-            <div>
-                <div className="row">
-                    <img className="imgBanner" src={require("../imgs/table.jpg")} alt={""}/>
-                </div>
-                <form className="search-area">
-                    <div className="htmlForm-group">
-                        <div className="row">
-                            <div className="col-10">
-                                <div className="row">
-                                    <label htmlFor="searchName">Restaurant Name:</label>
-                                    <input className="form-control" id="searchName"
-                                           placeholder="Enter Restaurant Name"/>
-                                </div>
-                                <div className="row">
-                                    <div className="col">
-                                        <label htmlFor="searchDay">Day:</label>
-                                        <input className="form-control" id="searchDay" placeholder="11/11/11"/>
-                                    </div>
-                                    <div className="col">
-                                        <label htmlFor="searchTime">Time:</label>
-                                        <input className="form-control" id="searchTime" placeholder="24:00"/>
-                                    </div>
-                                    <div className="col">
-                                        <label htmlFor="searchSeats">Seats:</label>
-                                        <input className="form-control" id="searchSeats" placeholder="0"/>
-                                    </div>
-                                </div>
+const Main = () => {
+    return (
+        <div>
+            <div className="row">
+                <img className="imgBanner" src={require("../imgs/table.jpg")} alt={""}/>
+            </div>
+            <form className="search-area">
+                <div className="htmlForm-group">
+                    <div className="row">
+                        <div className="col-10">
+                            <div className="row">
+                                <label htmlFor="searchName">Restaurant Name:</label>
+                                <input className="form-control" id="searchName" placeholder="Enter Restaurant Name"/>
                             </div>
-                            <div className="col-2 text-center searchButton">
-                                <button type="submit" className="btn btn-primary button-spaced">Search</button>
+                            <div className="row">
+                                <div className="col">
+                                    <label htmlFor="searchDay">Day:</label>
+                                    <input className="form-control" id="searchDay" placeholder="11/11/11"/>
+                                </div>
+                                <div className="col">
+                                    <label htmlFor="searchTime">Time:</label>
+                                    <input className="form-control" id="searchTime" placeholder="24:00"/>
+                                </div>
+                                <div className="col">
+                                    <label htmlFor="searchSeats">Seats:</label>
+                                    <input className="form-control" id="searchSeats" placeholder="0"/>
+                                </div>
                             </div>
                         </div>
+                        <div className="col-2 text-center searchButton">
+                            <button type="submit" className="btn btn-primary button-spaced">Search</button>
+                        </div>
                     </div>
-                </form>
-                <div className={"tableClass"}>
-                    <table>
-                        <tbody>
+                </div>
+            </form>
+            <div className={"tableClass"}>
+                <table>
+                    <tbody>
                         <tr>
                             <td>this is where</td>
                             <td>the search results</td>
@@ -56,14 +58,18 @@ class Main extends Component{
 <<<<<<< HEAD
                             <td>
                                 <NavLink to={"/SomonaukCountryKitchen"}>
-                                    SomonaukCountryKitchen
+                                SomonaukCountryKitchen
                                 </NavLink>
                             </td>
+<<<<<<< HEAD
                             <td>initially, then be replaced</td>
 =======
                             <td>Recommendatiosn will display</td>
                             <td>initially, then be replaced </td>
 >>>>>>> parent of c82ff05 (added dummy restaurant page)
+=======
+                            <td>initially, then be replaced </td>
+>>>>>>> parent of eb12777 (changed components from constants to classes)
                             <td>once search is queried</td>
                             <td>999999999999999999999999999999999999999999999999999999999999999</td>
                             <td>999999999 9999999999999 99999999999999 99999999999999 9999999 999999</td>
@@ -73,12 +79,11 @@ class Main extends Component{
                             <td>999999999 9999999999999 99999999999999 99999999999999 9999999 999999</td>
                             <td>test</td>
                         </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
-        );
-    }
+        </div>
+    );
 };
 
 export default Main;
