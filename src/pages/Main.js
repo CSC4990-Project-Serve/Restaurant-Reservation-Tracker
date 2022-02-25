@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 import React, {Component} from 'react';
 import { NavLink } from "react-router-dom";
 import {
     SomonaukCountryKitchen,
 } from "../components";
+=======
+import React from 'react';
+>>>>>>> parent of c82ff05 (added dummy restaurant page)
 
 class Main extends Component{
     render() {
@@ -49,12 +53,17 @@ class Main extends Component{
                             <td>the search results</td>
                             <td>and recommended will</td>
                             <td>be displayed.</td>
+<<<<<<< HEAD
                             <td>
                                 <NavLink to={"/SomonaukCountryKitchen"}>
                                     SomonaukCountryKitchen
                                 </NavLink>
                             </td>
                             <td>initially, then be replaced</td>
+=======
+                            <td>Recommendatiosn will display</td>
+                            <td>initially, then be replaced </td>
+>>>>>>> parent of c82ff05 (added dummy restaurant page)
                             <td>once search is queried</td>
                             <td>999999999999999999999999999999999999999999999999999999999999999</td>
                             <td>999999999 9999999999999 99999999999999 99999999999999 9999999 999999</td>
