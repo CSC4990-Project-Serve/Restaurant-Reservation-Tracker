@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {
     Login,
     Main,
-    Restaurant,
+    SomonaukCountryKitchen,
     Navbar,
     Footer,
 } from "./components";
@@ -19,6 +19,7 @@ ReactDOM.render(
         <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/Main" element={<Main />} />
+            <Route path={"/SomonaukCountryKitchen"} element={<SomonaukCountryKitchen />}/>
         </Routes>
         <Footer/>
     </Router>,

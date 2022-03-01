@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import React, {Component} from 'react';
-=======
-import React from 'react';
->>>>>>> parent of eb12777 (changed components from constants to classes)
 import { NavLink } from "react-router-dom";
 import {
     SomonaukCountryKitchen,
 } from "../components";
-=======
-import React from 'react';
->>>>>>> parent of c82ff05 (added dummy restaurant page)
 
 const Main = () => {
     return (
@@ -55,21 +47,14 @@ const Main = () => {
                             <td>the search results</td>
                             <td>and recommended will</td>
                             <td>be displayed.</td>
-<<<<<<< HEAD
                             <td>
                                 <NavLink to={"/SomonaukCountryKitchen"}>
-                                SomonaukCountryKitchen
+                                    SomonaukCountryKitchen
                                 </NavLink>
                             </td>
-<<<<<<< HEAD
                             <td>initially, then be replaced</td>
-=======
                             <td>Recommendatiosn will display</td>
                             <td>initially, then be replaced </td>
->>>>>>> parent of c82ff05 (added dummy restaurant page)
-=======
-                            <td>initially, then be replaced </td>
->>>>>>> parent of eb12777 (changed components from constants to classes)
                             <td>once search is queried</td>
                             <td>999999999999999999999999999999999999999999999999999999999999999</td>
                             <td>999999999 9999999999999 99999999999999 99999999999999 9999999 999999</td>
