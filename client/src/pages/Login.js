@@ -1,30 +1,71 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-const Login = () => {
+const Login = (props) => {
+
+    // need a better solution than setting defaults to []
+    const [formData, setFormData] = useState({
+        username: [],
+        password: [],
+    });
+
+    // Form validation (On Submission)
+    function onSubmit(event) {
+        event.preventDefault();
+
+        console.warn(formData);
+
+
+        if (!formData.username || !formData.password) {
+            alert("NO USERNAME OR PASSWORD ENTERED");
+            return;
+        }
+
+        // todo: do user authentication here?
+        console.log("Doing something after submission.....")
+
+        // Reset form data after submission
+        setFormData({username: '', password: ''});
+    }
+
+    // Form validation on data entry to a field (Updates each time a letter is entered)
+    // updates the state
+    function onFieldChange(event) {
+        let {name, value} = event.target;
+
+        setFormData({...formData, [name]: value})
+    }
+
     return (
-        <div>
-            <form action="" className="login-form d-flex">
-                <div className="container form-container">
-                    <div className="row title-row">
-                        <h1>Project Serve Login</h1>
-                    </div>
-                    <div className="row">
-                        <label htmlFor="username">Username</label>
-                        <input type="text" id="username" className="form-control" placeholder="username"></input>
-                    </div>
-                    <div className="row">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="password" className="form-control" placeholder="password"></input>
-                    </div>
-                    <div className="row form-group login-cancel-buttons">
-                        <button type="button" className="btn btn-secondary button-spaced">Cancel</button>
-                        <button type="submit" className="btn btn-primary button-spaced">Login</button>
-                    </div>
+        <div className={"container-fluid vh-100"}>
+            <div className={"mb-3"}>
+                <h1>Login</h1>
+            </div>
+
+            <form onSubmit={onSubmit}>
+                <div className={"mb-3"}>
+                    <label htmlFor="username">Username</label>
+                    <input type="text" id={"username"} name={"username"}
+                           className={formData.username === "" ? "form-control is-invalid" : "form-control"}
+                           value={formData.username}
+                           placeholder="Enter your username or email address"
+                           onChange={onFieldChange}/>
+                </div>
+
+                <div className={"mb-3"}>
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id="password" name={"password"}
+                           className={formData.password === "" ? "form-control is-invalid" : "form-control"}
+                           value={formData.password}
+                           placeholder="Enter your password"
+                           onChange={onFieldChange}/>
+                </div>
+
+                <div className={"mb-3 d-grid gap-2 d-md-flex justify-content-md-end"}>
+                    {/*<button type={"reset"} className={"btn btn-warning button-spaced"}>Clear</button>*/}
+                    <button type={"submit"} className="btn btn-primary button-spaced">Login</button>
                 </div>
             </form>
-        </div>
-
-    );
+        </div>);
 };
 
 export default Login;
