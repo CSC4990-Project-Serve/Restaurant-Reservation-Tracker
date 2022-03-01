@@ -1,6 +1,7 @@
 const sqlDB = require('./db');
 
 let User = function (userRequest) {
+    // https://stackoverflow.com/questions/46056733/is-there-an-easier-way-to-assign-this-variable-with-object-destructuring
     const {username, emailAddress, firstName, lastName} = userRequest; //deconstructing req.body
 
     this.username = username;
