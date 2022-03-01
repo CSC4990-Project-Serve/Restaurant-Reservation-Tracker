@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RestaurantPage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./restaurantpage.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbarHeader navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1" style="color:blue">Project Serve</span>
+</nav>
+<div class="navbarBelow bg-light">
+    <div class="row">
+        <div class="col linkLeft">
+            <a class="home" id="home" href="#">Home</a>
+        </div>
+        <div class="col linkRight">
+            <a class="login" id="login" href="#">Login/Logout</a>
+        </div>
+    </div>
+</div>
+<nav class="navbarHeader navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1" style="color:black">Restaurant Name Here</span>
+</nav>
+<div class="row">
+    <!-- put the menu and other information on left here -->
+    <div class="col infoArea">
+        <div class="row d-flex justify-content-center">
+            <h2>Menu</h2>
+        </div>
+        <div class="row">
+            <ul class="menuList">
+                <li>item</li>
+                <li>item</li>
+                <li>item</li>
+                <li>item</li>
+                <li>item</li>
+            </ul>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <h2>About This Restaurant</h2>
+        </div>
+        <div class="row descriptionArea">
+            <div id="descriptionArea">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi commodi delectus dolor dolorem dolores facere itaque obcaecati praesentium ullam? Aperiam beatae consequuntur cum cupiditate delectus deleniti dolor dolore, dolorum error facere impedit ipsum laudantium maiores molestias necessitatibus nesciunt officia omnis optio perspiciatis quaerat quis reiciendis repellendus sit ut voluptate! Earum expedita fuga impedit nemo nihil. Delectus eaque fuga id rerum veritatis voluptates! Ab, animi architecto aspernatur assumenda distinctio, eligendi fugiat in iure minus modi molestiae quaerat, quos recusandae reiciendis sequi soluta unde! Distinctio laudantium pariatur voluptate. Amet autem excepturi id porro quas quibusdam sint suscipit veniam! Aut dolor fugiat qui!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus ducimus fugit laboriosam perferendis quaerat quod repellat sapiente temporibus voluptatibus! Accusantium consequatur illo minima praesentium ut? Cupiditate dolore enim exercitationem non quam. Ipsam, possimus, velit? Ex, optio, quos. Consequuntur cupiditate expedita facere fugit itaque, laudantium numquam porro quaerat, quia ullam vero.</p>
+            </div>
+        </div>
+    </div>
+    <!-- put the reservation form over here on the right -->
+    <div class="col reservationArea">
+        <h2 class="text-center">Select a date to see if seats are available</h2>
+        <form>
+            <div class="row resInputSpot">
+                <div class="col text-center">
+                    <button type="submit" class="btn btn-primary button-spaced">Reserve</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <label for="resDay">Day:</label>
+                    <input class="form-control" id="resDay" type="date" placeholder="11/11/2022">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <label for="resTime">Time:</label>
+                    <select class="form-control" id="resTime">
+                        <option id="8:00">8:00AM</option>
+                        <option id="8:30">8:30AM</option>
+                        <option id="9:00">9:00AM</option>
+                        <option id="20:00">8:00PM</option>
+                        <option id="20:30">8:30PM</option>
+                        <option id="21:00">9:00PM</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <label for="resSeats">Seats:</label>
+                    <input class="form-control" id="resSeats" placeholder="4" type="number">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <label for="locationSelect">Location:</label>
+                    <select class="form-control" id="locationSelect">
+                        <option id="Oswego">Oswego</option>
+                        <option id="Aurora">Aurora</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Footer -->
+<footer class="page-footer font-small blue bg-light">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2022 Copyright:
+        <a href=""> The Coding Connoisseurs</a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+</body>
+</html>
