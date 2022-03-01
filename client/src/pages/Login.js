@@ -35,8 +35,11 @@ const Login = (props) => {
         setFormData({...formData, [name]: value})
     }
 
+    // todo: figure out a better container for the login box
+    //  ex. more centered design and box around it maybe?
+    //  also would like the main container to be full height
     return (
-        <div className={"container-fluid vh-100"}>
+        <div className={"container-fluid"}>
             <div className={"mb-3"}>
                 <h1>Login</h1>
             </div>
