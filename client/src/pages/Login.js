@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const Login = (props) => {
 
@@ -7,6 +7,14 @@ const Login = (props) => {
         username: [],
         password: [],
     });
+
+
+    // check if user is already logged in and if so, redirect home
+    // useEffect(() => {
+    //     if(props.isLoggedIn) {
+    //         //todo: redirect home and don't allow user to login
+    //     }
+    // }, [])
 
     // Form validation (On Submission)
     function onSubmit(event) {
