@@ -2,9 +2,10 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer className="page-footer font-small blue bg-light">
-            <div className="footer-copyright text-center py-3">© 2022 Copyright:
-                <a href=""> The Coding Connoisseurs</a>
+        <footer className={"text-center text-white"} style={{backgroundColor: "#f1f1f1"}}>
+            <div className={"text-center text-dark p-3"} style={{backgroundColor: "rgba(0, 0, 0, 0.2)"}}>
+                &copy; {new Date().getFullYear()} Copyright:
+                <a className={"text-dark"} href={"/"}> The Coding Connoisseurs</a>
             </div>
         </footer>
     );
