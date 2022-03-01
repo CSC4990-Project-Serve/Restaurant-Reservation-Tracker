@@ -10,12 +10,12 @@
     margin-bottom: auto;
 }
 
-.login-form {
-    width: 20vw;
-    height: 80vh;
-    margin: auto;
-    align-self: center;
-}
+/*.login-form {*/
+/*    width: 20vw;*/
+/*    height: 80vh;*/
+/*    margin: auto;*/
+/*    align-self: center;*/
+/*}*/
 
 .login-cancel-buttons {
     display: flex;
