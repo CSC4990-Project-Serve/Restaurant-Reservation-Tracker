@@ -1,31 +1,17 @@
-import React from 'react';
+import React, { useContext, createContext, useState } from "react";
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import {
-    Login,
-    Main,
-    SomonaukCountryKitchen,
-    Navbar,
-    Footer,
-} from "./components";
 import reportWebVitals from './reportWebVitals';
+import App from "./App";
 
 // Root element in HTML DOM to render React components within
 const rootElement = document.getElementById('root')
 
 ReactDOM.render(
-    <Router>
-        <Navbar/>
-        <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/Main" element={<Main />} />
-            <Route path={"/SomonaukCountryKitchen"} element={<SomonaukCountryKitchen />}/>
-        </Routes>
-        <Footer/>
-    </Router>,
+    <App/>,
 
     rootElement
 );
+
 
 // Currently, Unused Below
 // If you want to start measuring performance in your app, pass a function
