@@ -31,6 +31,7 @@ const Login = (props) => {
         // todo: do user authentication here?
         console.log("Doing something after submission.....")
 
+
         // Reset form data after submission
         setFormData({username: '', password: ''});
     }
@@ -80,3 +81,10 @@ const Login = (props) => {
 };
 
 export default Login;
+export class auth {
+    loggedin = true;
+    static loggedin = true;
+    constructor(loggedin){
+        this.loggedin = loggedin;
+    }
+}

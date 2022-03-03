@@ -35,7 +35,6 @@ function App() {
         <Router>
             <Fragment>
             <Navbar/>
-            <switch>
                 <Routes>
                     <Route path="/Login" element={<Login />} />
                     <Route path="/" element={<Main />} />
@@ -43,7 +42,6 @@ function App() {
                         <Route path={"/SomonaukCountryKitchen"} element={<SomonaukCountryKitchen />}/>
                     </Route>
                 </Routes>
-            </switch>
             <Footer/>
             </Fragment>
         </Router>
