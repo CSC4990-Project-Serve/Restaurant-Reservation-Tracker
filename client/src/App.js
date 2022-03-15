@@ -8,6 +8,7 @@ import {
     Footer,
 } from "./components";
 import PrivateRoute from './components/routing/PrivateRoute';
+import {auth} from "./components/authbool";
 
 function App() {
 
@@ -38,7 +39,7 @@ function App() {
                 <Routes>
                     <Route path="/Login" element={<Login />} />
                     <Route path="/" element={<Main />} />
-                    <Route path={"/SomonaukCountryKitchen"} element={<PrivateRoute/>}>
+                    <Route element={<PrivateRoute auth={auth}/>}>
                         <Route path={"/SomonaukCountryKitchen"} element={<SomonaukCountryKitchen />}/>
                     </Route>
                 </Routes>

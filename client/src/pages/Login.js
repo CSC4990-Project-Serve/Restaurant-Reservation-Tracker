@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {auth} from '../components/authbool';
 
 const Login = (props) => {
-
+    let navigate = useNavigate();
+    console.log(auth.loggedin);
     // need a better solution than setting defaults to []
     const [formData, setFormData] = useState({
         username: [],
         password: [],
     });
 
-
+    // todo: this method is now obsolete, but could be changed to a log-out function that simply
+    // todo: changes the boolean of being logged in to false and wipes any stored user info.
     // check if user is already logged in and if so, redirect home
     // useEffect(() => {
     //     if(props.isLoggedIn) {
@@ -29,11 +33,27 @@ const Login = (props) => {
         }
 
         // todo: do user authentication here?
-        console.log("Doing something after submission.....")
+        console.log("Doing something after submission.....");
+        console.log(formData.username);
+        console.log(formData.password);
+        console.log(auth.loggedin);
+        // todo: have this actually query the database for matches using another function
+        if (formData.username === "username" && formData.password === "password") {
+            auth.loggedin = true;
+            auth.username = formData.username;
+            auth.password = formData.password;
+            console.log(auth.loggedin);
+            // navigate to previous page, because for some reason this needs to be done
+            // to actually load the requested restaurant page
+            // todo: find a solution that doesn't involve this
+            navigate(-1);
+        }
 
 
         // Reset form data after submission
+        // maybe move this into an else statement for handling incorrect credentials
         setFormData({username: '', password: ''});
+
     }
 
     // Form validation on data entry to a field (Updates each time a letter is entered)
@@ -81,10 +101,10 @@ const Login = (props) => {
 };
 
 export default Login;
-export class auth {
-    loggedin = true;
-    static loggedin = true;
-    constructor(loggedin){
-        this.loggedin = loggedin;
-    }
-}
+// export class auth {
+//     //loggedin = false;
+//     static loggedin = false;
+//     constructor(loggedin){
+//         this.loggedin = loggedin;
+//     }
+// }
