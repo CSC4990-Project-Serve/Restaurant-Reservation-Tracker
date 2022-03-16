@@ -10,8 +10,8 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors({origin: '*'}));
 
 // routes definition
-const userRoute = require('./routes/usersRoute');
-userRoute(app);
+const userRoutes = require('./routes/users.routes');
+userRoutes(app);
 
 
 app.listen(port, () => {

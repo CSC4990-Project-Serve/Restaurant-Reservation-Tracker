@@ -11,7 +11,7 @@ const dbConnection = sql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'root',
-    database: 'nodejs-practice',
+    database: 'csc4990_project_serve',
 });
 
 dbConnection.connect((err) => {
