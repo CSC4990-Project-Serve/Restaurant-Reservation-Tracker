@@ -1,9 +1,12 @@
 //todo: put in actual information from their website
 //https://www.countrykitchensomonauk.com/
 
-import React from 'react';
+import React, {useContext} from 'react';
+import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../../Context/Auth.Context";
 
 const SomonaukCountryKitchen = () => {
+    const navigate = useNavigate();
     const [reserv, setReserv] = React.useState({
             resDay: null,
             resTime : null,
@@ -11,22 +14,27 @@ const SomonaukCountryKitchen = () => {
             locationSelect : null
         }
     );
+    const { state } = useContext(AuthContext);
     function onFieldChange(event) {
         let {name, value} = event.target;
 
         setReserv({...reserv, [name]: value})
     }
     function handleReservation(event) {
-        //todo: query database for matching openings
-        //todo: if the values are taken then display message saying which one is taken/unnavailable
-        event.preventDefault();
-        //use entered and formatted values to look into data to grab matching results
-        // might break this into another file method and import it for neatness
-        console.log(reserv.resDay);
-        console.log(reserv.resTime);
-        console.log(reserv.resSeats);
-        console.log(reserv.locationSelect);
-        return false;
+            //todo: query database for matching openings
+            //todo: if the values are taken then display message saying which one is taken/unnavailable
+            if(state.loggedin){
+                event.preventDefault();
+                //use entered and formatted values to look into data to grab matching results
+                // might break this into another file method and import it for neatness
+                console.log(reserv.resDay);
+                console.log(reserv.resTime);
+                console.log(reserv.resSeats);
+                console.log(reserv.locationSelect);
+            }else{
+                navigate('/Login')
+            }
+            return false;
     }
 
     return (

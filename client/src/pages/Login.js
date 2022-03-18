@@ -1,15 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
+import { useSetState } from 'react-use';
 import {useNavigate} from 'react-router-dom';
-import {auth} from '../components/authbool';
+import {AuthContext} from '../Context/Auth.Context';
+//import {auth} from '../components/authbool';
 
 const Login = (props) => {
-    let navigate = useNavigate();
-    console.log(auth.loggedin);
     // need a better solution than setting defaults to []
-    const [formData, setFormData] = useState({
-        username: [],
-        password: [],
-    });
+    const initialState = {
+        username: '',
+        password: ''
+    }
+    const { state: ContextState, login } = useContext(AuthContext);
+    const {
+        loggedin,
+        isPending,
+        username,
+        password,
+        isadmin,
+        loginError
+    } = ContextState;
+    const [state, setState] = useSetState(initialState);
+    let navigate = useNavigate();
 
     // todo: this method is now obsolete, but could be changed to a log-out function that simply
     // todo: changes the boolean of being logged in to false and wipes any stored user info.
@@ -21,38 +32,46 @@ const Login = (props) => {
     // }, [])
 
     // Form validation (On Submission)
-    function onSubmit(event) {
+    const onSubmit = (event) => {
         event.preventDefault();
-
-        console.warn(formData);
-
-
-        if (!formData.username || !formData.password) {
-            alert("NO USERNAME OR PASSWORD ENTERED");
-            return;
-        }
-
-        // todo: do user authentication here?
-        console.log("Doing something after submission.....");
-        console.log(formData.username);
-        console.log(formData.password);
-        console.log(auth.loggedin);
-        // todo: have this actually query the database for matches using another function
-        if (formData.username === "username" && formData.password === "password") {
-            auth.loggedin = true;
-            auth.username = formData.username;
-            auth.password = formData.password;
-            console.log(auth.loggedin);
-            // navigate to previous page, because for some reason this needs to be done
-            // to actually load the requested restaurant page
-            // todo: find a solution that doesn't involve this
-            navigate(-1);
-        }
+        const { username, password } = state;
+        console.log(username);
+        console.log(password);
+        login(username,password);
+        setState({
+            username: '',
+            password: ''
+        });
+        //console.warn(formData);
 
 
-        // Reset form data after submission
-        // maybe move this into an else statement for handling incorrect credentials
-        setFormData({username: '', password: ''});
+        // if (!formData.username || !formData.password) {
+        //     loginError.message = 'NO USERNAME OR PASSWORD ENTERED';
+        //     alert("NO USERNAME OR PASSWORD ENTERED");
+        //     setFormData({username: '', password: ''});
+        //     return;
+        // }
+
+        // // todo: do user authentication here?
+        // console.log("Doing something after submission.....");
+        // console.log(formData.username);
+        // console.log(formData.password);
+        // // todo: have this actually query the database for matches using another function
+        // var isCredential = () => {
+        //     login(formData.username,formData.password);
+        //     setState({
+        //         username: '',
+        //         password: ''
+        //         })
+        // }
+        // if (isCredential()) {
+        //     console.log(state.loggedin);
+        //     // redirect to previous page on successful login
+        //     // todo: possibly find a solution that doesn't involve this
+        //     navigate(-1);
+        // }else {
+        //     setFormData({username: '', password: ''});
+        // }
 
     }
 
@@ -61,7 +80,7 @@ const Login = (props) => {
     function onFieldChange(event) {
         let {name, value} = event.target;
 
-        setFormData({...formData, [name]: value})
+        setState({...state, [name]: value})
     }
 
     // todo: figure out a better container for the login box
@@ -80,20 +99,22 @@ const Login = (props) => {
 
                                     <label htmlFor="username" className="form-label">Username</label>
                                                  <input type="text" id={"username"} name={"username"}
-                                                        className={formData.username === "" ? "form-control is-invalid" : "form-control"}
-                                                        value={formData.username}
+                                                        className={state.username === "" ? "form-control is-invalid" : "form-control"}
+                                                        value={state.username}
                                                         placeholder="Enter your username or email address"
                                                         onChange={onFieldChange}/>
 
                                                  <label htmlFor="password" className={"form-label"}>Password</label>
                                                  <input type="password" id="password" name={"password"}
-                                                        className={formData.password === "" ? "form-control is-invalid" : "form-control"}
-                                                        value={formData.password}
+                                                        className={state.password === "" ? "form-control is-invalid" : "form-control"}
+                                                        value={state.password}
                                                         placeholder="Enter your password"
                                                         onChange={onFieldChange}/>
 
                                     <button className="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-
+                                    { isPending && <div>Please wait...</div> }
+                                    { loggedin && <div onLoad={navigate(-1)}>Success.</div> }
+                                    { loginError && <div>{loginError.message}</div> }
                                 </div>
                             </div>
                         </div>

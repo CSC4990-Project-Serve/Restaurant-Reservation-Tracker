@@ -1,7 +1,12 @@
-import React from 'react';
-import { NavLink } from "react-router-dom";
+import React, {useContext} from 'react';
+import { NavLink, useNavigate } from "react-router-dom";
+import {AuthContext} from "../Context/Auth.Context";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    const { state } = useContext(AuthContext);
+    const { logout } = useContext(AuthContext);
+
     return (
         <div>
             <nav className="navbarHeader navbar-light bg-light">
@@ -16,7 +21,7 @@ const Navbar = () => {
                     </div>
                     <div className="col linkRight">
                         <NavLink to={"/Login"}>
-                            Login/Logout
+                            Login
                         </NavLink>
                     </div>
                 </div>
