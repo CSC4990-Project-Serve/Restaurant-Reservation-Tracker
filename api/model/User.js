@@ -46,4 +46,29 @@ User.update_a_user = (userID, updatedUserInfo, results) => {
     )
 }
 
+User.get_user_by_id = (userID, results) => {
+    let sql_query = "SELECT users.id, username, first_name, last_name, phone_number FROM users INNER JOIN user_roles ON users.user_role = user_roles.id WHERE users.id=?"
+    conn.query(sql_query, userID, (err, res) => {
+        if (err) {
+            console.log(err);
+            results(err, null);
+        } else {
+            results(null, res);
+        }
+    })
+}
+
+User.delete_user_by_id = (userID, results) => {
+    let sql_query = "DELETE FROM users WHERE users.id = ?";
+
+    conn.query(sql_query, userID, (err, res) => {
+        if (err) {
+            console.log(err);
+            results(err, null);
+        } else {
+            res.affectedRows > 0 ? results(null, true) : results(null, false)
+        }
+    })
+}
+
 module.exports = User;
