@@ -1,8 +1,34 @@
+//todo: put in actual information from their website
 //https://www.countrykitchensomonauk.com/
 
 import React from 'react';
 
 const SomonaukCountryKitchen = () => {
+    const [reserv, setReserv] = React.useState({
+            resDay: null,
+            resTime : null,
+            resSeats : null,
+            locationSelect : null
+        }
+    );
+    function onFieldChange(event) {
+        let {name, value} = event.target;
+
+        setReserv({...reserv, [name]: value})
+    }
+    function handleReservation(event) {
+        //todo: query database for matching openings
+        //todo: if the values are taken then display message saying which one is taken/unnavailable
+        event.preventDefault();
+        //use entered and formatted values to look into data to grab matching results
+        // might break this into another file method and import it for neatness
+        console.log(reserv.resDay);
+        console.log(reserv.resTime);
+        console.log(reserv.resSeats);
+        console.log(reserv.locationSelect);
+        return false;
+    }
+
     return (
         <div>
             <nav className="navbarHeader navbar-light bg-light">
@@ -48,7 +74,7 @@ const SomonaukCountryKitchen = () => {
                 </div>
                 <div className="col reservationArea">
                     <h2 className="text-center">Select a date to see if seats are available</h2>
-                    <form>
+                    <form onSubmit={handleReservation}>
                         <div className="row resInputSpot">
                             <div className="col text-center">
                                 <button type="submit" className="btn btn-primary button-spaced">Reserve</button>
@@ -57,32 +83,36 @@ const SomonaukCountryKitchen = () => {
                         <div className="row">
                             <div className="col text-center">
                                 <label htmlFor="resDay">Day:</label>
-                                <input className="form-control" id="resDay" type="date" placeholder="11/11/2022"></input>
+                                <input className="form-control" id="resDay" name={"resDay"} type="date"
+                                       onChange={onFieldChange} placeholder="11/11/2022"></input>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col text-center">
                                 <label htmlFor="resTime">Time:</label>
-                                <select className="form-control" id="resTime">
-                                    <option id="8:00">8:00AM</option>
-                                    <option id="8:30">8:30AM</option>
-                                    <option id="9:00">9:00AM</option>
-                                    <option id="20:00">8:00PM</option>
-                                    <option id="20:30">8:30PM</option>
-                                    <option id="21:00">9:00PM</option>
+                                <select className="form-control" id="resTime" name={"resTime"} onChange={onFieldChange}>
+                                    <option id={"select"}>time</option>
+                                    <option id="8:00" value={"8:00"}>8:00AM</option>
+                                    <option id="8:30" value={"8:30"}>8:30AM</option>
+                                    <option id="9:00" value={"9:00"}>9:00AM</option>
+                                    <option id="20:00" value={"20:00"}>8:00PM</option>
+                                    <option id="20:30" value={"20:30"}>8:30PM</option>
+                                    <option id="21:00" value={"21:00"}>9:00PM</option>
                                 </select>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col text-center">
                                 <label htmlFor="resSeats">Seats:</label>
-                                <input className="form-control" id="resSeats" placeholder="4" type="number"></input>
+                                <input className="form-control" id="resSeats" name={"resSeats"}
+                                       onChange={onFieldChange} placeholder="0" type="number"></input>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col text-center">
                                 <label htmlFor="locationSelect">Location:</label>
-                                <select className="form-control" id="locationSelect">
+                                <select className="form-control" id="locationSelect" name={"locationSelect"} onChange={onFieldChange}>
+                                    <option id="select">location</option>
                                     <option id="Oswego">Oswego, IL</option>
                                     <option id="Aurora">Aurora, IL</option>
                                 </select>

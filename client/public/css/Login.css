@@ -9,6 +9,13 @@
     margin-top: auto;
     margin-bottom: auto;
 }
+.card-area {
+    border-radius: 1rem;
+}
+
+.background-area {
+    background-color: #508bfc;
+}
 
 /*.login-form {*/
 /*    width: 20vw;*/

@@ -10,12 +10,12 @@ const Navbar = () => {
             <div className="navbarBelow bg-light">
                 <div className="row">
                     <div className="col linkLeft">
-                        <NavLink to={"/Main"}>
+                        <NavLink to={"/"}>
                             Home <span className="sr-only">(current)</span>
                         </NavLink>
                     </div>
                     <div className="col linkRight">
-                        <NavLink to={"/"}>
+                        <NavLink to={"/Login"}>
                             Login/Logout
                         </NavLink>
                     </div>

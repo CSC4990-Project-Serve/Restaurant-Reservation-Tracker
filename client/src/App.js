@@ -1,4 +1,14 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useContext, createContext, useState, Fragment} from "react";
+import {BrowserRouter as Router, Switch, Route, Routes, Redirect, Navigate} from "react-router-dom";
+import {
+    Login,
+    Main,
+    SomonaukCountryKitchen,
+    Navbar,
+    Footer,
+} from "./components";
+import PrivateRoute from './components/routing/PrivateRoute';
+import {auth} from "./components/authbool";
 
 function App() {
 
@@ -22,13 +32,20 @@ function App() {
         return data;
     }
 
-
     return (
-        <div>
-            <h1>Hello World!</h1>
-            <p>This is a sample React component.</p>
-            <code>{JSON.stringify(user)}</code>
-        </div>
+        <Router>
+            <Fragment>
+            <Navbar/>
+                <Routes>
+                    <Route path="/Login" element={<Login />} />
+                    <Route path="/" element={<Main />} />
+                    <Route element={<PrivateRoute auth={auth}/>}>
+                        <Route path={"/SomonaukCountryKitchen"} element={<SomonaukCountryKitchen />}/>
+                    </Route>
+                </Routes>
+            <Footer/>
+            </Fragment>
+        </Router>
     );
 }
 
