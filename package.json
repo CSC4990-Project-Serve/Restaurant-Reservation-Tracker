@@ -4,7 +4,9 @@
   "description": "",
   "main": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-client": "cd client && npm start",
+    "start-api": "cd api && npm start",
+    "start-all": "concurrently --kill-others-on-fail \"npm run start-api\" \"npm run start-client\""
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/CSC4990-Project-Serve/Restaurant-Reservation-Tracker/issues"
   },
-  "homepage": "https://github.com/CSC4990-Project-Serve/Restaurant-Reservation-Tracker#readme"
+  "homepage": "https://github.com/CSC4990-Project-Serve/Restaurant-Reservation-Tracker#readme",
+  "dependencies": {
+    "concurrently": "^7.0.0"
+  }
 }
