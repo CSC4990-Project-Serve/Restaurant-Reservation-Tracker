@@ -45,3 +45,7 @@ td {
 .tableClass {
     overflow-x:auto;
 }
+.loggCheckImg {
+    width:20px;
+    height:20px;
+}

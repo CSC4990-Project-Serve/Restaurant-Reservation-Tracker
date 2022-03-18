@@ -2,15 +2,20 @@ import React, { useContext, createContext, useState } from "react";
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import App from "./App";
+import {ContextProvider} from "./Context/Auth.Context";
 
 // Root element in HTML DOM to render React components within
 const rootElement = document.getElementById('root')
 
-ReactDOM.render(
-    <App/>,
+function AppWithProvider() {
+    return (
+        <ContextProvider value={500}>
+            <App />
+        </ContextProvider>
+    );
+}
 
-    rootElement
-);
+ReactDOM.render(<AppWithProvider />, rootElement);
 
 
 // Currently, Unused Below

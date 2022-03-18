@@ -7,12 +7,14 @@ import {
     Navbar,
     Footer,
 } from "./components";
+import {AuthContext} from "./Context/Auth.Context";
 import PrivateRoute from './components/routing/PrivateRoute';
 import {auth} from "./components/authbool";
 
 function App() {
 
     const [user, setUser] = useState()
+    const { state } = useContext(AuthContext);
 
     useEffect(() => {
         const getUsers = async () => {
@@ -39,9 +41,7 @@ function App() {
                 <Routes>
                     <Route path="/Login" element={<Login />} />
                     <Route path="/" element={<Main />} />
-                    <Route element={<PrivateRoute auth={auth}/>}>
-                        <Route path={"/SomonaukCountryKitchen"} element={<SomonaukCountryKitchen />}/>
-                    </Route>
+                    <Route path={"/SomonaukCountryKitchen"} element={<SomonaukCountryKitchen />}/>
                 </Routes>
             <Footer/>
             </Fragment>
