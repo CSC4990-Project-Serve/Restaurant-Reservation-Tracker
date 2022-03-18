@@ -5,11 +5,11 @@ const conn = require('../model/db');
 const User = function (userInfo) {
     // front end is looking for value on right-hand side to be sent (exact naming)
     this.username = userInfo.username;
-    this.first_name = userInfo.firstName;
-    this.last_name = userInfo.lastName;
-    this.phone_number = userInfo.phoneNumber;
-    this.hashed_password = userInfo.hashedPassword;
-    this.password_salt = userInfo.passwordSalt;
+    this.first_name = userInfo.first_name;
+    this.last_name = userInfo.last_name;
+    this.phone_number = userInfo.phone_number;
+    this.hashed_password = userInfo.hashed_password;
+    this.password_salt = userInfo.password_salt;
 }
 
 User.get_all_users_from_db = (results) => {
@@ -40,7 +40,7 @@ User.update_a_user = (userID, updatedUserInfo, results) => {
             if (err) {
                 console.log(err)
             } else {
-                results(null, res)
+                res.affectedRows > 0 ? results(null, true) : results(null, false);
             }
         }
     )
