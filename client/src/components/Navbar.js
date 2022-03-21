@@ -7,6 +7,21 @@ const Navbar = () => {
     const { state } = useContext(AuthContext);
     const { logout } = useContext(AuthContext);
 
+    const routeLogin = () => {
+        if (!state.loggedin){
+            let path = '/Login';
+            navigate(path);
+        }else{
+            let path = '/';
+            logout();
+            navigate(path);
+        }
+    }
+    const routeRegister = () => {
+        let path = '/Register';
+        navigate(path);
+    }
+
     return (
         <div>
             <nav className="navbarHeader navbar-light bg-light">
@@ -20,9 +35,13 @@ const Navbar = () => {
                         </NavLink>
                     </div>
                     <div className="col linkRight">
-                        <NavLink to={"/Login"}>
-                            Login
-                        </NavLink>
+                        <div className="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" onClick={routeLogin} className="btn btn-secondary">
+                                {state.loggedin && <div>Logout</div>}
+                                {!state.loggedin && <div>Login</div>}
+                            </button>
+                            <button type="button" onClick={routeRegister} className="btn btn-secondary">Register</button>
+                        </div>
                     </div>
                 </div>
             </div>

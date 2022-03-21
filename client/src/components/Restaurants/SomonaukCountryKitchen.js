@@ -38,13 +38,17 @@ const SomonaukCountryKitchen = () => {
     }
 
     return (
-        <div>
-            <nav className="navbarHeader navbar-light bg-light">
-                <span className="navbar-brand mb-0 h1">Somonauk Country Kitchen</span>
-            </nav>
+        <div className={'mainArea'}>
+            <div className={'row justify-content-center'}>
+                <img className="restaurImg " src={require("../../imgs/CountryKitchenLogo.png")} alt={""}/>
+            </div>
             <div className="row">
                 <div className="col infoArea">
-                    <div className="row d-flex justify-content-center">
+                    <div className="row d-flex justify-content-center nameHeader">
+                        <h2>Somonauk Country Kitchen</h2>
+                    </div>
+                    <h6 className={'text-center'}>a family diner</h6>
+                    <div className="row d-flex justify-content-center nameHeader">
                         <h2>Menu</h2>
                     </div>
                     <div className="row">
@@ -56,7 +60,7 @@ const SomonaukCountryKitchen = () => {
                             <li>item</li>
                         </ul>
                     </div>
-                    <div className="row d-flex justify-content-center">
+                    <div className="row d-flex justify-content-center nameHeader">
                         <h2>About This Restaurant</h2>
                     </div>
                     <div className="row descriptionArea">
@@ -81,7 +85,7 @@ const SomonaukCountryKitchen = () => {
                     </div>
                 </div>
                 <div className="col reservationArea">
-                    <h2 className="text-center">Select a date to see if seats are available</h2>
+                    <h2 className="text-center nameHeader">Select a date to see if seats are available</h2>
                     <form onSubmit={handleReservation}>
                         <div className="row resInputSpot">
                             <div className="col text-center">
@@ -127,6 +131,20 @@ const SomonaukCountryKitchen = () => {
                             </div>
                         </div>
                     </form>
+                    <div className="row d-flex justify-content-center nameHeader">
+                        <h2>Hours</h2>
+                    </div>
+                    <div className="row">
+                        <ul className="menuList">
+                            <li>Sunday: 8:00 AM - 10:00 PM</li>
+                            <li>Monday: 8:00 AM - 10:00 PM</li>
+                            <li>Tuesday: 8:00 AM - 10:00 PM</li>
+                            <li>Wednesday: 8:00 AM - 10:00 PM</li>
+                            <li>Thurdsay: 8:00 AM - 10:00 PM</li>
+                            <li>Friday: 8:00 AM - 10:00 PM</li>
+                            <li>Saturday: 8:00 AM - 10:00 PM</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
