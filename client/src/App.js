@@ -5,11 +5,9 @@ import {
     Main,
     SomonaukCountryKitchen,
     Navbar,
-    Footer,
+    Footer, Register,
 } from "./components";
 import {AuthContext} from "./Context/Auth.Context";
-import PrivateRoute from './components/routing/PrivateRoute';
-import {auth} from "./components/authbool";
 
 function App() {
 
@@ -40,6 +38,7 @@ function App() {
             <Navbar/>
                 <Routes>
                     <Route path="/Login" element={<Login />} />
+                    <Route path={"/Register"} element={<Register />} />
                     <Route path="/" element={<Main />} />
                     <Route path={"/SomonaukCountryKitchen"} element={<SomonaukCountryKitchen />}/>
                 </Routes>
