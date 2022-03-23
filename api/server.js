@@ -11,7 +11,9 @@ app.use(cors({origin: '*'}));
 
 // routes definition
 const userRoutes = require('./routes/users.routes');
+const restaurantRoutes = require('./routes/restaurant.routes')
 userRoutes(app);
+restaurantRoutes(app);
 
 
 app.listen(port, () => {
