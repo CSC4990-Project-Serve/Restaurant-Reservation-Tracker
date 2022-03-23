@@ -73,4 +73,24 @@ User.delete_user_by_id = (userID, results) => {
     })
 }
 
+User.validate_login = (username, password, results) => {
+    let sql_query = `SELECT users.id, username, first_name, last_name, phone_number
+                    FROM users 
+                    INNER JOIN user_roles ON users.user_role = user_roles.id 
+                    WHERE users.username=? AND users.hashed_password=?`;
+
+    conn.query(sql_query, [username, password], (err, res) => {
+        if(err) {
+            console.log(err);
+            results(err, null);
+        } else {
+            if(res.length > 0) {
+                results(null, res)
+            } else {
+                results(null, false)
+            }
+        }
+    })
+}
+
 module.exports = User;
