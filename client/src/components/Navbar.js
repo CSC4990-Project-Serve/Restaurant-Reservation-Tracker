@@ -19,7 +19,11 @@ const Navbar = () => {
     }
     const routeRegister = () => {
         let path = '/Register';
-        navigate(path);
+        if(!state.loggedin){
+            navigate(path);
+        }else{
+            alert("Already Logged in, logout to Register")
+        }
     }
 
     return (

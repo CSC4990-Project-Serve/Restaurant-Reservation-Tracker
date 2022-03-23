@@ -43,36 +43,6 @@ const Login = (props) => {
             password: ''
         });
         //console.warn(formData);
-
-
-        // if (!formData.username || !formData.password) {
-        //     loginError.message = 'NO USERNAME OR PASSWORD ENTERED';
-        //     alert("NO USERNAME OR PASSWORD ENTERED");
-        //     setFormData({username: '', password: ''});
-        //     return;
-        // }
-
-        // // todo: do user authentication here?
-        // console.log("Doing something after submission.....");
-        // console.log(formData.username);
-        // console.log(formData.password);
-        // // todo: have this actually query the database for matches using another function
-        // var isCredential = () => {
-        //     login(formData.username,formData.password);
-        //     setState({
-        //         username: '',
-        //         password: ''
-        //         })
-        // }
-        // if (isCredential()) {
-        //     console.log(state.loggedin);
-        //     // redirect to previous page on successful login
-        //     // todo: possibly find a solution that doesn't involve this
-        //     navigate(-1);
-        // }else {
-        //     setFormData({username: '', password: ''});
-        // }
-
     }
 
     // Form validation on data entry to a field (Updates each time a letter is entered)
@@ -83,8 +53,10 @@ const Login = (props) => {
         setState({...state, [name]: value})
     }
 
-    // todo: figure out a better container for the login box
-    //  ex. more centered design and box around it maybe?
+    function redirect() {
+        navigate(-1)
+    }
+
     //  also would like the main container to be full height
     return (
         <form onSubmit={onSubmit}>
@@ -113,7 +85,7 @@ const Login = (props) => {
 
                                     <button className="btn btn-primary btn-lg btn-block" type="submit">Login</button>
                                     { isPending && <div>Please wait...</div> }
-                                    { loggedin && <div onLoad={navigate(-1)}>Success.</div> }
+                                    { loggedin && <div onLoad={redirect()}>Success.</div> }
                                     { loginError && <div>{loginError.message}</div> }
                                 </div>
                             </div>
