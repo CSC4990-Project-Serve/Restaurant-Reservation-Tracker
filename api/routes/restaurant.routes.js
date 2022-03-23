@@ -11,4 +11,7 @@ module.exports = function (app) {
         .get(restaurantController.getRestaurantByID)
         .put(restaurantController.updateRestaurantByID)
         .delete(restaurantController.deleteRestaurantByID)
+
+    app.route('/search/:searchTerm')
+        .get(restaurantController.searchForRestaurant)
 }
