@@ -93,3 +93,11 @@ exports.deleteUserByID = (req, res) => {
         });
     }
 }
+
+exports.validate_user_login = (req, res) => {
+    // get the username/email from the login page
+    // make sure all info sent is not blank or missing
+    // access User model to check db if username password combo exists
+    // iff success, send bool true?
+    res.status(201).send("Not yet implemented")
+}

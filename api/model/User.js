@@ -5,6 +5,7 @@ const conn = require('../model/db');
 const User = function (userInfo) {
     // front end is looking for value on right-hand side to be sent (exact naming)
     this.username = userInfo.username;
+    this.email_address = userInfo.email_address;
     this.first_name = userInfo.first_name;
     this.last_name = userInfo.last_name;
     this.phone_number = userInfo.phone_number;
@@ -12,6 +13,7 @@ const User = function (userInfo) {
     this.password_salt = userInfo.password_salt;
 }
 
+//TODO: Add in email address to all sql queries... (probably should have used an ORM to make this part easier for me)
 User.get_all_users_from_db = (results) => {
     conn.query("SELECT users.id, username, first_name, last_name, phone_number FROM users INNER JOIN user_roles ON users.user_role = user_roles.id", (err, res) => {
         if (err) {

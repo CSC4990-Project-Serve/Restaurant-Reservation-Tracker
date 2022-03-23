@@ -13,4 +13,7 @@ module.exports = function(app) {
         .get(userController.getUserByID)
         .put(userController.updateUserByID)
         .delete(userController.deleteUserByID)
+
+    app.route('/login')
+        .post(userController.validate_user_login)
 }
