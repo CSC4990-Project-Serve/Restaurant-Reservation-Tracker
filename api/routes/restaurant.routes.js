@@ -3,15 +3,15 @@
 module.exports = function (app) {
     const restaurantController = require('../controller/restaurant.controller')
 
-    app.route('/restaurant')
+    app.route('/api/restaurant')
         .get(restaurantController.getAllRestaurants)
         .post(restaurantController.addNewRestaurant)
 
-    app.route('/restaurant/:id')
+    app.route('/api/restaurant/:id')
         .get(restaurantController.getRestaurantByID)
         .put(restaurantController.updateRestaurantByID)
         .delete(restaurantController.deleteRestaurantByID)
 
-    app.route('/search/:searchTerm')
+    app.route('/api/search/:searchTerm')
         .get(restaurantController.searchForRestaurant)
 }
