@@ -1,11 +1,16 @@
 import React from 'react';
 import {useSetState} from 'react-use';
+const bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
 
 const initialState = {
     loggedin: false,
     isPending: false,
     username: "",
     password: "",
+    emailAddress: "",
+    fName: "",
+    lName: "",
     isadmin: false,
     loginError: null
 }
@@ -19,15 +24,42 @@ export const ContextProvider = props => {
     const setLoginSuccess = (loggedin) => setState({loggedin});
     const setLoginError = (loginError) => setState({loginError});
 
-    const login = (username, password) => {
+    const register = (username, emailAddress, fName, lName, password) => {
+        var hash = bcrypt.hashSync(password, salt);
         setLoginPending(true);
         setLoginSuccess(false);
         setLoginError(null);
 
-        fetchLogin(username, password, error => {
+        fetchLogin(username, hash, error => {
             setLoginPending(false);
 
             if (!error) {
+                state.username = username;
+                state.emailAddress = emailAddress;
+                state.fName = fName;
+                state.lName = lName;
+                state.password = hash;
+                setLoginSuccess(true);
+                console.log('account created')
+            } else {
+                setLoginError(error);
+            }
+        });
+    }
+    const login = (username, password) => {
+        var hash = bcrypt.hashSync(password, salt);
+        setLoginPending(true);
+        setLoginSuccess(false);
+        setLoginError(null);
+
+        fetchLogin(username, hash, error => {
+            setLoginPending(false);
+
+            if (!error) {
+                //ToDo: grab this data from database instead of like this, and include email, fname, lname
+                state.username = username;
+                state.password = hash;
+                // grad rest of data here
                 setLoginSuccess(true);
                 console.log('correct login')
             } else {
@@ -46,6 +78,7 @@ export const ContextProvider = props => {
                 state,
                 login,
                 logout,
+                register,
             }}
         >
             {props.children}
@@ -55,7 +88,8 @@ export const ContextProvider = props => {
 // fake login
 const fetchLogin = (username, password, callback) =>
     setTimeout(() => {
-        if (username === 'username' && password === 'password') {
+        // ToDo: currently hardcoded, have it actuallly checck database using another function
+        if (username === 'username' && password === bcrypt.hashSync('password', salt)) {
             return callback(null);
         } else {
             return callback(new Error('Invalid username or password'));

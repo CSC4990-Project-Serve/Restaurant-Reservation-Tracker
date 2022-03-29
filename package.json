@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/CSC4990-Project-Serve/Restaurant-Reservation-Tracker#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "concurrently": "^7.0.0"
   }
 }

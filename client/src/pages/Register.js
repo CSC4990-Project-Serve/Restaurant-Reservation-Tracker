@@ -14,18 +14,20 @@ const Register = (props) => {
         phoneNumber:'',
         password: ''
     }
-    const { state: ContextState, login } = useContext(AuthContext);
+    const { state: ContextState, register } = useContext(AuthContext);
     const {
         loggedin,
         isPending,
         username,
+        emailAddress,
+        fName,
+        lName,
         password,
         isadmin,
         loginError
     } = ContextState;
     const [state, setState] = useSetState(initialState);
     let navigate = useNavigate()
-
 
     // Form validation (On Submission)
     const onSubmit = (event) => {
@@ -35,14 +37,19 @@ const Register = (props) => {
         "\nlname: " + state.lastName + "\nphoneNumber: " + state.phoneNumber + "\npassword: " + state.password);
         //ToDo: on successful account creation, navigate back a page, otherwise display message
         const { username, password } = state;
-        if (username === "username" && password === "password"){
-            //ToDo: hash password if account available, as well as upload all info to database
-            alert("registration successful")
-            login(username,password);
-            navigate(-1);
-        }else{
-            alert("account unnavailable, try again");
-        }
+        register(username,emailAddress,fName,lName,password);
+        // if (username === "username" && password === "password"){
+        //     //ToDo: hash password if account available, as well as upload all info to database
+        //     alert("registration successful")
+        //     register(username,emailAddress,fName,lName,password);
+        //     navigate(-1);
+        // }else{
+        //     alert("account unnavailable, try again");
+        // }
+    }
+
+    function redirect() {
+        navigate(-1);
     }
 
     // Form validation on data entry to a field (Updates each time a letter is entered)
@@ -52,10 +59,6 @@ const Register = (props) => {
 
         setState({...state, [name]: value})
     }
-
-    // todo: figure out a better container for the login box
-    //  ex. more centered design and box around it maybe?
-    //  also would like the main container to be full height
     return (
         <form onSubmit={onSubmit}>
             <section className="vh-150 background-area">
@@ -105,6 +108,9 @@ const Register = (props) => {
                                            onChange={onFieldChange}/>
 
                                     <button className="btn btn-primary btn-lg btn-block" type="submit">Register</button>
+                                    { isPending && <div>Please wait...</div> }
+                                    { loggedin && <div onLoad={redirect()}>Success.</div> }
+                                    { loginError && <div>{loginError.message}</div> }
                                 </div>
                             </div>
                         </div>
