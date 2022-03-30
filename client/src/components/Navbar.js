@@ -13,8 +13,13 @@ const Navbar = () => {
             navigate(path);
         }else{
             let path = '/';
-            logout();
-            navigate(path);
+            // eslint-disable-next-line no-restricted-globals
+            if(confirm("Logging out?")){
+                logout();
+                navigate(path);
+            }else{
+                console.log('did not log out');
+            }
         }
     }
     const routeRegister = () => {

@@ -30,7 +30,7 @@ export const ContextProvider = props => {
         setLoginSuccess(false);
         setLoginError(null);
 
-        fetchLogin(username, hash, error => {
+        fetchRegister(username, hash, error => {
             setLoginPending(false);
 
             if (!error) {
@@ -88,10 +88,22 @@ export const ContextProvider = props => {
 // fake login
 const fetchLogin = (username, password, callback) =>
     setTimeout(() => {
-        // ToDo: currently hardcoded, have it actuallly checck database using another function
-        if (username === 'username' && password === bcrypt.hashSync('password', salt)) {
+        // ToDo: currently hardcoded, have it actually check database using another function
+        // also have username check be interchangeable with checking email
+        if ((username === 'username' || username === 'user@email.com') && password === bcrypt.hashSync('password', salt)) {
             return callback(null);
         } else {
             return callback(new Error('Invalid username or password'));
+        }
+    }, 1000);
+
+// fake Register User
+const fetchRegister = (username, password, callback) =>
+    setTimeout(() => {
+        // ToDo: currently hardcoded, have it actually check database using user model
+        if (username === 'username' && password === bcrypt.hashSync('password', salt)) {
+            return callback(null);
+        } else {
+            return callback(new Error('Error, account already Exists'));
         }
     }, 1000);

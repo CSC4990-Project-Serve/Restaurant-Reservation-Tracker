@@ -57,7 +57,6 @@ const Login = (props) => {
         navigate(-1)
     }
 
-    //  also would like the main container to be full height
     return (
         <form onSubmit={onSubmit}>
             <section className="vh-100 background-area">
@@ -69,7 +68,7 @@ const Login = (props) => {
 
                                     <h3 className="mb-5">Sign in</h3>
 
-                                    <label htmlFor="username" className="form-label">Username</label>
+                                    <label htmlFor="username" className="form-label">Username/Email</label>
                                                  <input type="text" id={"username"} name={"username"}
                                                         className={state.username === "" ? "form-control is-invalid" : "form-control"}
                                                         value={state.username}
