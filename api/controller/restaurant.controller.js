@@ -32,22 +32,45 @@ exports.addNewRestaurant = function (req, res) {
 
 exports.getRestaurantByID = function (req, res) {
     let restaurantID = req.params.id;
+    let reservationsIncluded = parseInt(req.query.reservations);
+
+    console.log(`Should include reservations: ${reservationsIncluded}`);
 
     if (!restaurantID) {
         res.status(400).send({error: true, message: "No provided restaurant id"})
     } else {
-        Restaurant.get_restaurant_by_id(restaurantID, (err, results) => {
-            if (err) {
-                res.send(err);
-            } else {
-                if (results.length === 0) {
-                    //send error
-                    res.status(404).send({error: true, message: `No restaurant found with id ${restaurantID}`})
+
+        if (reservationsIncluded === 1) {
+            // Get restaurant with reservations included
+            Restaurant.get_restaurant_by_id_with_reservations(restaurantID, (error, results) => {
+                if (error) {
+                    res.send(error);
                 } else {
-                    res.send(results);
+                    if (results.length === 0) {
+                        //send error
+                        res.status(404).send({
+                            error: true, message: `No restaurant/reservation combination found with id ${restaurantID}`
+                        })
+                    } else {
+                        res.send(results);
+                    }
                 }
-            }
-        })
+            })
+        } else {
+            // don't include the reservations in the response
+            Restaurant.get_restaurant_by_id(restaurantID, (err, results) => {
+                if (err) {
+                    res.send(err);
+                } else {
+                    if (results.length === 0) {
+                        //send error
+                        res.status(404).send({error: true, message: `No restaurant found with id ${restaurantID}`})
+                    } else {
+                        res.send(results);
+                    }
+                }
+            })
+        }
     }
 }
 

@@ -27,6 +27,7 @@ const Restaurant = function (restaurantInfo) {
     };
     this.menu = restaurantInfo.menu;
     this.photos = restaurantInfo.photos;
+    this.reservations;
 }
 
 Restaurant.get_all_restaurants_from_db = (results) => {
@@ -116,6 +117,65 @@ Restaurant.get_restaurant_by_id = (restaurantID, results) => {
     })
 }
 
+Restaurant.get_restaurant_by_id_with_reservations = (restaurantID, results) => {
+    let getRestaurantQuery = `SELECT restaurants.id,
+                                     restaurant_name,
+                                     restaurant_description,
+                                     restaurant_phone_number,
+                                     location_name,
+                                     address1,
+                                     address2,
+                                     city,
+                                     state,
+                                     postal_code,
+                                     country,
+                                     monday,
+                                     tuesday,
+                                     wednesday,
+                                     thursday,
+                                     friday,
+                                     saturday,
+                                     sunday,
+                                     menu_description,
+                                     path_to_menu,
+                                     menu_web_link
+                              FROM restaurants
+                                       LEFT JOIN restaurant_locations rl on restaurants.location_ID = rl.id
+                                       LEFT JOIN restaurant_hours rh on restaurants.restaurant_hours = rh.id
+                                       LEFT JOIN restaurant_menus rm on restaurants.menu_ID = rm.id
+                              WHERE restaurants.id = ?`;
+    let getReservationsQuery = `SELECT reservation_date,
+                                       reservation_time,
+                                       purpose,
+                                       reservation_status,
+                                       username,
+                                       first_name,
+                                       last_name,
+                                       email_address,
+                                       phone_number
+                                FROM restaurant_reservations
+                                         INNER JOIN users u on restaurant_reservations.userID = u.id
+                                WHERE restaurantID = ?`;
+
+    conn.query(getRestaurantQuery, restaurantID, (err, restaurantRes) => {
+        if (err) {
+            console.log(err);
+            results(err, null);
+        } else {
+            conn.query(getReservationsQuery, restaurantID, (err, reservationsRes) => {
+                if (err) {
+                    console.log(err);
+                    results(err, null);
+                } else {
+                    const restaurant = new Restaurant(restaurantRes[0]);
+                    restaurant.reservations = reservationsRes;
+                    results(null, restaurant);
+                }
+            })
+        }
+    })
+}
+
 Restaurant.update_by_id = (idToUpdate, updatedInfo, results) => {
     let updateRestaurantInformation = `UPDATE restaurants
                                        SET restaurant_name         = ?,
@@ -141,22 +201,22 @@ Restaurant.update_by_id = (idToUpdate, updatedInfo, results) => {
                                      sunday    = ?
                                  WHERE id = ?`;
 
-    conn.query(updateRestaurantInformation, [updatedInfo.restaurant_name, updatedInfo.restaurant_description, updatedInfo.restaurant_phone_number, idToUpdate], (err, res) => {
+    conn.query(updateRestaurantInformation, [updatedInfo.restaurant_name, updatedInfo.restaurant_description, updatedInfo.restaurant_phone_number, idToUpdate], (err, updatedRestaurantInfoRes) => {
         if (err) {
             console.log(err);
             results(err, null);
         } else {
-            conn.query(updateRestaurantLocation, [updatedInfo.location_name, updatedInfo.address1, updatedInfo.address2, updatedInfo.city, updatedInfo.state, updatedInfo.postal_code, updatedInfo.country, idToUpdate], (err, res) => {
+            conn.query(updateRestaurantLocation, [updatedInfo.location_name, updatedInfo.address1, updatedInfo.address2, updatedInfo.city, updatedInfo.state, updatedInfo.postal_code, updatedInfo.country, idToUpdate], (err, updatedLocationRes) => {
                 if (err) {
                     console.log(err);
                     results(err, null);
                 } else {
-                    conn.query(updateRestaurantHours, [updatedInfo.monday, updatedInfo.tuesday, updatedInfo.wednesday, updatedInfo.thursday, updatedInfo.friday, updatedInfo.saturday, updatedInfo.sunday, idToUpdate], (err, res) => {
+                    conn.query(updateRestaurantHours, [updatedInfo.monday, updatedInfo.tuesday, updatedInfo.wednesday, updatedInfo.thursday, updatedInfo.friday, updatedInfo.saturday, updatedInfo.sunday, idToUpdate], (err, updatedHoursRes) => {
                         if (err) {
                             console.log(err);
                             results(err, null);
                         } else {
-                            results(null, res);
+                            results(null, updatedHoursRes);
                         }
                     })
                 }
