@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedFunction
+
 'use strict';
 
 const conn = require('./db');
@@ -161,7 +163,8 @@ Restaurant.get_restaurant_by_id_with_reservations = (restaurantID, results) => {
         if (err) {
             console.log(err);
             results(err, null);
-        } else {
+        } else if (restaurantRes.length > 0) {
+            //only execute second query (get reservations) if we get a result from the first meaning we found a restaurant with the specified ID
             conn.query(getReservationsQuery, restaurantID, (err, reservationsRes) => {
                 if (err) {
                     console.log(err);
@@ -172,6 +175,9 @@ Restaurant.get_restaurant_by_id_with_reservations = (restaurantID, results) => {
                     results(null, restaurant);
                 }
             })
+        } else {
+            // We end up here if we didn't find a restaurant with the given ID
+            results(null, restaurantRes)
         }
     })
 }
