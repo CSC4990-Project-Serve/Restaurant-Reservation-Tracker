@@ -15,7 +15,6 @@ const User = function (userInfo) {
     this.reservations;
 }
 
-//TODO: Add in email address to all sql queries... (probably should have used an ORM to make this part easier for me)
 User.get_all_users_from_db = (results) => {
     let get_all_users_query = `SELECT users.id, username, email_address, first_name, last_name, phone_number
                                FROM users
@@ -74,13 +73,10 @@ User.get_user_by_id = (userID, results) => {
         if (err) {
             console.log(err);
             results(err, null);
+        } else if (res.length > 0) {
+            results(null, new User(res[0]));
         } else {
-            if (res.length > 0) {
-                results(null, new User(res[0]));
-            } else {
-                results(null, res)
-            }
-
+            results(null, res)
         }
     })
 }
@@ -130,7 +126,9 @@ User.get_user_by_id_with_reservations = (userID, results) => {
 }
 
 User.delete_user_by_id = (userID, results) => {
-    let sql_query = "DELETE FROM users WHERE users.id = ?";
+    let sql_query = `DELETE
+                     FROM users
+                     WHERE users.id = ?`;
 
     conn.query(sql_query, userID, (err, res) => {
         if (err) {
@@ -142,23 +140,21 @@ User.delete_user_by_id = (userID, results) => {
     })
 }
 
-User.validate_login = (username, password, results) => {
-    let sql_query = `SELECT users.id, username, first_name, last_name, phone_number
+User.validate_login = (username, email, password, results) => {
+    let sql_query = `SELECT users.id, username, email_address, first_name, last_name, phone_number
                      FROM users
                               INNER JOIN user_roles ON users.user_role = user_roles.id
-                     WHERE users.username = ?
+                     WHERE (users.username = ? OR users.email_address = ?)
                        AND users.hashed_password = ?`;
 
-    conn.query(sql_query, [username, password], (err, res) => {
+    conn.query(sql_query, [username, email, password], (err, res) => {
         if (err) {
             console.log(err);
             results(err, null);
+        } else if (res.length > 0) {
+            results(null, res)
         } else {
-            if (res.length > 0) {
-                results(null, res)
-            } else {
-                results(null, false)
-            }
+            results(null, false)
         }
     })
 }

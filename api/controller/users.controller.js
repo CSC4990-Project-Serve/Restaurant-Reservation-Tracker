@@ -120,17 +120,19 @@ exports.validate_user_login = (req, res) => {
     // res.status(201).send("Not yet implemented");
     const {username, email_address, password} = req.body;
 
-    if (!username || !password) {
+    if (!(username || email_address) || !password) {
         res.status(400).send({error: true, status: "Username and password required"})
     } else {
-        User.validate_login(username, password, (err, results) => {
+        User.validate_login(username, email_address, password, (err, results) => {
             if (err) {
                 res.send(err);
             } else {
                 // if results has a value, then return the user info
-                res.send(results)
-
-                // else return false meaning invalid login
+                if (!results) {
+                    res.send({error: true, status: "Invalid login credentials"})
+                } else {
+                    res.send(results)
+                }
             }
         })
     }
