@@ -38,22 +38,37 @@ exports.createANewUser = function (req, res) {
 // Individual User CRUD methods
 exports.getUserByID = (req, res) => {
     // res.send(`Id requested is: ${req.params.id}`)
-    let userIDtoUpdate = req.params.id;
+    let userIdToGet = req.params.id;
+    let shouldIncludeReservations = parseInt(req.query.reservations);
 
-    if (!userIDtoUpdate) {
+    if (!userIdToGet) {
         res.status(400).send({error: true, message: "No provided user id"}) //don't think this is ever triggered because of the route
     } else {
-        User.get_user_by_id(userIDtoUpdate, (err, results) => {
-            // If our results array is empty, error out
-            if (err || results.length === 0) {
-                res.json({
-                    error: true,
-                    message: `Error finding user with id: ${userIDtoUpdate}`
-                });
-            } else {
-                res.json(results)
-            }
-        })
+
+        if (shouldIncludeReservations === 1) {
+            User.get_user_by_id_with_reservations(userIdToGet, (err, results) => {
+                if (err || results.length === 0) {
+                    res.json({
+                        error: true,
+                        message: `Error finding user/reservations with id: ${userIdToGet}`
+                    });
+                } else {
+                    res.json(results)
+                }
+            })
+        } else {
+            User.get_user_by_id(userIdToGet, (err, results) => {
+                // If our results array is empty, error out
+                if (err || results.length === 0) {
+                    res.json({
+                        error: true,
+                        message: `Error finding user with id: ${userIdToGet}`
+                    });
+                } else {
+                    res.json(results)
+                }
+            })
+        }
     }
 
 }
