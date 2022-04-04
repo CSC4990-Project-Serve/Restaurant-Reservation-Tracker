@@ -1,7 +1,10 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { useSetState } from 'react-use';
 import {useNavigate} from 'react-router-dom';
+import Footer from "../components/Footer";
+import NavigationBar from "../components/Navbar";
 import {AuthContext} from '../Context/Auth.Context';
+import '../css/Login.css';
 
 const Register = (props) => {
     // Registration Field Names: username, email_address, first_name,
@@ -60,6 +63,7 @@ const Register = (props) => {
         setState({...state, [name]: value})
     }
     return (
+        <><NavigationBar />
         <form onSubmit={onSubmit}>
             <section className="vh-150 background-area">
                 <div className="container py-5 h-150">
@@ -68,39 +72,39 @@ const Register = (props) => {
                             <div className="card shadow-2-strong card-area">
                                 <div className="card-body p-5 text-center">
 
-                                    <h3 className="mb-5">Register</h3>
+                                    <h3 className="mb-5 text-primary">Register</h3>
 
-                                    <label htmlFor="username" className="form-label">Username</label>
+                                    <label htmlFor="username" className="form-label text-dark">Username</label>
                                     <input type="text" id={"username"} name={"username"}
                                            className={"form-control"}
                                            value={state.username}
                                            placeholder="Enter a username"
                                            onChange={onFieldChange}/>
-                                    <label htmlFor="emailAddress" className="form-label">Email Address</label>
+                                    <label htmlFor="emailAddress" className="form-label text-dark">Email Address</label>
                                     <input type="text" id={"emailAddress"} name={"emailAddress"}
                                            className={"form-control"}
                                            value={state.emailAddress}
                                            placeholder="Enter your email address"
                                            onChange={onFieldChange}/>
-                                    <label htmlFor="firstName" className="form-label">First Name</label>
+                                    <label htmlFor="firstName" className="form-label text-dark">First Name</label>
                                     <input type="text" id={"firstName"} name={"firstName"}
                                            className={"form-control"}
                                            value={state.firstName}
                                            placeholder="Enter your First Name"
                                            onChange={onFieldChange}/>
-                                    <label htmlFor="lastName" className="form-label">Last Name</label>
+                                    <label htmlFor="lastName" className="form-label text-dark">Last Name</label>
                                     <input type="text" id={"lastName"} name={"lastName"}
                                            className={"form-control"}
                                            value={state.lastName}
                                            placeholder="Enter your Last Name"
                                            onChange={onFieldChange}/>
-                                    <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+                                    <label htmlFor="phoneNumber" className="form-label text-dark">Phone Number</label>
                                     <input type="text" id={"phoneNumber"} name={"phoneNumber"}
                                            className={"form-control"}
                                            value={state.phoneNumber}
                                            placeholder="1-111-111-1111"
                                            onChange={onFieldChange}/>
-                                    <label htmlFor="password" className={"form-label"}>Password</label>
+                                    <label htmlFor="password" className={"form-label text-dark"}>Password</label>
                                     <input type="password" id="password" name={"password"}
                                            className={"form-control"}
                                            value={state.password}
@@ -108,16 +112,19 @@ const Register = (props) => {
                                            onChange={onFieldChange}/>
 
                                     <button className="btn btn-primary btn-lg btn-block" type="submit">Register</button>
-                                    { isPending && <div>Please wait...</div> }
-                                    { loggedin && <div onLoad={redirect()}>Success.</div> }
-                                    { loginError && <div>{loginError.message}</div> }
+                                    { isPending && <div className={'text-dark'}>Please wait...</div> }
+                                    { loggedin && <div className={'text-dark'} onLoad={redirect()}>Success.</div> }
+                                    { loginError && <div className={'text-dark'}>{loginError.message}</div> }
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-        </form>);
+        </form>
+            <Footer/>
+        </>
+            );
 };
 
 export default Register;

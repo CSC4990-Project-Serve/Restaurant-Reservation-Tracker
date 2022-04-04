@@ -104,6 +104,6 @@ const fetchRegister = (username, password, callback) =>
         if (username === 'username' && password === bcrypt.hashSync('password', salt)) {
             return callback(null);
         } else {
-            return callback(new Error('Error, account already Exists'));
+            return callback(new Error('Error, invalid or account already Exists'));
         }
     }, 1000);

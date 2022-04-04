@@ -4,8 +4,7 @@ import {
     Login,
     Main,
     SomonaukCountryKitchen,
-    Navbar,
-    Footer, Register,
+    Register, SearchPage,
 } from "./components";
 import {AuthContext} from "./Context/Auth.Context";
 
@@ -35,14 +34,13 @@ function App() {
     return (
         <Router>
             <Fragment>
-            <Navbar/>
                 <Routes>
                     <Route path="/Login" element={<Login />} />
                     <Route path={"/Register"} element={<Register />} />
                     <Route path="/" element={<Main />} />
+                    <Route path="/search" element={<SearchPage />} />
                     <Route path={"/SomonaukCountryKitchen"} element={<SomonaukCountryKitchen />}/>
                 </Routes>
-            <Footer/>
             </Fragment>
         </Router>
     );

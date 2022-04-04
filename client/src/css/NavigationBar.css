@@ -1,0 +1,44 @@
+@import URL('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,600;1,600;1,700&display=swap');
+
+.navbar-color {
+    background-color: #FFFAFA;
+}
+.navbar-container {
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+}
+.nav-title {
+    font-family: 'Exo', sans-serif;
+    font-size: 2.25em;
+    margin-left: 1.5rem;
+    line-height: 0;
+}
+.nav-button {
+    width: 80px;
+    margin-left: .75rem;
+}
+.dropdown-toggle {
+    color: #000000;
+    font-weight: 500;
+}
+.dropdown-item {
+    color: #000000;
+}
+
+/* Mobile Styling */
+@media only screen and (max-width: 600px) {
+    .navbar-container {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .nav-title {
+        margin-left: 0;
+        font-size: 1.5rem;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .nav-item {
+        margin-top: 0.5rem;
+        text-align: right;
+    }
+}
