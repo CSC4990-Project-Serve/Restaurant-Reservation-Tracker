@@ -4,7 +4,7 @@ import {
     Login,
     Main,
     SomonaukCountryKitchen,
-    Register, SearchPage,
+    Register, SearchPage,UserHome,
 } from "./components";
 import {AuthContext} from "./Context/Auth.Context";
 
@@ -39,6 +39,7 @@ function App() {
                     <Route path={"/Register"} element={<Register />} />
                     <Route path="/" element={<Main />} />
                     <Route path="/search" element={<SearchPage />} />
+                    <Route path={"/UserHome"} element={<UserHome/>}/>
                     <Route path={"/SomonaukCountryKitchen"} element={<SomonaukCountryKitchen />}/>
                 </Routes>
             </Fragment>
