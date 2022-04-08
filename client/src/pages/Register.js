@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import NavigationBar from "../components/Navbar";
 import {AuthContext} from '../Context/Auth.Context';
 import '../css/Login.css';
-
 const Register = (props) => {
     // Registration Field Names: username, email_address, first_name,
     // last_name, phone_number, hashed_password
@@ -14,7 +13,7 @@ const Register = (props) => {
         emailAddress:'',
         firstName:'',
         lastName:'',
-        phoneNumber:'',
+        phone_number:'',
         password: ''
     }
     const { state: ContextState, register } = useContext(AuthContext);
@@ -23,9 +22,10 @@ const Register = (props) => {
         isPending,
         username,
         emailAddress,
-        fName,
-        lName,
+        firstName,
+        lastName,
         password,
+        phone_number,
         isadmin,
         loginError
     } = ContextState;
@@ -37,10 +37,10 @@ const Register = (props) => {
         event.preventDefault();
         //console.warn(formData);
         alert("username: " + state.username + "\nemail: " + state.emailAddress + "\nfname: " + state.firstName +
-        "\nlname: " + state.lastName + "\nphoneNumber: " + state.phoneNumber + "\npassword: " + state.password);
+        "\nlname: " + state.lastName + "\nphoneNumber: " + state.phone_number + "\npassword: " + state.password);
         //ToDo: on successful account creation, navigate back a page, otherwise display message
-        const { username, password } = state;
-        register(username,emailAddress,fName,lName,password);
+        const { username, emailAddress, phone_number, firstName, lastName, password } = state;
+        register(username,emailAddress,firstName,lastName,password, phone_number);
         // if (username === "username" && password === "password"){
         //     //ToDo: hash password if account available, as well as upload all info to database
         //     alert("registration successful")
@@ -98,10 +98,10 @@ const Register = (props) => {
                                            value={state.lastName}
                                            placeholder="Enter your Last Name"
                                            onChange={onFieldChange}/>
-                                    <label htmlFor="phoneNumber" className="form-label text-dark">Phone Number</label>
-                                    <input type="text" id={"phoneNumber"} name={"phoneNumber"}
+                                    <label htmlFor="phone_number" className="form-label text-dark">Phone Number</label>
+                                    <input type="text" id={"phone_number"} name={"phone_number"}
                                            className={"form-control"}
-                                           value={state.phoneNumber}
+                                           value={state.phone_number}
                                            placeholder="1-111-111-1111"
                                            onChange={onFieldChange}/>
                                     <label htmlFor="password" className={"form-label text-dark"}>Password</label>

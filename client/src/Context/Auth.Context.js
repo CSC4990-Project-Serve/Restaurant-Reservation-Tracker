@@ -1,6 +1,8 @@
 import React from 'react';
 import {useSetState} from 'react-use';
+import $ from "jquery";
 const bcrypt = require('bcryptjs');
+
 var salt = bcrypt.genSaltSync(10);
 
 const initialState = {
@@ -12,7 +14,9 @@ const initialState = {
     fName: "",
     lName: "",
     isadmin: false,
-    loginError: null
+    loginError: null,
+    salt : salt,
+    phone_number : ""
 }
 
 export const AuthContext = React.createContext(null);
@@ -24,21 +28,25 @@ export const ContextProvider = props => {
     const setLoginSuccess = (loggedin) => setState({loggedin});
     const setLoginError = (loginError) => setState({loginError});
 
-    const register = (username, emailAddress, fName, lName, password) => {
+    const register = (username, emailAddress, fName, lName, password, phone_number) => {
         var hash = bcrypt.hashSync(password, salt);
         setLoginPending(true);
         setLoginSuccess(false);
         setLoginError(null);
 
-        fetchRegister(username, hash, error => {
+        state.username = username;
+        state.emailAddress = emailAddress;
+        state.fName = fName;
+        state.lName = lName;
+        state.password = hash;
+        state.phone_number = phone_number;
+        alert("username: " + state.username + "\nemail: " + state.emailAddress + "\nfname: " + state.firstName +
+            "\nlname: " + state.lastName + "\nphoneNumber: " + state.phone_number + "\npassword: " + state.password);
+
+        fetchRegister(state, username, hash, error => {
             setLoginPending(false);
 
             if (!error) {
-                state.username = username;
-                state.emailAddress = emailAddress;
-                state.fName = fName;
-                state.lName = lName;
-                state.password = hash;
                 setLoginSuccess(true);
                 console.log('account created')
             } else {
@@ -52,7 +60,7 @@ export const ContextProvider = props => {
         setLoginSuccess(false);
         setLoginError(null);
 
-        fetchLogin(username, hash, error => {
+        fetchLogin(state, username, hash, (error) => {
             setLoginPending(false);
 
             if (!error) {
@@ -86,8 +94,17 @@ export const ContextProvider = props => {
     );
 }
 // fake login
-const fetchLogin = (username, password, callback) =>
+const fetchLogin = (state, username, password, callback) =>
     setTimeout(() => {
+        const userInfo = {
+            username: state.username,
+            email_address: "",
+            first_name: "",
+            last_name: "",
+            phone_number: "",
+            hashed_password: state.password,
+            password_salt: state.salt
+        }
         // ToDo: currently hardcoded, have it actually check database using another function
         // also have username check be interchangeable with checking email
         if ((username === 'username' || username === 'user@email.com') && password === bcrypt.hashSync('password', salt)) {
@@ -98,12 +115,28 @@ const fetchLogin = (username, password, callback) =>
     }, 1000);
 
 // fake Register User
-const fetchRegister = (username, password, callback) =>
+const fetchRegister = (state, username, password, callback) =>
     setTimeout(() => {
-        // ToDo: currently hardcoded, have it actually check database using user model
-        if (username === 'username' && password === bcrypt.hashSync('password', salt)) {
-            return callback(null);
-        } else {
-            return callback(new Error('Error, invalid or account already Exists'));
+        const userInfo = {
+            username: state.username,
+            email_address: state.emailAddress,
+            first_name: state.fName,
+            last_name: state.lName,
+            phone_number: state.phone_number,
+            hashed_password: state.password,
+            password_salt: state.salt
         }
+        // ToDo: currently hardcoded, have it actually check database using user model
+        $.ajax({
+            type:"POST",
+            url:"http://localhost:5000/api/users",
+            data : userInfo,
+            success : function(){
+                return callback(null);
+            },
+            error : function(){
+                return callback(new Error('Error, invalid or account already Exists'));
+            },
+            dataType:"json"
+        });
     }, 1000);

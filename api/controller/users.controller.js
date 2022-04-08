@@ -18,7 +18,7 @@ exports.getAllUsers = function (req, res) {
 // Add a new user to the database
 exports.createANewUser = function (req, res) {
     let newUser = new User(req.body);
-    // console.log(newUser)
+    console.log(newUser)
 
     if (!newUser.username || !newUser.first_name || !newUser.last_name || !newUser.phone_number || !newUser.hashed_password || !newUser.password_salt) {
         res.status(400).send({error: true, message: 'Please provide full user information'});
