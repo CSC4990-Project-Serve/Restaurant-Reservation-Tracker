@@ -1,37 +1,162 @@
-class User {
-    constructor(username, firstName, lastName) {
-        this._username = username;
-        this._firstName = firstName;
-        this._lastName = lastName;
-    }
+'use strict';
 
-    get username() {
-        return this._username;
-    }
+const conn = require('../model/db');
 
-    set username(value) {
-        this._username = value;
-    }
-
-    get firstName() {
-        return this._firstName;
-    }
-
-    set firstName(value) {
-        this._firstName = value;
-    }
-
-    get lastName() {
-        return this._lastName;
-    }
-
-    set lastName(value) {
-        this._lastName = value;
-    }
+const User = function (userInfo) {
+    // front end is looking for value on right-hand side to be sent (exact naming)
+    this.id = userInfo.id;
+    this.username = userInfo.username;
+    this.email_address = userInfo.email_address;
+    this.first_name = userInfo.first_name;
+    this.last_name = userInfo.last_name;
+    this.phone_number = userInfo.phone_number;
+    this.hashed_password = userInfo.hashed_password;
+    this.password_salt = userInfo.password_salt;
+    this.reservations;
 }
 
-function getAllUsers() {
-    return {id: 1, name: "Jared", age: 21};
+User.get_all_users_from_db = (results) => {
+    let get_all_users_query = `SELECT users.id, username, email_address, first_name, last_name, phone_number
+                               FROM users
+                                        INNER JOIN user_roles ON users.user_role = user_roles.id`;
+    conn.query(get_all_users_query, (err, res) => {
+        if (err) {
+            results(err, null);
+        } else {
+            results(null, res);
+        }
+    });
+};
+
+User.crate_a_new_user = (newUserToInsert, result) => {
+    let create_new_user_query = `INSERT INTO users
+                                 SET ?`;
+    conn.query(create_new_user_query, newUserToInsert, (err, res) => {
+        if (err) {
+            result(err, null);
+        } else {
+            console.log(`successfully created new user with id: ${res.insertId}`)
+            result(null, res.insertId);
+        }
+    })
 }
 
-module.exports = {User, getAllUsers}
+User.update_a_user = (userID, updatedUserInfo, results) => {
+    let update_users_query = `UPDATE users
+                              SET username=?,
+                                  email_address=?,
+                                  first_name=?,
+                                  last_name=?,
+                                  phone_number=?,
+                                  hashed_password=?,
+                                  password_salt=?,
+                                  updatedAt=?
+                              WHERE id = ?`;
+    conn.query(update_users_query,
+        [updatedUserInfo.username, updatedUserInfo.email_address, updatedUserInfo.first_name, updatedUserInfo.last_name, updatedUserInfo.phone_number, updatedUserInfo.hashed_password, updatedUserInfo.password_salt, new Date().toISOString().slice(0, 19).replace('T', ' '), userID],
+        (err, res) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.affectedRows > 0 ? results(null, true) : results(null, false);
+            }
+        }
+    )
+}
+
+User.get_user_by_id = (userID, results) => {
+    let sql_query = `SELECT users.id, username, email_address, first_name, last_name, phone_number
+                     FROM users
+                              INNER JOIN user_roles ON users.user_role = user_roles.id
+                     WHERE users.id = ?`
+    conn.query(sql_query, userID, (err, res) => {
+        if (err) {
+            console.log(err);
+            results(err, null);
+        } else if (res.length > 0) {
+            results(null, new User(res[0]));
+        } else {
+            results(null, res)
+        }
+    })
+}
+
+User.get_user_by_id_with_reservations = (userID, results) => {
+    let get_user_by_id_query = `SELECT users.id, username, email_address, first_name, last_name, phone_number
+                                FROM users
+                                         INNER JOIN user_roles ON users.user_role = user_roles.id
+                                WHERE users.id = ?`
+
+    let reservations_query = `SELECT rr.id reservation_id,
+                                     r.restaurant_name,
+                                     reservation_date,
+                                     reservation_time,
+                                     purpose,
+                                     reservation_status
+                              FROM users
+                                       INNER JOIN restaurant_reservations rr on users.id = rr.userID
+                                       INNER JOIN restaurants r on rr.restaurantID = r.id
+                              WHERE userID = ?;`
+
+    conn.query(get_user_by_id_query, userID, (err, usersRes) => {
+        if (err) {
+            console.log(err);
+            results(err, null);
+        } else if (usersRes.length === 1) {
+            // only try to get reservation data if the supplied id was valid and found a user
+            conn.query(reservations_query, userID, (err, reservationRes) => {
+                if (err) {
+                    console.log(err);
+                    results(err, null);
+                } else {
+                    //build the user object here from the results of the user query
+                    let user_obj = new User(usersRes[0]);
+
+                    // add the reservations array to the user_obj
+                    user_obj.reservations = reservationRes;
+
+                    results(null, user_obj); //return no error AND the newly created user object
+                }
+            })
+        } else {
+            // no users found
+            results(null, usersRes)
+        }
+    })
+}
+
+User.delete_user_by_id = (userID, results) => {
+    let sql_query = `DELETE
+                     FROM users
+                     WHERE users.id = ?`;
+
+    conn.query(sql_query, userID, (err, res) => {
+        if (err) {
+            console.log(err);
+            results(err, null);
+        } else {
+            res.affectedRows > 0 ? results(null, true) : results(null, false)
+        }
+    })
+}
+
+User.validate_login = (username, email, password, results) => {
+    let sql_query = `SELECT users.id, username, email_address, first_name, last_name, phone_number
+                     FROM users
+                              INNER JOIN user_roles ON users.user_role = user_roles.id
+                     WHERE (users.username = ? OR users.email_address = ?)
+                       AND users.hashed_password = ?`;
+
+    conn.query(sql_query, [username, email, password], (err, res) => {
+        if (err) {
+            console.log(err);
+            results(err, null);
+        } else if (res.length > 0) {
+            results(null, res)
+        } else {
+            results(null, false)
+        }
+    })
+}
+
+module.exports = User;

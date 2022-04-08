@@ -10,8 +10,12 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors({origin: '*'}));
 
 // routes definition
-const userRoute = require('./routes/usersRoute');
-userRoute(app);
+const userRoutes = require('./routes/users.routes');
+const restaurantRoutes = require('./routes/restaurant.routes')
+const reservationRoutes = require('./routes/reservation.routes');
+userRoutes(app);
+restaurantRoutes(app);
+reservationRoutes(app);
 
 
 app.listen(port, () => {
