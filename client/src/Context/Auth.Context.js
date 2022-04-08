@@ -66,8 +66,10 @@ export const ContextProvider = props => {
             if (!error) {
                 //ToDo: grab this data from database instead of like this, and include email, fname, lname
                 state.username = username;
+                state.emailAddress = username;
                 state.password = hash;
-                // grad rest of data here
+                // alert("username: " + state.username + "\nemail: " + state.emailAddress + "\nfname: " + state.firstName +
+                //     "\nlname: " + state.lastName + "\nphoneNumber: " + state.phone_number + "\npassword: " + state.password);
                 setLoginSuccess(true);
                 console.log('correct login')
             } else {
@@ -97,21 +99,33 @@ export const ContextProvider = props => {
 const fetchLogin = (state, username, password, callback) =>
     setTimeout(() => {
         const userInfo = {
-            username: state.username,
-            email_address: "",
+            username: username,
+            email_address: state.username,
             first_name: "",
             last_name: "",
             phone_number: "",
-            hashed_password: state.password,
+            password : password,
             password_salt: state.salt
         }
+        $.ajax({
+            type:"POST",
+            url:"http://localhost:5000/api/login",
+            data : userInfo,
+            success : function(){
+                return callback(null);
+            },
+            error : function(){
+                return callback(new Error('Invalid username or password'));
+            },
+            dataType:"json"
+        });
         // ToDo: currently hardcoded, have it actually check database using another function
         // also have username check be interchangeable with checking email
-        if ((username === 'username' || username === 'user@email.com') && password === bcrypt.hashSync('password', salt)) {
-            return callback(null);
-        } else {
-            return callback(new Error('Invalid username or password'));
-        }
+        // if ((username === 'username' || username === 'user@email.com') && password === bcrypt.hashSync('password', salt)) {
+        //     return callback(null);
+        // } else {
+        //     return callback(new Error('Invalid username or password'));
+        // }
     }, 1000);
 
 // fake Register User
