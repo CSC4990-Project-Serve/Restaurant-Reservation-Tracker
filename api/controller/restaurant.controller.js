@@ -75,6 +75,34 @@ exports.getRestaurantByID = function (req, res) {
 }
 
 exports.updateRestaurantByID = function (req, res) {
+    const restaurantIDtoUpdate = req.params.id;
+    let updatedRestaurant;
+
+    // fixme: need to fix this part
+    //  we cant just update the hours,location, and restaurant with the same id.
+    //  the hours and location may have a different id.
+    //  how to deal with this????
+    // Restaurant.get_restaurant_by_id(restaurantIDtoUpdate, (err, results) => {
+    //     if(err) {
+    //         console.log(err);
+    //     } else {
+    //         updatedRestaurant = results;
+    //     }
+    // });
+
+    // if (!restaurantIDtoUpdate) {
+    //     res.status(400).send({error: true, message: `No restaurant id provided`})
+    // } else {
+    //     Restaurant.update_by_id(restaurantIDtoUpdate, updatedRestaurant, (err, results) => {
+    //         if (err) {
+    //             res.send(err);
+    //         } else if (results) {
+    //             res.send({error: false, message: `Restaurant with id ${restaurantIDtoUpdate} updated`});
+    //         } else {
+    //             res.status(404).send({error: true, message: `No restaurant found with id ${restaurantIDtoUpdate}`})
+    //         }
+    //     });
+    // }
 
 }
 
