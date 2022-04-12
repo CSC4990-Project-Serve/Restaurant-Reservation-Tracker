@@ -36,8 +36,8 @@ export const ContextProvider = props => {
 
         state.username = username;
         state.emailAddress = emailAddress;
-        state.fName = fName;
-        state.lName = lName;
+        state.firstName = fName;
+        state.lastName = lName;
         state.password = hash;
         state.phone_number = phone_number;
         alert("username: " + state.username + "\nemail: " + state.emailAddress + "\nfname: " + state.firstName +
