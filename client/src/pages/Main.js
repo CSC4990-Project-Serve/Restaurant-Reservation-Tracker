@@ -1,95 +1,103 @@
 import React from 'react';
-import {NavLink, useNavigate} from "react-router-dom";
-import {Carousel, Container} from "react-bootstrap";
-import {MDBIcon} from "mdb-react-ui-kit";
-import HomeSuggestions from "../components/HomeSuggestions";
-import NavigationBar from "../components/Navbar";
-import Footer from "../components/Footer";
-import HorizontalLine from "../components/HorizontalLine";
-// import "@fortawesme/fontawesome-free/css/all.min.css";
-import '../css/HomePage.css';
-import carousel01 from '../imgs/carousel-overhead.jpg';
-import carousel02 from '../imgs/carousel-outdoor.jpg';
-import carousel03 from '../imgs/carousel-indoor.jpg';
-import carousel04 from '../imgs/carousel-food.jpg';
-import carousel05 from '../imgs/carousel-eating.jpg';
+import {NavLink} from "react-router-dom";
+// import {
+//     SomonaukCountryKitchen,
+// } from "../components";
 
 const Main = () => {
-    let navigate = useNavigate();
-    const routeChange = () => {
-        let path = "/search";
-        navigate(path);
+    const [query, setQuery] = React.useState({
+        searchName: null,
+        searchDay : null,
+        searchTime : null,
+        searchSeats : null
+        }
+    );
+
+    function handleSearch(event) {
+        event.preventDefault();
+        //use entered and formatted values to look into data to grab matching results
+        // might break this into another file method and import it for neatness
+        console.log(query.searchName);
+        console.log(query.searchDay);
+        console.log(query.searchTime);
+        console.log(query.searchSeats);
+        return false;
+    }
+
+    function onFieldChange(event) {
+        let {name, value} = event.target;
+
+        setQuery({...query, [name]: value})
     }
 
     return (
-        <>
-            <NavigationBar />
-
-            {/* Container for Carousel Images */}
-            <Container>
-                <Carousel>
-                    <Carousel.Item interval={5000}>
-                        <img
-                            className="d-block w-100"
-                            src={carousel02}
-                            height="650"
-                            alt="Overhead of Restaurant"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item interval={5000}>
-                        <img
-                            className="d-block w-100"
-                            src={carousel02}
-                            height="650"
-                            alt="Two people dining outside."
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item interval={5000}>
-                        <img
-                            className="d-block w-100"
-                            src={carousel02}
-                            height="650"
-                            alt="Indoor Dining"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item interval={5000}>
-                        <img
-                            className="d-block w-100"
-                            src={carousel02}
-                            height="650"
-                            alt="Food from a Restaurant"
-                        />
-                    </Carousel.Item>
-                    <Carousel.Item interval={5000}>
-                        <img
-                            className="d-block w-100"
-                            src={carousel02}
-                            height="650"
-                            alt="Woman eating food"
-                        />
-                    </Carousel.Item>
-                </Carousel>
-
-                {/* Search Button in Carousel */}
-                <div className="carousel-search-section">
-                    <div className="carousel-header">Find a meal for every occasion.</div>
-                    <input type="search" className="search-bar-carousel" placeholder="Location, Restaurant, or Cuisine"/>
-                    <button type="button" className="search-icon-carousel" onClick={routeChange}>
-                        <MDBIcon fas icon="search" />
-                    </button>
+        <div>
+            <div className="row">
+                <img className="imgBanner" src={require("../imgs/table.jpg")} alt={""}/>
+            </div>
+            <form className="search-area" onSubmit={handleSearch}>
+                <div className="htmlForm-group">
+                    <div className="row">
+                        <div className="col-10">
+                            <div className="row">
+                                <label htmlFor="searchName">Restaurant Name:</label>
+                                <input className="form-control" id="searchName" name={"searchName"} placeholder="Enter Restaurant Name"
+                                       onChange={onFieldChange}/>
+                            </div>
+                            <div className="row">
+                                <div className="col">
+                                    <label htmlFor="searchDay">Day:</label>
+                                    <input className="form-control" id="searchDay" name={"searchDay"} placeholder="11/11/11"
+                                           onChange={onFieldChange}/>
+                                </div>
+                                <div className="col">
+                                    <label htmlFor="searchTime">Time:</label>
+                                    <input className="form-control" id="searchTime" name={"searchTime"} placeholder="24:00"
+                                           onChange={onFieldChange}/>
+                                </div>
+                                <div className="col">
+                                    <label htmlFor="searchSeats">Seats:</label>
+                                    <input className="form-control" id="searchSeats" name={"searchSeats"} placeholder="0"
+                                           onChange={onFieldChange}/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-2 text-center searchButton">
+                            <button type="submit" className="btn btn-primary button-spaced">Search</button>
+                        </div>
+                    </div>
                 </div>
-            </Container>
-
-            <HorizontalLine />
-
-            {/* Container for Cards */}
-            {Array.from({ length: 2 }).map((_) => (
-                <HomeSuggestions />
-            ))}
-
-            <Footer/>
-        </>
-    )
+            </form>
+            <div className={"tableClass"}>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>this is where</td>
+                            <td>the search results</td>
+                            <td>and recommended will</td>
+                            <td>be displayed.</td>
+                            <td>
+                                <NavLink to={"/SomonaukCountryKitchen"}>
+                                    SomonaukCountryKitchen
+                                </NavLink>
+                            </td>
+                            <td>initially, then be replaced</td>
+                            <td>Recommendatiosn will display</td>
+                            <td>initially, then be replaced </td>
+                            <td>once search is queried</td>
+                            <td>999999999999999999999999999999999999999999999999999999999999999</td>
+                            <td>999999999 9999999999999 99999999999999 99999999999999 9999999 999999</td>
+                            <td>999999999 9999999999999 99999999999999 99999999999999 9999999 999999</td>
+                            <td>999999999 9999999999999 99999999999999 99999999999999 9999999 999999</td>
+                            <td>999999999 9999999999999 99999999999999 99999999999999 9999999 999999</td>
+                            <td>999999999 9999999999999 99999999999999 99999999999999 9999999 999999</td>
+                            <td>test</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
 };
 
 export default Main;

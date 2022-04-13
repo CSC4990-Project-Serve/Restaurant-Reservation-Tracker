@@ -2,9 +2,7 @@ import React, {useEffect, useState, useContext} from 'react';
 import { useSetState } from 'react-use';
 import {useNavigate} from 'react-router-dom';
 import {AuthContext} from '../Context/Auth.Context';
-import Footer from "../components/Footer";
-import NavigationBar from "../components/Navbar";
-import '../css/Login.css';
+//import {auth} from '../components/authbool';
 
 const Login = (props) => {
     // need a better solution than setting defaults to []
@@ -60,7 +58,6 @@ const Login = (props) => {
     }
 
     return (
-        <><NavigationBar />
         <form onSubmit={onSubmit}>
             <section className="vh-100 background-area">
                 <div className="container py-5 h-100">
@@ -69,16 +66,16 @@ const Login = (props) => {
                             <div className="card shadow-2-strong card-area">
                                 <div className="card-body p-5 text-center">
 
-                                    <h3 className="mb-5 text-primary">Sign in</h3>
+                                    <h3 className="mb-5">Sign in</h3>
 
-                                    <label htmlFor="username" className="form-label text-dark">Username/Email</label>
+                                    <label htmlFor="username" className="form-label">Username/Email</label>
                                                  <input type="text" id={"username"} name={"username"}
                                                         className={state.username === "" ? "form-control is-invalid" : "form-control"}
                                                         value={state.username}
                                                         placeholder="Enter your username or email address"
                                                         onChange={onFieldChange}/>
 
-                                                 <label htmlFor="password" className={"form-label text-dark"}>Password</label>
+                                                 <label htmlFor="password" className={"form-label"}>Password</label>
                                                  <input type="password" id="password" name={"password"}
                                                         className={state.password === "" ? "form-control is-invalid" : "form-control"}
                                                         value={state.password}
@@ -95,10 +92,7 @@ const Login = (props) => {
                     </div>
                 </div>
             </section>
-        </form>
-            <Footer/>
-        </>
-            );
+        </form>);
 };
 
 export default Login;

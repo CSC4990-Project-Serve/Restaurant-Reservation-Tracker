@@ -3,8 +3,6 @@
 
 import React, {useContext} from 'react';
 import {useNavigate} from "react-router-dom";
-import Footer from "../Footer";
-import NavigationBar from "../Navbar";
 import {AuthContext} from "../../Context/Auth.Context";
 
 const SomonaukCountryKitchen = () => {
@@ -40,7 +38,6 @@ const SomonaukCountryKitchen = () => {
     }
 
     return (
-        <><NavigationBar />
         <div className={'mainArea'}>
             <div className={'row justify-content-center'}>
                 <img className="restaurImg " src={require("../../imgs/CountryKitchenLogo.png")} alt={""}/>
@@ -151,8 +148,6 @@ const SomonaukCountryKitchen = () => {
                 </div>
             </div>
         </div>
-            <Footer/>
-        </>
     );
 };
 

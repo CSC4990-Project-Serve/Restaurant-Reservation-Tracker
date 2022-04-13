@@ -1,8 +1,6 @@
 import React from 'react';
 import {useSetState} from 'react-use';
-import $ from "jquery";
 const bcrypt = require('bcryptjs');
-
 var salt = bcrypt.genSaltSync(10);
 
 const initialState = {
@@ -14,9 +12,7 @@ const initialState = {
     fName: "",
     lName: "",
     isadmin: false,
-    loginError: null,
-    salt : salt,
-    phone_number : ""
+    loginError: null
 }
 
 export const AuthContext = React.createContext(null);
@@ -28,12 +24,13 @@ export const ContextProvider = props => {
     const setLoginSuccess = (loggedin) => setState({loggedin});
     const setLoginError = (loginError) => setState({loginError});
 
-    const register = (username, emailAddress, fName, lName, password, phone_number) => {
+    const register = (username, emailAddress, fName, lName, password) => {
         var hash = bcrypt.hashSync(password, salt);
         setLoginPending(true);
         setLoginSuccess(false);
         setLoginError(null);
 
+<<<<<<< HEAD
         state.username = username;
         state.emailAddress = emailAddress;
         state.firstName = fName;
@@ -44,9 +41,17 @@ export const ContextProvider = props => {
             "\nlname: " + state.lastName + "\nphoneNumber: " + state.phone_number + "\npassword: " + state.password);
 
         fetchRegister(state, username, hash, error => {
+=======
+        fetchRegister(username, hash, error => {
+>>>>>>> parent of d9b0dda (Merge branch 'JaredR-JoanC-JaredH-partial-merger')
             setLoginPending(false);
 
             if (!error) {
+                state.username = username;
+                state.emailAddress = emailAddress;
+                state.fName = fName;
+                state.lName = lName;
+                state.password = hash;
                 setLoginSuccess(true);
                 console.log('account created')
             } else {
@@ -60,16 +65,14 @@ export const ContextProvider = props => {
         setLoginSuccess(false);
         setLoginError(null);
 
-        fetchLogin(state, username, hash, (error) => {
+        fetchLogin(username, hash, error => {
             setLoginPending(false);
 
             if (!error) {
                 //ToDo: grab this data from database instead of like this, and include email, fname, lname
                 state.username = username;
-                state.emailAddress = username;
                 state.password = hash;
-                // alert("username: " + state.username + "\nemail: " + state.emailAddress + "\nfname: " + state.firstName +
-                //     "\nlname: " + state.lastName + "\nphoneNumber: " + state.phone_number + "\npassword: " + state.password);
+                // grad rest of data here
                 setLoginSuccess(true);
                 console.log('correct login')
             } else {
@@ -96,61 +99,24 @@ export const ContextProvider = props => {
     );
 }
 // fake login
-const fetchLogin = (state, username, password, callback) =>
+const fetchLogin = (username, password, callback) =>
     setTimeout(() => {
-        const userInfo = {
-            username: username,
-            email_address: state.username,
-            first_name: "",
-            last_name: "",
-            phone_number: "",
-            password : password,
-            password_salt: state.salt
-        }
-        $.ajax({
-            type:"POST",
-            url:"http://localhost:5000/api/login",
-            data : userInfo,
-            success : function(){
-                return callback(null);
-            },
-            error : function(){
-                return callback(new Error('Invalid username or password'));
-            },
-            dataType:"json"
-        });
         // ToDo: currently hardcoded, have it actually check database using another function
         // also have username check be interchangeable with checking email
-        // if ((username === 'username' || username === 'user@email.com') && password === bcrypt.hashSync('password', salt)) {
-        //     return callback(null);
-        // } else {
-        //     return callback(new Error('Invalid username or password'));
-        // }
+        if ((username === 'username' || username === 'user@email.com') && password === bcrypt.hashSync('password', salt)) {
+            return callback(null);
+        } else {
+            return callback(new Error('Invalid username or password'));
+        }
     }, 1000);
 
 // fake Register User
-const fetchRegister = (state, username, password, callback) =>
+const fetchRegister = (username, password, callback) =>
     setTimeout(() => {
-        const userInfo = {
-            username: state.username,
-            email_address: state.emailAddress,
-            first_name: state.fName,
-            last_name: state.lName,
-            phone_number: state.phone_number,
-            hashed_password: state.password,
-            password_salt: state.salt
-        }
         // ToDo: currently hardcoded, have it actually check database using user model
-        $.ajax({
-            type:"POST",
-            url:"http://localhost:5000/api/users",
-            data : userInfo,
-            success : function(){
-                return callback(null);
-            },
-            error : function(){
-                return callback(new Error('Error, invalid or account already Exists'));
-            },
-            dataType:"json"
-        });
+        if (username === 'username' && password === bcrypt.hashSync('password', salt)) {
+            return callback(null);
+        } else {
+            return callback(new Error('Error, account already Exists'));
+        }
     }, 1000);

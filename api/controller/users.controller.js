@@ -18,7 +18,7 @@ exports.getAllUsers = function (req, res) {
 // Add a new user to the database
 exports.createANewUser = function (req, res) {
     let newUser = new User(req.body);
-    //console.log(newUser)
+    // console.log(newUser)
 
     if (!newUser.username || !newUser.first_name || !newUser.last_name || !newUser.phone_number || !newUser.hashed_password || !newUser.password_salt) {
         res.status(400).send({error: true, message: 'Please provide full user information'});
@@ -119,7 +119,6 @@ exports.validate_user_login = (req, res) => {
     // iff success, send bool true?
     // res.status(201).send("Not yet implemented");
     const {username, email_address, password} = req.body;
-    //console.log(username + " + " + password);
 
     if (!(username || email_address) || !password) {
         res.status(400).send({error: true, status: "Username and password required"})
