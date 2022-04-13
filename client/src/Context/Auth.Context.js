@@ -30,7 +30,20 @@ export const ContextProvider = props => {
         setLoginSuccess(false);
         setLoginError(null);
 
+<<<<<<< HEAD
+        state.username = username;
+        state.emailAddress = emailAddress;
+        state.firstName = fName;
+        state.lastName = lName;
+        state.password = hash;
+        state.phone_number = phone_number;
+        alert("username: " + state.username + "\nemail: " + state.emailAddress + "\nfname: " + state.firstName +
+            "\nlname: " + state.lastName + "\nphoneNumber: " + state.phone_number + "\npassword: " + state.password);
+
+        fetchRegister(state, username, hash, error => {
+=======
         fetchRegister(username, hash, error => {
+>>>>>>> parent of d9b0dda (Merge branch 'JaredR-JoanC-JaredH-partial-merger')
             setLoginPending(false);
 
             if (!error) {
