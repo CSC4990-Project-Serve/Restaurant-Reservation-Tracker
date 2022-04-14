@@ -37,7 +37,7 @@ const Register = (props) => {
         "\nlname: " + state.lastName + "\nphoneNumber: " + state.phoneNumber + "\npassword: " + state.password);
         //ToDo: on successful account creation, navigate back a page, otherwise display message
         const { username, password } = state;
-        register(username,emailAddress,fName,lName,password);
+        register(username,state.emailAddress,state.firstName,state.lastName,password,state.phoneNumber);
         // if (username === "username" && password === "password"){
         //     //ToDo: hash password if account available, as well as upload all info to database
         //     alert("registration successful")

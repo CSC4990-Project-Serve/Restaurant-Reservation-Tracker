@@ -8,6 +8,7 @@ const axios = require("axios");
 var salt = bcrypt.genSaltSync(10);
 
 const initialState = {
+    userid:null,
     loggedin: false,
     isPending: false,
     username: "",
@@ -42,8 +43,8 @@ export const ContextProvider = props => {
         state.lName = lName;
         state.password = hash;
         state.phone_number = phone_number;
-        alert("username: " + state.username + "\nemail: " + state.emailAddress + "\nfname: " + state.firstName +
-            "\nlname: " + state.lastName + "\nphoneNumber: " + state.phone_number + "\npassword: " + state.password);
+        alert("username: " + state.username + "\nemail: " + state.emailAddress + "\nfname: " + state.fName +
+            "\nlname: " + state.lName + "\nphoneNumber: " + state.phone_number + "\npassword: " + state.password);
 
         fetchRegister(state, username, hash, error => {
             setLoginPending(false);
@@ -57,25 +58,31 @@ export const ContextProvider = props => {
         });
     }
     const login = (username, password) => {
-        var hash = bcrypt.hashSync(password, salt);
+        var hash = bcrypt.hashSync(password);
         setLoginPending(true);
         setLoginSuccess(false);
         setLoginError(null);
 
-        fetchLogin(state, username, hash, (error) => {
+        fetchLogin(state, username, hash, (response) => {
             setLoginPending(false);
-            //console.log(data);
-            if (!error) {
-                //ToDo: grab this data from database instead of like this, and include email, fname, lname
-                state.username = username;
-                state.emailAddress = username;
-                state.password = hash;
+            console.log(response);
+            if (response.data !== false) {
+                state.userid = response.data[0].id;
+                state.username = response.data[0].username;
+                state.emailAddress = response.data[0].email_address;
+                state.fName = response.data[0].first_name;
+                state.lName = response.data[0].last_name;
+                state.phone_number = response.data[0].phone_number;
+                state.password = "$2a$10$8V1T0ItVevmJUS.u3qv3t.ExfM9vXdZp4ErwVta9q3q0bShg/EoLm";
                 // alert("username: " + state.username + "\nemail: " + state.emailAddress + "\nfname: " + state.firstName +
                 //     "\nlname: " + state.lastName + "\nphoneNumber: " + state.phone_number + "\npassword: " + state.password);
                 setLoginSuccess(true);
                 console.log('correct login')
-            } else {
-                setLoginError(error);
+                //console.log(state);
+            } else if(state.userid === null){
+                setLoginError(response.data);
+            }else {
+                setLoginError(response.data);
             }
         });
     }
@@ -100,49 +107,26 @@ export const ContextProvider = props => {
 // fake login
 const fetchLogin = (state, username, password, callback) =>
     setTimeout(() => {
+        console.log("WE ARE IN THE fetchLogin with data");
+        console.log(username, password, JSON.stringify(state));
         const userInfo = {
             username: username,
             email_address: username,
-            first_name: "",
-            last_name: "",
-            phone_number: "",
-            password : password,
-            password_salt: state.salt
+            //first_name: "",
+            //last_name: "",
+            //phone_number: "",
+            password : "$2a$10$8V1T0ItVevmJUS.u3qv3t.ExfM9vXdZp4ErwVta9q3q0bShg/EoLm",
+            //password_salt: state.salt
         }
-        // $.ajax({
-        //     type:"POST",
-        //     url:"http://localhost:5000/api/login",
-        //     data : userInfo,
-        //     success : function(){
-        //         return callback(null);
-        //     },
-        //     error : function(){
-        //         return callback(new Error('Invalid username or password'));
-        //     },
-        //     dataType:"json"
-        // });
-        // fetch("http://localhost:5000/api/login", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(userInfo)
-        // })
-        //     .then(response => response.json())
-        //     .then(data => console.log(data))
-        //     .catch(err => console.log(err))
-        console.log(userInfo);
+        console.log(JSON.stringify(userInfo))
         axios.post("http://localhost:5000/api/login", {userInfo},{
             headers: {
                 "access-control-allow-origin": "*",
             }
         })
-            .then(response => {
-                console.log(response);
-            })
-            .catch(err => {
-                console.log(err)
-            })
+            .then(response => callback(response))
+            .then(response => console.log(response.data[0]))
+            .catch(err => console.warn(err));
         // ToDo: currently hardcoded, have it actually check database using another function
         // also have username check be interchangeable with checking email
         // if ((username === 'username' || username === 'user@email.com') && password === bcrypt.hashSync('password', salt)) {
