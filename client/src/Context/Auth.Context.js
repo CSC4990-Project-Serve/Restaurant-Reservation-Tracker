@@ -1,7 +1,9 @@
 import React from 'react';
 import {useSetState} from 'react-use';
 import $ from "jquery";
+const fetch = require("node-fetch");
 const bcrypt = require('bcryptjs');
+const axios = require("axios");
 
 var salt = bcrypt.genSaltSync(10);
 
@@ -62,7 +64,7 @@ export const ContextProvider = props => {
 
         fetchLogin(state, username, hash, (error) => {
             setLoginPending(false);
-
+            //console.log(data);
             if (!error) {
                 //ToDo: grab this data from database instead of like this, and include email, fname, lname
                 state.username = username;
@@ -100,25 +102,47 @@ const fetchLogin = (state, username, password, callback) =>
     setTimeout(() => {
         const userInfo = {
             username: username,
-            email_address: state.username,
+            email_address: username,
             first_name: "",
             last_name: "",
             phone_number: "",
             password : password,
             password_salt: state.salt
         }
-        $.ajax({
-            type:"POST",
-            url:"http://localhost:5000/api/login",
-            data : userInfo,
-            success : function(){
-                return callback(null);
-            },
-            error : function(){
-                return callback(new Error('Invalid username or password'));
-            },
-            dataType:"json"
-        });
+        // $.ajax({
+        //     type:"POST",
+        //     url:"http://localhost:5000/api/login",
+        //     data : userInfo,
+        //     success : function(){
+        //         return callback(null);
+        //     },
+        //     error : function(){
+        //         return callback(new Error('Invalid username or password'));
+        //     },
+        //     dataType:"json"
+        // });
+        // fetch("http://localhost:5000/api/login", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify(userInfo)
+        // })
+        //     .then(response => response.json())
+        //     .then(data => console.log(data))
+        //     .catch(err => console.log(err))
+        console.log(userInfo);
+        axios.post("http://localhost:5000/api/login", {userInfo},{
+            headers: {
+                "access-control-allow-origin": "*",
+            }
+        })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(err => {
+                console.log(err)
+            })
         // ToDo: currently hardcoded, have it actually check database using another function
         // also have username check be interchangeable with checking email
         // if ((username === 'username' || username === 'user@email.com') && password === bcrypt.hashSync('password', salt)) {
