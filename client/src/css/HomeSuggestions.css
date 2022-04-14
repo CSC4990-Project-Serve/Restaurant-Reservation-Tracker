@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&family=Ubuntu&display=swap');
+
+h2 {
+    margin: 2rem 0 1rem 0;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* 'Card' component styling */
+
+.restaurant-cards {
+    background-color: #000000;
+    border: none;
+    margin-right: 2.5rem;
+    transition: 0.5s ease-in-out;
+    overflow: hidden;
+}
+.restaurant-cards:hover {
+    transform: scale(1.05);
+}
+.restaurant-cards:last-child {
+    margin-right: 0;
+}
+.restaurant-cards-img {
+    opacity: 0.9;
+    max-height: 180px;
+}
+.card-body-home {
+    background-color:#1F1F1F;
+    color: #D0CFD2;
+    font-family: 'Poppins', sans-serif;
+}
+.card-title-home {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+.card-subtitle-home {
+    font-size: 1em;
+    margin-top: -0.5rem;
+}
+.card-text-home {
+    font-size: 0.9em;
+    margin: 0.5rem 0 0.5rem 0;
+}
+.cards-button {
+    font-family: 'Roboto', sans-serif;
+    background-color: #3A3A3D;
+    color: #D0CFD2;
+    border: none;
+    font-size: 0.97em;
+    transition: 0.5s ease-in-out;
+}
+.cards-button:hover {
+    background-color: #1F1F1F;
+    color: #D0CFD2;
+    border: 1px solid #D0CFD2;
+}
+.cards-button:focus {
+    background-color: #1F1F1F;
+    color: #D0CFD2;
+    border: 1px solid #D0CFD2;
+    box-shadow: none;
+}
