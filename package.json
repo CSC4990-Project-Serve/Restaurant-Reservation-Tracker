@@ -4,9 +4,10 @@
   "description": "",
   "main": "",
   "scripts": {
+    "init": "npm install && cd api && npm install && cd ../client && npm install",
     "start-client": "cd client && npm start",
     "start-api": "cd api && npm start",
-    "start-all": "concurrently --kill-others-on-fail \"npm run start-api\" \"npm run start-client\""
+    "start": "concurrently --kill-others-on-fail \"npm run start-api\" \"npm run start-client\""
   },
   "repository": {
     "type": "git",

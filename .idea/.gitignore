@@ -3,3 +3,12 @@
 /workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+/dataSources/9d2a746c-74c0-4ac5-8ede-289c4b5e5245.xml
+/dataSources.local.xml
+/dataSources.xml
+/dbnavigator.xml
+/dataSources/9d2a746c-74c0-4ac5-8ede-289c4b5e5245/storage_v2/_src_/schema/information_schema.FNRwLQ.meta
+/dataSources/9d2a746c-74c0-4ac5-8ede-289c4b5e5245/storage_v2/_src_/schema/mysql.osA4Bg.meta
+/dataSources/9d2a746c-74c0-4ac5-8ede-289c4b5e5245/storage_v2/_src_/schema/performance_schema.kIw0nw.meta
+/sqldialects.xml
+/dataSources/9d2a746c-74c0-4ac5-8ede-289c4b5e5245/storage_v2/_src_/schema/sys.zb4BAA.meta

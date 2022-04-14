@@ -18,7 +18,7 @@ exports.getAllUsers = function (req, res) {
 // Add a new user to the database
 exports.createANewUser = function (req, res) {
     let newUser = new User(req.body);
-    //console.log(newUser)
+    // console.log(newUser)
 
     if (!newUser.username || !newUser.first_name || !newUser.last_name || !newUser.phone_number || !newUser.hashed_password || !newUser.password_salt) {
         res.status(400).send({error: true, message: 'Please provide full user information'});
@@ -38,22 +38,37 @@ exports.createANewUser = function (req, res) {
 // Individual User CRUD methods
 exports.getUserByID = (req, res) => {
     // res.send(`Id requested is: ${req.params.id}`)
-    let userIDtoUpdate = req.params.id;
+    let userIdToGet = req.params.id;
+    let shouldIncludeReservations = parseInt(req.query.reservations);
 
-    if (!userIDtoUpdate) {
+    if (!userIdToGet) {
         res.status(400).send({error: true, message: "No provided user id"}) //don't think this is ever triggered because of the route
     } else {
-        User.get_user_by_id(userIDtoUpdate, (err, results) => {
-            // If our results array is empty, error out
-            if (err || results.length === 0) {
-                res.json({
-                    error: true,
-                    message: `Error finding user with id: ${userIDtoUpdate}`
-                });
-            } else {
-                res.json(results)
-            }
-        })
+
+        if (shouldIncludeReservations === 1) {
+            User.get_user_by_id_with_reservations(userIdToGet, (err, results) => {
+                if (err || results.length === 0) {
+                    res.json({
+                        error: true,
+                        message: `Error finding user/reservations with id: ${userIdToGet}`
+                    });
+                } else {
+                    res.json(results)
+                }
+            })
+        } else {
+            User.get_user_by_id(userIdToGet, (err, results) => {
+                // If our results array is empty, error out
+                if (err || results.length === 0) {
+                    res.json({
+                        error: true,
+                        message: `Error finding user with id: ${userIdToGet}`
+                    });
+                } else {
+                    res.json(results)
+                }
+            })
+        }
     }
 
 }
@@ -103,20 +118,21 @@ exports.validate_user_login = (req, res) => {
     // access User model to check db if username password combo exists
     // iff success, send bool true?
     // res.status(201).send("Not yet implemented");
-    const {username, email_address, password} = req.body.userInfo;
-    //console.log(username + " + " + password);
+    const {username, email_address, password} = req.body;
 
-    if (!username || !password) {
+    if (!(username || email_address) || !password) {
         res.status(400).send({error: true, status: "Username and password required"})
     } else {
-        User.validate_login(username, password, (err, results) => {
+        User.validate_login(username, email_address, password, (err, results) => {
             if (err) {
                 res.send(err);
             } else {
                 // if results has a value, then return the user info
-                res.send(results)
-
-                // else return false meaning invalid login
+                if (!results) {
+                    res.send({error: true, status: "Invalid login credentials"})
+                } else {
+                    res.send(results)
+                }
             }
         })
     }

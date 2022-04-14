@@ -10,6 +10,7 @@ const Restaurant = function (restaurantInfo) {
     this.restaurant_description = restaurantInfo.restaurant_description;
     this.restaurant_phone_number = restaurantInfo.restaurant_phone_number;
     this.location = {
+        location_id: restaurantInfo.location_id,
         location_name: restaurantInfo.location_name,
         address1: restaurantInfo.address1,
         address2: restaurantInfo.address2,
@@ -19,6 +20,7 @@ const Restaurant = function (restaurantInfo) {
         country: restaurantInfo.country,
     };
     this.hours = {
+        hours_id: restaurantInfo.hours_id,
         monday: restaurantInfo.monday,
         tuesday: restaurantInfo.tuesday,
         wednesday: restaurantInfo.wednesday,
@@ -38,12 +40,14 @@ Restaurant.get_all_restaurants_from_db = (results) => {
                             restaurant_description,
                             restaurant_phone_number,
                             location_name,
+                            rl.id location_id,
                             address1,
                             address2,
                             city,
                             state,
                             postal_code,
                             country,
+                            rh.id hours_id,
                             monday,
                             tuesday,
                             wednesday,
@@ -81,6 +85,7 @@ Restaurant.get_restaurant_by_id = (restaurantID, results) => {
                             restaurant_name,
                             restaurant_description,
                             restaurant_phone_number,
+                            rl.id location_id,
                             location_name,
                             address1,
                             address2,
@@ -88,6 +93,7 @@ Restaurant.get_restaurant_by_id = (restaurantID, results) => {
                             state,
                             postal_code,
                             country,
+                            rh.id hours_id,
                             monday,
                             tuesday,
                             wednesday,
@@ -124,6 +130,7 @@ Restaurant.get_restaurant_by_id_with_reservations = (restaurantID, results) => {
                                      restaurant_name,
                                      restaurant_description,
                                      restaurant_phone_number,
+                                     rl.id location_id,
                                      location_name,
                                      address1,
                                      address2,
@@ -131,6 +138,7 @@ Restaurant.get_restaurant_by_id_with_reservations = (restaurantID, results) => {
                                      state,
                                      postal_code,
                                      country,
+                                     rh.id hours_id,
                                      monday,
                                      tuesday,
                                      wednesday,
@@ -182,53 +190,32 @@ Restaurant.get_restaurant_by_id_with_reservations = (restaurantID, results) => {
     })
 }
 
+// fixme: same issue as controller with differing ids
 Restaurant.update_by_id = (idToUpdate, updatedInfo, results) => {
-    let updateRestaurantInformation = `UPDATE restaurants
-                                       SET restaurant_name         = ?,
-                                           restaurant_description  = ?,
-                                           restaurant_phone_number = ?
-                                       WHERE id = ?`;
-    let updateRestaurantLocation = `UPDATE restaurant_locations
-                                    SET location_name = ?,
-                                        address1      = ?,
-                                        address2      = ?,
-                                        city          = ?,
-                                        state         = ?,
-                                        postal_code   = ?,
-                                        country       = ?
-                                    WHERE id = ?`;
-    let updateRestaurantHours = `UPDATE restaurant_hours
-                                 SET monday    = ?,
-                                     tuesday   = ?,
-                                     wednesday = ?,
-                                     thursday  = ?,
-                                     friday    = ?,
-                                     saturday  = ?,
-                                     sunday    = ?
-                                 WHERE id = ?`;
+    const updateRestaurantMainInformation = `UPDATE restaurants
+                                             SET restaurant_name         = ?,
+                                                 restaurant_description  = ?,
+                                                 restaurant_phone_number = ?
+                                             WHERE id = ?`;
+    const updateRestaurantLocation = `UPDATE restaurant_locations
+                                      SET location_name = ?,
+                                          address1      = ?,
+                                          address2      = ?,
+                                          city          = ?,
+                                          state         = ?,
+                                          postal_code   = ?,
+                                          country       = ?
+                                      WHERE id = ?`;
+    const updateRestaurantHours = `UPDATE restaurant_hours
+                                   SET monday    = ?,
+                                       tuesday   = ?,
+                                       wednesday = ?,
+                                       thursday  = ?,
+                                       friday    = ?,
+                                       saturday  = ?,
+                                       sunday    = ?
+                                   WHERE id = ?`;
 
-    conn.query(updateRestaurantInformation, [updatedInfo.restaurant_name, updatedInfo.restaurant_description, updatedInfo.restaurant_phone_number, idToUpdate], (err, updatedRestaurantInfoRes) => {
-        if (err) {
-            console.log(err);
-            results(err, null);
-        } else {
-            conn.query(updateRestaurantLocation, [updatedInfo.location_name, updatedInfo.address1, updatedInfo.address2, updatedInfo.city, updatedInfo.state, updatedInfo.postal_code, updatedInfo.country, idToUpdate], (err, updatedLocationRes) => {
-                if (err) {
-                    console.log(err);
-                    results(err, null);
-                } else {
-                    conn.query(updateRestaurantHours, [updatedInfo.monday, updatedInfo.tuesday, updatedInfo.wednesday, updatedInfo.thursday, updatedInfo.friday, updatedInfo.saturday, updatedInfo.sunday, idToUpdate], (err, updatedHoursRes) => {
-                        if (err) {
-                            console.log(err);
-                            results(err, null);
-                        } else {
-                            results(null, updatedHoursRes);
-                        }
-                    })
-                }
-            })
-        }
-    })
 }
 
 Restaurant.create_new_restaurant = (restaurantInfo, results) => {
