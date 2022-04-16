@@ -17,10 +17,10 @@ const UserHome = () => {
                     <table className={"table table-dark"}>
                         <thead>
                         <tr>
+                            <th scope={"col"}>ID</th>
                             <th scope={"col"}>Restaurant</th>
                             <th scope={"col"}>Day</th>
                             <th scope={"col"}>Time</th>
-                            <th scope={"col"}>Location</th>
                             <th scope={"col"}>seats</th>
                             <th scope={"col"}>cancel</th>
                         </tr>
