@@ -159,4 +159,20 @@ User.validate_login = (username, email, password, results) => {
     })
 }
 
+User.get_user_salt = (username, email_address, results) => {
+    let get_salt = `SELECT password_salt
+                    FROM users
+                    WHERE (users.username = ? OR users.email_address = ?)`;
+
+    conn.query(get_salt, [username, email_address], (err, res) => {
+        if (err) {
+            console.log(err);
+            results(err, null)
+        } else {
+            console.log(results);
+            results(null, res[0])
+        }
+    })
+}
+
 module.exports = User;

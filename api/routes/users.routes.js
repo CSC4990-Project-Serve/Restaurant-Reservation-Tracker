@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(app) {
+module.exports = function (app) {
     const userController = require('../controller/users.controller');
 
     // Get all users and create a new user
@@ -16,4 +16,7 @@ module.exports = function(app) {
 
     app.route('/api/login')
         .post(userController.validate_user_login)
+
+    app.route('/api/login/salt')
+        .post(userController.get_user_salt_by_email_or_username)
 }
