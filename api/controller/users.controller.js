@@ -137,3 +137,19 @@ exports.validate_user_login = (req, res) => {
         })
     }
 }
+
+exports.get_user_salt_by_email_or_username = function (req, res) {
+    const {username, email_address} = req.body;
+
+    if (!(username || email_address)) {
+        res.status(404).send({error: true, status: "No salt found for user"});
+    } else {
+        User.get_user_salt(username, email_address, (err, result) => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(result);
+            }
+        })
+    }
+}
