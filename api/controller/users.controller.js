@@ -118,7 +118,7 @@ exports.validate_user_login = (req, res) => {
     // access User model to check db if username password combo exists
     // iff success, send bool true?
     // res.status(201).send("Not yet implemented");
-    const {username, email_address, password} = req.body;
+    const {username, email_address, password} = req.body.userInfo;
 
     if (!(username || email_address) || !password) {
         res.status(400).send({error: true, status: "Username and password required"})
