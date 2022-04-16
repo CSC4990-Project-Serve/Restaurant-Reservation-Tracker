@@ -58,7 +58,7 @@ export const ContextProvider = props => {
         });
     }
     const login = (username, password) => {
-        var hash = bcrypt.hashSync(password);
+        var hash = bcrypt.hashSync(password,salt);
         setLoginPending(true);
         setLoginSuccess(false);
         setLoginError(null);
