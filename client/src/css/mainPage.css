@@ -1,0 +1,51 @@
+.navbarHeader {
+    text-align: center;
+}
+.navbarBelow {
+
+}
+.linkLeft {
+    text-align:left;
+    left:10px;
+}
+.linkRight {
+    text-align:right;
+    right:10px;
+}
+.imgBanner {
+    width:100%;
+    height:250px;
+    align-content: center;
+    margin: 20px;
+}
+
+.search-area {
+    padding:20px;
+    border:solid black;
+    background-color: lightgray;
+}
+
+.searchButton {
+    top: 60px;
+}
+table {
+    border:solid black;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    margin:20px;
+}
+
+td {
+    text-align: left;
+    padding: 8px;
+    border:solid black;
+    height:30px;
+}
+.tableClass {
+    overflow-x:auto;
+}
+.loggCheckImg {
+    width:20px;
+    height:20px;
+}

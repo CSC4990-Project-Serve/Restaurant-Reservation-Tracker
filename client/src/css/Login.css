@@ -1,0 +1,70 @@
+.title-row{
+    text-align: center;
+    color: blue;
+}
+
+.form-container {
+    height: 30vh;
+    padding: 1.5rem;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.card-area {
+    border-radius: 1rem;
+}
+
+.background-area {
+    background-color: #141414;
+}
+
+/*.login-form {*/
+/*    width: 20vw;*/
+/*    height: 80vh;*/
+/*    margin: auto;*/
+/*    align-self: center;*/
+/*}*/
+
+.login-cancel-buttons {
+    display: flex;
+    padding: 1rem;
+    justify-content: right;
+}
+
+.button-spaced {
+    margin-right: .5rem;
+    margin-left: .5rem;
+}
+.navbarHeader {
+    text-align: center;
+}
+.navbarBelow {
+
+}
+.linkLeft {
+    text-align:left;
+    left:10px;
+}
+.linkRight {
+    text-align:right;
+    right:10px;
+}
+.imgBanner {
+    width:100%;
+    height:250px;
+    align-content: center;
+    margin: 20px;
+}
+
+.search-area {
+    padding:20px;
+    border:solid black;
+    background-color: lightgray;
+}
+
+.searchButton {
+    top: 60px;
+}
+.loggCheckImg {
+    width:20px;
+    height:20px;
+}

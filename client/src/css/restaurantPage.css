@@ -1,0 +1,56 @@
+.navbarHeader {
+    text-align: center;
+}
+.linkLeft {
+    text-align:left;
+    left:10px;
+}
+.linkRight {
+    text-align:right;
+    right:10px;
+}
+.menuList {
+    margin:20px;
+}
+.descriptionArea {
+    margin:20px;
+}
+p {
+    text-indent:30px;
+}
+.reservationArea {
+    margin:20px;
+    border: solid black;
+    border-radius: 25px;
+    background-color: #1F1F1F;
+}
+.infoArea {
+    margin:20px;
+    border: black solid;
+    border-radius: 25px;
+    background-color: #1F1F1F;
+}
+.resInputSpot {
+    margin:10px;
+}
+input{
+    text-align:center;
+}
+.loggCheckImg {
+    width:20px;
+    height:20px;
+}
+.mainArea{
+    background-color: #141414;
+    color: #D0CFD2;
+}
+.nameHeader{
+    text-align: center;
+    text-decoration-line: underline;
+    text-decoration-color: #D0CFD2;
+}
+.restaurImg {
+    width:50%;
+    height: 200px;
+    align-content: center;
+}
