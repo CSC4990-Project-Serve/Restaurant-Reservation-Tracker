@@ -1,12 +1,10 @@
-import React from 'react';
-import {NavLink, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {Carousel, Container} from "react-bootstrap";
 import {MDBIcon} from "mdb-react-ui-kit";
 import HomeSuggestions from "../components/HomeSuggestions";
-import NavigationBar from "../components/Navbar";
+import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import HorizontalLine from "../components/HorizontalLine";
-// import "@fortawesme/fontawesome-free/css/all.min.css";
 import '../css/HomePage.css';
 import carousel01 from '../imgs/carousel-overhead.jpg';
 import carousel02 from '../imgs/carousel-outdoor.jpg';
@@ -14,12 +12,7 @@ import carousel03 from '../imgs/carousel-indoor.jpg';
 import carousel04 from '../imgs/carousel-food.jpg';
 import carousel05 from '../imgs/carousel-eating.jpg';
 
-const Main = () => {
-    let navigate = useNavigate();
-    const routeChange = () => {
-        let path = "/search";
-        navigate(path);
-    }
+const HomePage = () => {
 
     return (
         <>
@@ -30,41 +23,36 @@ const Main = () => {
                 <Carousel>
                     <Carousel.Item interval={5000}>
                         <img
-                            className="d-block w-100"
+                            className="carousel-img-home"
                             src={carousel02}
-                            height="650"
                             alt="Overhead of Restaurant"
                         />
                     </Carousel.Item>
                     <Carousel.Item interval={5000}>
                         <img
-                            className="d-block w-100"
+                            className="carousel-img-home"
                             src={carousel02}
-                            height="650"
                             alt="Two people dining outside."
                         />
                     </Carousel.Item>
                     <Carousel.Item interval={5000}>
                         <img
-                            className="d-block w-100"
+                            className="carousel-img-home"
                             src={carousel02}
-                            height="650"
                             alt="Indoor Dining"
                         />
                     </Carousel.Item>
                     <Carousel.Item interval={5000}>
                         <img
-                            className="d-block w-100"
+                            className="carousel-img-home"
                             src={carousel02}
-                            height="650"
                             alt="Food from a Restaurant"
                         />
                     </Carousel.Item>
                     <Carousel.Item interval={5000}>
                         <img
-                            className="d-block w-100"
+                            className="carousel-img-home"
                             src={carousel02}
-                            height="650"
                             alt="Woman eating food"
                         />
                     </Carousel.Item>
@@ -74,9 +62,11 @@ const Main = () => {
                 <div className="carousel-search-section">
                     <div className="carousel-header">Find a meal for every occasion.</div>
                     <input type="search" className="search-bar-carousel" placeholder="Location, Restaurant, or Cuisine"/>
-                    <button type="button" className="search-icon-carousel" onClick={routeChange}>
-                        <MDBIcon fas icon="search" />
-                    </button>
+                    <Link to="/search" >
+                        <button type="button" className="search-icon-carousel">
+                            <MDBIcon fas icon="search" />
+                        </button>
+                    </Link>
                 </div>
             </Container>
 
@@ -92,4 +82,4 @@ const Main = () => {
     )
 };
 
-export default Main;
+export default HomePage;

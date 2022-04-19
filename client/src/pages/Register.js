@@ -2,8 +2,8 @@ import React, {useEffect, useState, useContext} from 'react';
 import { useSetState } from 'react-use';
 import {useNavigate} from 'react-router-dom';
 import Footer from "../components/Footer";
-import NavigationBar from "../components/Navbar";
-import {AuthContext} from '../Context/Auth.Context';
+import NavigationBar from "../components/NavigationBar";
+import {AuthContext} from '../context/Auth.Context';
 import '../css/Login.css';
 const Register = (props) => {
     // Registration Field Names: username, email_address, first_name,
@@ -63,65 +63,68 @@ const Register = (props) => {
         setState({...state, [name]: value})
     }
     return (
-        <><NavigationBar />
-        <form onSubmit={onSubmit}>
-            <section className="vh-150 background-area">
-                <div className="container py-5 h-150">
-                    <div className="row d-flex justify-content-center align-items-center h-100">
-                        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                            <div className="card shadow-2-strong card-area">
-                                <div className="card-body p-5 text-center">
+        <>
+            <NavigationBar />
 
-                                    <h3 className="mb-5 text-primary">Register</h3>
+            <form onSubmit={onSubmit}>
+                <section className="vh-150 background-area">
+                    <div className="container py-5 h-150">
+                        <div className="row d-flex justify-content-center align-items-center h-100">
+                            <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+                                <div className="card shadow-2-strong card-area">
+                                    <div className="card-body p-5 text-center">
 
-                                    <label htmlFor="username" className="form-label text-dark">Username</label>
-                                    <input type="text" id={"username"} name={"username"}
-                                           className={"form-control"}
-                                           value={state.username}
-                                           placeholder="Enter a username"
-                                           onChange={onFieldChange}/>
-                                    <label htmlFor="emailAddress" className="form-label text-dark">Email Address</label>
-                                    <input type="text" id={"emailAddress"} name={"emailAddress"}
-                                           className={"form-control"}
-                                           value={state.emailAddress}
-                                           placeholder="Enter your email address"
-                                           onChange={onFieldChange}/>
-                                    <label htmlFor="firstName" className="form-label text-dark">First Name</label>
-                                    <input type="text" id={"firstName"} name={"firstName"}
-                                           className={"form-control"}
-                                           value={state.firstName}
-                                           placeholder="Enter your First Name"
-                                           onChange={onFieldChange}/>
-                                    <label htmlFor="lastName" className="form-label text-dark">Last Name</label>
-                                    <input type="text" id={"lastName"} name={"lastName"}
-                                           className={"form-control"}
-                                           value={state.lastName}
-                                           placeholder="Enter your Last Name"
-                                           onChange={onFieldChange}/>
-                                    <label htmlFor="phone_number" className="form-label text-dark">Phone Number</label>
-                                    <input type="text" id={"phone_number"} name={"phone_number"}
-                                           className={"form-control"}
-                                           value={state.phone_number}
-                                           placeholder="1-111-111-1111"
-                                           onChange={onFieldChange}/>
-                                    <label htmlFor="password" className={"form-label text-dark"}>Password</label>
-                                    <input type="password" id="password" name={"password"}
-                                           className={"form-control"}
-                                           value={state.password}
-                                           placeholder="Enter a password"
-                                           onChange={onFieldChange}/>
+                                        <h3 className="mb-5 text-primary">Register</h3>
 
-                                    <button className="btn btn-primary btn-lg btn-block" type="submit">Register</button>
-                                    { isPending && <div className={'text-dark'}>Please wait...</div> }
-                                    { loggedin && <div className={'text-dark'} onLoad={redirect()}>Success.</div> }
-                                    { loginError && <div className={'text-dark'}>{loginError.message}</div> }
+                                        <label htmlFor="username" className="form-label text-dark">Username</label>
+                                        <input type="text" id={"username"} name={"username"}
+                                               className={"form-control"}
+                                               value={state.username}
+                                               placeholder="Enter a username"
+                                               onChange={onFieldChange}/>
+                                        <label htmlFor="emailAddress" className="form-label text-dark">Email Address</label>
+                                        <input type="text" id={"emailAddress"} name={"emailAddress"}
+                                               className={"form-control"}
+                                               value={state.emailAddress}
+                                               placeholder="Enter your email address"
+                                               onChange={onFieldChange}/>
+                                        <label htmlFor="firstName" className="form-label text-dark">First Name</label>
+                                        <input type="text" id={"firstName"} name={"firstName"}
+                                               className={"form-control"}
+                                               value={state.firstName}
+                                               placeholder="Enter your First Name"
+                                               onChange={onFieldChange}/>
+                                        <label htmlFor="lastName" className="form-label text-dark">Last Name</label>
+                                        <input type="text" id={"lastName"} name={"lastName"}
+                                               className={"form-control"}
+                                               value={state.lastName}
+                                               placeholder="Enter your Last Name"
+                                               onChange={onFieldChange}/>
+                                        <label htmlFor="phone_number" className="form-label text-dark">Phone Number</label>
+                                        <input type="text" id={"phone_number"} name={"phone_number"}
+                                               className={"form-control"}
+                                               value={state.phone_number}
+                                               placeholder="1-111-111-1111"
+                                               onChange={onFieldChange}/>
+                                        <label htmlFor="password" className={"form-label text-dark"}>Password</label>
+                                        <input type="password" id="password" name={"password"}
+                                               className={"form-control"}
+                                               value={state.password}
+                                               placeholder="Enter a password"
+                                               onChange={onFieldChange}/>
+
+                                        <button className="btn btn-primary btn-lg btn-block" type="submit">Register</button>
+                                        { isPending && <div className={'text-dark'}>Please wait...</div> }
+                                        { loggedin && <div className={'text-dark'} onLoad={redirect()}>Success.</div> }
+                                        { loginError && <div className={'text-dark'}>{loginError.message}</div> }
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </form>
+                </section>
+            </form>
+
             <Footer/>
         </>
             );

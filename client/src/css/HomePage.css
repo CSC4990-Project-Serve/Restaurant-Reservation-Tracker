@@ -15,7 +15,11 @@ body {
 
 
 /* Carousel Styling */
-
+.carousel-img-home {
+    width: 100%;
+    height: 650px;
+    opacity: 0.85;
+}
 .carousel-search-section {
     position: absolute;
     width: 80%;
@@ -45,6 +49,7 @@ body {
     outline: none;
     border: none;
     background-color: #141414;
+    color: #EFEFF1;
     width: 300px;
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius: 10px;
@@ -82,8 +87,4 @@ body {
 .search-icon-carousel:focus {
     border: 1px solid #EFEFF1;
     background-color: #141414;
-}
-/* 'Carousel' img styling */
-.d-block {
-    opacity: 0.85;
 }

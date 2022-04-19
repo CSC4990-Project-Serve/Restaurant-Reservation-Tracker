@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Paytone+One&display=swap');
+
+.admin-page-container {
+    min-height: 61vh;
+    text-align: center;
+}
+.admin-page-container h2 {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.75em;
+}
+.admin-page-container select {
+    padding: 0.25rem;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.05em;
+}

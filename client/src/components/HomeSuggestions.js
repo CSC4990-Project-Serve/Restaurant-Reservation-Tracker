@@ -1,17 +1,13 @@
-import React from "react";
-import {Button, Card, CardGroup, Carousel, Container} from "react-bootstrap";
+import {Button, Card, CardGroup, Container} from "react-bootstrap";
 import ShowMore from "./ShowMore";
-import {useNavigate} from "react-router-dom";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import '../css/HomeSuggestions.css';
 import dummy_image from '../imgs/dummy-restaurant.jpg';
 
-const HomeSuggestions = () => {
-    let navigate = useNavigate();
 
-    function routeRestaurant() {
-        navigate('/SomonaukCountryKitchen');
-    }
+const HomeSuggestions = () => {
+
+    //TODO: get ID of individual card and have button navigate to individual restaurant page from click of button
+    //TODO: get search term from home page and search page re-search and display in "Results for" header
 
     return (
         <>
@@ -28,12 +24,13 @@ const HomeSuggestions = () => {
                                 <Card.Text className="card-text-home">
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est iure, minima nam recusandae repellat voluptatem.
                                 </Card.Text>
-                                <Button className="cards-button" onClick={routeRestaurant}>Reserve Now</Button>
+                                <Button className="cards-button">Reserve Now</Button>
                             </Card.Body>
                         </Card>
                     ))}
                 </CardGroup>
             </Container>
+
             <ShowMore />
         </>
     )

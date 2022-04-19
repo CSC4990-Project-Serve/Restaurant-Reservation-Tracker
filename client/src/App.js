@@ -1,12 +1,16 @@
-import React, {useEffect, useContext, createContext, useState, Fragment} from "react";
-import {BrowserRouter as Router, Switch, Route, Routes, Redirect, Navigate} from "react-router-dom";
-import {
-    Login,
-    Main,
-    SomonaukCountryKitchen,
-    Register, SearchPage,UserHome,
-} from "./components";
-import {AuthContext} from "./Context/Auth.Context";
+import React, {useEffect, useContext, useState, Fragment} from "react";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {AuthContext} from "./context/Auth.Context";
+
+
+import HomePage from './pages/HomePage'
+import SearchPage from "./pages/SearchPage";
+import RestaurantPage from "./pages/RestaurantPage";
+import AdminPage from "./pages/AdminPage";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import UserHome from "./pages/UserHome";
+
 
 function App() {
 
@@ -25,25 +29,29 @@ function App() {
 
     // Get all users from server
     const getUsersFromAPI = async () => {
-        const res = await fetch('http://localhost:5000/users');
+        const res = await fetch('http://localhost:5000/api/users');
         const data = await res.json();
 
         return data;
     }
 
     return (
-        <Router>
-            <Fragment>
-                <Routes>
-                    <Route path="/Login" element={<Login />} />
-                    <Route path={"/Register"} element={<Register />} />
-                    <Route path="/" element={<Main />} />
-                    <Route path="/search" element={<SearchPage />} />
-                    <Route path={"/UserHome"} element={<UserHome/>}/>
-                    <Route path={"/SomonaukCountryKitchen"} element={<SomonaukCountryKitchen />}/>
-                </Routes>
-            </Fragment>
-        </Router>
+        <>
+            <BrowserRouter>
+                {/*TODO: Why do we use Fragment*/}
+                <Fragment>
+                    <Routes>
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/search" element={<SearchPage />} />
+                        <Route path="/search/:id" element={<RestaurantPage />} />
+                        <Route path="/admin" element={<AdminPage />} />
+                        <Route path={"/UserHome"} element={<UserHome/>}/>
+                    </Routes>
+                </Fragment>
+            </BrowserRouter>
+        </>
     );
 }
 

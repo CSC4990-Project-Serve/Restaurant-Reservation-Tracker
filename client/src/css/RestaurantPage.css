@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?&family=Ubuntu&display=swap');
+
+.restaurant-details-heading {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.85em;
+}
+
+.restaurant-details-container {
+    min-height: 61vh;
+}
+
+.carousel {
+    width: 100%;
+
+}
+.carousel-img {
+    width: 100%;
+    height: 250px;
+    opacity: 0.85;
+}
+
+.middle-col-restaurant-details {
+    text-align: center;
+}
+.right-col-restaurant-details {
+    text-align: center;
+}
+
+
+.reservation-widget {
+    background-color: #1F1F1F;
+    padding: 2rem;
+    border-radius: 10px;
+}
+.reservation-heading {
+    text-align: center;
+    margin-top: 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.85em;
+}
+.form-control:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+.form-select:focus {
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.reservation-button {
+    font-family: 'Roboto', sans-serif;
+    background-color: #3A3A3D;
+    color: #D0CFD2;
+    border: none;
+    font-size: 0.97em;
+    transition: 0.5s ease-in-out;
+}
+.reservation-button:hover {
+    background-color: #1F1F1F;
+    color: #D0CFD2;
+    border: 1px solid #D0CFD2;
+}
+.reservation-button:focus {
+    background-color: #1F1F1F;
+    color: #D0CFD2;
+    border: 1px solid #D0CFD2;
+    box-shadow: none;
+}

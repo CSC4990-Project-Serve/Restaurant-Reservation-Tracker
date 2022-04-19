@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import {AuthContext} from "../Context/Auth.Context";
+import {useContext} from 'react';
+import {AuthContext} from "../context/Auth.Context";
 import parse from "html-react-parser";
 
 const ReservedTable = () => {

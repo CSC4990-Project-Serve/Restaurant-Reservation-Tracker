@@ -1,12 +1,14 @@
 import React, {useContext} from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
 import {MDBIcon} from "mdb-react-ui-kit";
-import NavigationBar from "../components/Navbar";
+import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import ReservedTable from "../components/ReservedTable";
 import '../css/UserHome.css';
 
 const UserHome = () => {
+
+    //TODO: this is HARDCODED through ReservedTable
 
     return (
         <>
