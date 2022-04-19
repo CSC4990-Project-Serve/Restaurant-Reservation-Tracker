@@ -10,7 +10,7 @@
     "start-client-prod": "cd client && set PORT=80 && serve -s build ",
     "start-api": "cd api && npm start",
     "start-dev": "concurrently --kill-others-on-fail \"npm run start-api\" \"npm run start-client-dev\"",
-    "start-prod-using-serve": "npm run init && npm run build-client && concurrently --kill-others-on-fail \"npm run start-api\"",
+    "start-prod-using-serve": "npm run init && npm run build-client && concurrently --kill-others-on-fail \"npm run start-api\" \"npm run start-client-prod\"",
     "start-prod-nginx": "npm run init && npm run build-client && concurrently --kill-others-on-fail \"npm run start-api\"",
     "start": "npm run start-prod-nginx"
   },
