@@ -7,17 +7,17 @@ import '../css/NavigationBar.css';
 
 const NavigationBar = () => {
     const navigate = useNavigate();
-    const { state } = useContext(AuthContext);
-    const { logout } = useContext(AuthContext);
+    const {state} = useContext(AuthContext);
+    const {logout} = useContext(AuthContext);
 
     const routeLogin = () => {
-        if(!state.loggedin) {
+        if (!state.loggedin) {
             let path = '/login';
             navigate(path);
         } else {
             let path = '/';
             // eslint-disable-next-line no-restricted-globals
-            if(confirm("Logging out?")) {
+            if (confirm("Logging out?")) {
                 logout();
                 navigate(path);
             } else {
@@ -25,29 +25,20 @@ const NavigationBar = () => {
             }
         }
     }
+
     const routeRegister = () => {
         let path = '/register';
-        if(!state.loggedin) {
+        if (!state.loggedin) {
             navigate(path);
         } else {
             alert("Already Logged in, logout to Register")
         }
     }
 
-    //TODO: Delete functions below if not needed
-
-    // function navigateUserHome() {
-    //     navigate("/UserHome");
-    // }
-    //
-    // function navigateHome() {
-    //     navigate("/");
-    // }
-
     return (
         <>
             <Navbar sticky="top" className="navbar-color" expand="lg">
-                <Container className="navbar-container" fluid >
+                <Container className="navbar-container" fluid>
 
                     <Navbar.Brand href="/">
                         <img
@@ -59,29 +50,32 @@ const NavigationBar = () => {
                     </Navbar.Brand>
 
                     <Navbar.Brand className="nav-title">Project Serve</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="navbarScroll" />
+                    <Navbar.Toggle aria-controls="navbarScroll"/>
                     <Navbar.Collapse id="navbarScroll">
                         <Nav
                             className="container-fluid"
                             style={{maxHeight: '100px'}}
                             navbarScroll
                         >
-                            <NavDropdown title="More" id="collapsible-nav-dropdown"  className="ms-auto">
+                            <NavDropdown title="More" id="collapsible-nav-dropdown" className="ms-auto">
                                 <NavDropdown.Item href="/">Home</NavDropdown.Item>
                                 <NavDropdown.Item href="/search">Search</NavDropdown.Item>
 
-                                <NavDropdown.Divider />
+                                <NavDropdown.Divider/>
                                 <NavDropdown.Item href="/admin">Administrator Tools</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Item className="nav-button">
                                 <Button variant="outline-success" onClick={routeLogin}>
-                                    {state.loggedin && <div>Log out</div>}
-                                    {!state.loggedin && <div>Sign in</div>}
+                                    {state.loggedin ? "Sign Out" : "Sign In"}
                                 </Button>
                             </Nav.Item>
-                            <Nav.Item className="nav-button">
-                                <Button variant="primary" onClick={routeRegister}>Sign up</Button>
-                            </Nav.Item>
+                            {
+                                // only show register button if not logged in
+                                !state.loggedin &&
+                                <Nav.Item className="nav-button">
+                                    <Button variant="primary" onClick={routeRegister}>Register</Button>
+                                </Nav.Item>
+                            }
                         </Nav>
                     </Navbar.Collapse>
 
