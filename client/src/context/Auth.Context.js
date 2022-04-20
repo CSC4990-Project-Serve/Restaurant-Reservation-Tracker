@@ -147,7 +147,7 @@ const fetchLogin = (state, username, password, callback) =>
         // } else {
         //     return callback(new Error('Invalid username or password'));
         // }
-    }, 1000);
+    }, 0);
 
 // fake Register User
 const fetchRegister = (state, username, password, callback) =>
@@ -174,7 +174,7 @@ const fetchRegister = (state, username, password, callback) =>
             },
             dataType: "json"
         });
-    }, 1000);
+    }, 0);
 
 function getUserSalt(username, callback) {
     const Info = {
