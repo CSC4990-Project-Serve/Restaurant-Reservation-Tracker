@@ -5,12 +5,24 @@ import {Card, Col, Container, Row} from "react-bootstrap";
 import {MDBIcon} from "mdb-react-ui-kit";
 import '../css/SearchPage.css';
 import dummy_image from '../imgs/dummy-restaurant.jpg';
+import {useRef, useState} from "react";
 
 
 const SearchPage = () => {
 
     const location = useLocation();
-    const {userSearchTerm} = location.state;
+    const [userSearchTerm, setUserSearchTerm] = useState(location.state);
+
+    // used for search bar form
+    const searchForm = useRef(null);
+
+    // update the userSearchTerm state with the value within the search box on button click
+    const updateSearchTerm = (event) => {
+        event.preventDefault();
+        const form = searchForm.current;
+
+        setUserSearchTerm(form['searchInput'].value);
+    }
 
     return (
         <>
@@ -18,10 +30,13 @@ const SearchPage = () => {
 
             <div className="search-container">
                 <div className="search-together">
-                    <input type="search" className="search-bar" placeholder="Location, Restaurant, or Cuisine"/>
-                    <button type="button" className="search-icon">
-                        Search
-                    </button>
+                    <form ref={searchForm}>
+                        <input type="search" className="search-bar" placeholder="Location, Restaurant, or Cuisine"
+                               name={"searchInput"}/>
+                        <button type="submit" className="search-icon" onClick={updateSearchTerm}>
+                            Search
+                        </button>
+                    </form>
                 </div>
             </div>
 
