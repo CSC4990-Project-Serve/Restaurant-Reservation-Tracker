@@ -74,7 +74,7 @@ const HomePage = () => {
                            id={"searchVal"}
                            onChange={handleSearchTermChange}
                     />
-                    <Link to="/search" state={{userSearchTerm: userSearchTerm}}>
+                    <Link to="/search" state={userSearchTerm}>
                         <button type="button" className="search-icon-carousel">
                             <MDBIcon fas icon="search"/>
                         </button>
