@@ -12,7 +12,6 @@ import '../css/AdminPage.css';
 const AdminPage = () => {
     const[category, setCategory] = useState("Restaurants");
 
-
     function getCategory(event) {
         setCategory(event.target.value);
     }
@@ -26,26 +25,20 @@ const AdminPage = () => {
     axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
         const responseOne = responses[0];
         const responseTwo = responses[1];
-
         ReactDOM.render
         (
             <TableData restaurant_data={responseOne} user_data={responseTwo} choice={category} />,
             document.getElementById('table-data')
         );
-
-        // console.log(responseOne.data);
-        // console.log(responseOne, responseTwo);
     })).catch(errors => {
         console.log(errors);
     })
-
 
     return  (
         <>
             <NavigationBar/>
 
             <Container className="admin-page-container">
-
                 <form>
                     <h2>Choose between restaurants and users</h2>
                     <select name="category" onChange={getCategory}>
@@ -54,26 +47,9 @@ const AdminPage = () => {
                     </select>
                 </form>
 
-                {/*{error}<div>{error}</div>*/}
-                {/*{isPending && <div>Loading...</div>}*/}
-
-                <table className="admin-page-table">
-                    <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                    </tr>
-                    </thead>
-                    <tbody id="table-data">
-                        {/*{restaurantToggle*/}
-                        {/*    ?  restaurant_data && <TableData inventory={restaurant_data} />*/}
-                        {/*    :  user_data && <TableData inventory={user_data} />*/}
-                        {/*}*/}
-
-                        {/*{ data && <TableData inventory={data}  />}*/}
-                    </tbody>
-                </table>
-
+                <div id="table-data">
+                    {/* Data goes here */}
+                </div>
             </Container>
 
             <Footer/>

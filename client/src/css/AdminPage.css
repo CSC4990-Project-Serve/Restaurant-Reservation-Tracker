@@ -14,6 +14,10 @@
     font-size: 1.05em;
 }
 
+#table-data {
+    display: flex;
+    justify-content: center;
+}
 .admin-page-table {
     color: #EFEFF1;
     margin-top: 2rem;
@@ -22,9 +26,10 @@
     font-weight: bold;
     font-size: 1.1em;
     border-bottom: 1px solid #EFEFF1;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
 .admin-page-table td {
     padding-left: 1rem;
     padding-right: 1rem;
 }
-
