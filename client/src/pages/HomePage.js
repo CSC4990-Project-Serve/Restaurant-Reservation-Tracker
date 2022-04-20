@@ -6,13 +6,20 @@ import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import HorizontalLine from "../components/HorizontalLine";
 import '../css/HomePage.css';
-// import carousel01 from '../imgs/carousel-overhead.jpg';
+import carousel01 from '../imgs/carousel-overhead.jpg';
 import carousel02 from '../imgs/carousel-outdoor.jpg';
+import {useState} from "react";
 // import carousel03 from '../imgs/carousel-indoor.jpg';
 // import carousel04 from '../imgs/carousel-food.jpg';
 // import carousel05 from '../imgs/carousel-eating.jpg';
 
 const HomePage = () => {
+
+    const [userSearchTerm, setUserSearchTerm] = useState("");
+
+    const handleSearchTermChange = (event) => {
+        setUserSearchTerm(event.target.value);
+    };
 
     return (
         <>
@@ -24,7 +31,7 @@ const HomePage = () => {
                     <Carousel.Item interval={5000}>
                         <img
                             className="carousel-img-home"
-                            src={carousel02}
+                            src={carousel01}
                             alt="Overhead of Restaurant"
                         />
                     </Carousel.Item>
@@ -62,8 +69,12 @@ const HomePage = () => {
                 <div className="carousel-search-section">
                     <div className="carousel-header">Find a meal for every occasion.</div>
                     <input type="search" className="search-bar-carousel"
-                           placeholder="Location, Restaurant, or Cuisine"/>
-                    <Link to="/search">
+                           placeholder="Location, Restaurant, or Cuisine"
+                           name={"searchVal"}
+                           id={"searchVal"}
+                           onChange={handleSearchTermChange}
+                    />
+                    <Link to="/search" state={{userSearchTerm: userSearchTerm}}>
                         <button type="button" className="search-icon-carousel">
                             <MDBIcon fas icon="search"/>
                         </button>
