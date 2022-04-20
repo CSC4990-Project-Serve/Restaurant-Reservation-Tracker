@@ -30,6 +30,8 @@
     padding-right: 1.5rem;
 }
 .admin-page-table td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 0 1rem 1rem 1rem;
+}
+.admin-page-table .td-button {
+    padding-right: 0;
 }

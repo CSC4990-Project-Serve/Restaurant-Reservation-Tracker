@@ -4,7 +4,7 @@ import {Container} from "react-bootstrap";
 import axios from "axios";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
-import TableData from '../components/TableData';
+import AdminTable from '../components/AdminTable';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import '../css/AdminPage.css';
 
@@ -27,7 +27,7 @@ const AdminPage = () => {
         const responseTwo = responses[1];
         ReactDOM.render
         (
-            <TableData restaurant_data={responseOne} user_data={responseTwo} choice={category} />,
+            <AdminTable restaurant_data={responseOne} user_data={responseTwo} choice={category} />,
             document.getElementById('table-data')
         );
     })).catch(errors => {
