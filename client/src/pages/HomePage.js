@@ -6,17 +6,17 @@ import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import HorizontalLine from "../components/HorizontalLine";
 import '../css/HomePage.css';
-import carousel01 from '../imgs/carousel-overhead.jpg';
+// import carousel01 from '../imgs/carousel-overhead.jpg';
 import carousel02 from '../imgs/carousel-outdoor.jpg';
-import carousel03 from '../imgs/carousel-indoor.jpg';
-import carousel04 from '../imgs/carousel-food.jpg';
-import carousel05 from '../imgs/carousel-eating.jpg';
+// import carousel03 from '../imgs/carousel-indoor.jpg';
+// import carousel04 from '../imgs/carousel-food.jpg';
+// import carousel05 from '../imgs/carousel-eating.jpg';
 
 const HomePage = () => {
 
     return (
         <>
-            <NavigationBar />
+            <NavigationBar/>
 
             {/* Container for Carousel Images */}
             <Container>
@@ -61,20 +61,21 @@ const HomePage = () => {
                 {/* Search Button in Carousel */}
                 <div className="carousel-search-section">
                     <div className="carousel-header">Find a meal for every occasion.</div>
-                    <input type="search" className="search-bar-carousel" placeholder="Location, Restaurant, or Cuisine"/>
-                    <Link to="/search" >
+                    <input type="search" className="search-bar-carousel"
+                           placeholder="Location, Restaurant, or Cuisine"/>
+                    <Link to="/search">
                         <button type="button" className="search-icon-carousel">
-                            <MDBIcon fas icon="search" />
+                            <MDBIcon fas icon="search"/>
                         </button>
                     </Link>
                 </div>
             </Container>
 
-            <HorizontalLine />
+            <HorizontalLine/>
 
             {/* Container for Cards */}
-            {Array.from({ length: 2 }).map((_) => (
-                <HomeSuggestions />
+            {Array.from({length: 2}).map((_, index) => (
+                <HomeSuggestions key={index}/>
             ))}
 
             <Footer/>
