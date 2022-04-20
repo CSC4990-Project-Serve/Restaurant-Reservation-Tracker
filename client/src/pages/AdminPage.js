@@ -1,4 +1,6 @@
 import {useState} from "react";
+import axios from "axios";
+
 import ReactDOM from 'react-dom'
 import useFetch from "../useFetch";
 import {Container} from "react-bootstrap";
@@ -10,7 +12,7 @@ import '../css/AdminPage.css';
 
 
 const AdminPage = () => {
-    // const {data, isPending, error} = useFetch('http://localhost:5000/api/restaurant/')
+    const {data, isPending, error} = useFetch('http://localhost:5000/api/restaurant/')
 
     //Not working when i use a name other than data
     // const {user_data} = useFetch('http://localhost:5000/api/users/')
@@ -20,19 +22,35 @@ const AdminPage = () => {
         setRestaurantToggle(!restaurantToggle);
     }
 
-    Promise.all([
-        useFetch('http://localhost:5000/api/restaurant/'),
-        useFetch('http://localhost:5000/api/users/')
-    ]).then(([restaurant_data, user_data]) => {
-        ReactDOM.render(
-            <TableData restaurant_data={restaurant_data} user_data={user_data} />,
-            document.getElementById('table-data')
-        );
-        console.log("RESTAURANT" + restaurant_data)
-        console.log("USER" + user_data)
-    }).catch((err) => {
-        console.log(err);
-    });
+    let restaurant_route = "http://localhost:5000/api/restaurant/";
+    let user_route = "http://localhost:5000/api/restaurant/";
+
+    const requestOne = axios.get(restaurant_route);
+    const requestTwo = axios.get(user_route);
+
+    axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
+        const responseOne = responses[0];
+        const responseTwo = responses[1];
+        console.log(responseOne, responseTwo);
+    })).catch(errors => {
+        console.log(errors);
+    })
+
+    // Promise.all([
+    //     useFetch('http://localhost:5000/api/restaurant/'),
+    //     useFetch('http://localhost:5000/api/users/')
+    // ]).then(([restaurant_data, user_data]) => {
+    //     ReactDOM.render(
+    //         <TableData restaurant_data={restaurant_data} user_data={user_data} />,
+    //         document.getElementById('table-data')
+    //     );
+    //     console.log("RESTAURANT" + restaurant_data)
+    //     console.log("USER" + user_data)
+    // }).catch((err) => {
+    //     console.log(err);
+    // });
+
+
 
     return  (
         <>
@@ -65,8 +83,7 @@ const AdminPage = () => {
                         {/*    :  user_data && <TableData inventory={user_data} />*/}
                         {/*}*/}
 
-
-                        {/*{ data && <TableData inventory={data}  />}*/}
+                        { data && <TableData inventory={data}  />}
                     </tbody>
                 </table>
 

@@ -21,7 +21,7 @@ const useFetch = (url) => {
                 alert( `Fetch Error: ${err.message }`)
                 setError( err.message )
             })
-    }, [] );  //run when url changes
+    }, [url] );  //run when url changes
     return { data, isPending, error }  //return 3 objects
 }
 

@@ -1,8 +1,10 @@
 
 const TableData = (props) => {
-    const {restaurant_data, user_data} = props;
+    const {inventory} = props;
+    // const {restaurant_data, user_data} = props;
 
-    const DisplayChoice = restaurant_data.map(item => {
+
+    const DisplayRestaurant = inventory.map(item => {
 
         return (
             <tr key={item.id}>
@@ -16,7 +18,7 @@ const TableData = (props) => {
 
     return (
         <>
-            {DisplayChoice}
+            {DisplayRestaurant}
         </>
     )
 
