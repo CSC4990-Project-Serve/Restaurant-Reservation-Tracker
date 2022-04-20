@@ -1,9 +1,7 @@
 import {useState} from "react";
-import axios from "axios";
-
 import ReactDOM from 'react-dom'
-import useFetch from "../useFetch";
 import {Container} from "react-bootstrap";
+import axios from "axios";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import TableData from '../components/TableData';
@@ -12,18 +10,15 @@ import '../css/AdminPage.css';
 
 
 const AdminPage = () => {
-    const {data, isPending, error} = useFetch('http://localhost:5000/api/restaurant/')
+    const[category, setCategory] = useState("Restaurants");
 
-    //Not working when i use a name other than data
-    // const {user_data} = useFetch('http://localhost:5000/api/users/')
-    const[restaurantToggle, setRestaurantToggle] = useState(true)
 
-    function toggleRestaurant() {
-        setRestaurantToggle(!restaurantToggle);
+    function getCategory(event) {
+        setCategory(event.target.value);
     }
 
     let restaurant_route = "http://localhost:5000/api/restaurant/";
-    let user_route = "http://localhost:5000/api/restaurant/";
+    let user_route = "http://localhost:5000/api/users/";
 
     const requestOne = axios.get(restaurant_route);
     const requestTwo = axios.get(user_route);
@@ -31,25 +26,18 @@ const AdminPage = () => {
     axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
         const responseOne = responses[0];
         const responseTwo = responses[1];
-        console.log(responseOne, responseTwo);
+
+        ReactDOM.render
+        (
+            <TableData restaurant_data={responseOne} user_data={responseTwo} choice={category} />,
+            document.getElementById('table-data')
+        );
+
+        // console.log(responseOne.data);
+        // console.log(responseOne, responseTwo);
     })).catch(errors => {
         console.log(errors);
     })
-
-    // Promise.all([
-    //     useFetch('http://localhost:5000/api/restaurant/'),
-    //     useFetch('http://localhost:5000/api/users/')
-    // ]).then(([restaurant_data, user_data]) => {
-    //     ReactDOM.render(
-    //         <TableData restaurant_data={restaurant_data} user_data={user_data} />,
-    //         document.getElementById('table-data')
-    //     );
-    //     console.log("RESTAURANT" + restaurant_data)
-    //     console.log("USER" + user_data)
-    // }).catch((err) => {
-    //     console.log(err);
-    // });
-
 
 
     return  (
@@ -60,7 +48,7 @@ const AdminPage = () => {
 
                 <form>
                     <h2>Choose between restaurants and users</h2>
-                    <select name="category" onChange={toggleRestaurant}>
+                    <select name="category" onChange={getCategory}>
                         <option value="Restaurants">Restaurants</option>
                         <option value="Users">Users</option>
                     </select>
@@ -74,7 +62,6 @@ const AdminPage = () => {
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Description</th>
                     </tr>
                     </thead>
                     <tbody id="table-data">
@@ -83,7 +70,7 @@ const AdminPage = () => {
                         {/*    :  user_data && <TableData inventory={user_data} />*/}
                         {/*}*/}
 
-                        { data && <TableData inventory={data}  />}
+                        {/*{ data && <TableData inventory={data}  />}*/}
                     </tbody>
                 </table>
 
