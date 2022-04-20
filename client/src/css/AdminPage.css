@@ -13,3 +13,18 @@
     font-family: 'Open Sans', sans-serif;
     font-size: 1.05em;
 }
+
+.admin-page-table {
+    color: #EFEFF1;
+    margin-top: 2rem;
+}
+.admin-page-table th {
+    font-weight: bold;
+    font-size: 1.1em;
+    border-bottom: 1px solid #EFEFF1;
+}
+.admin-page-table td {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
