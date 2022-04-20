@@ -5,9 +5,14 @@
   "main": "",
   "scripts": {
     "init": "npm install && cd api && npm install && cd ../client && npm install",
-    "start-client": "cd client && npm start",
+    "build-client": "cd client && npm run build",
+    "start-client-dev": "cd client && npm start",
+    "start-client-prod": "cd client && set PORT=80 && serve -s build ",
     "start-api": "cd api && npm start",
-    "start": "concurrently --kill-others-on-fail \"npm run start-api\" \"npm run start-client\""
+    "start-dev": "concurrently --kill-others-on-fail \"npm run start-api\" \"npm run start-client-dev\"",
+    "start-prod-using-serve": "npm run init && npm run build-client && concurrently --kill-others-on-fail \"npm run start-api\" \"npm run start-client-prod\"",
+    "start-prod-nginx": "npm run init && npm run build-client && concurrently --kill-others-on-fail \"npm run start-api\"",
+    "start": "npm run start-prod-nginx"
   },
   "repository": {
     "type": "git",
@@ -21,7 +26,7 @@
   "homepage": "https://github.com/CSC4990-Project-Serve/Restaurant-Reservation-Tracker#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "bootstrap": "^5.1.3",
-    "concurrently": "^7.0.0"
+    "concurrently": "^7.0.0",
+    "serve": "^13.0.2"
   }
 }

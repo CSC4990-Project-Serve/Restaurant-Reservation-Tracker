@@ -29,6 +29,7 @@ const ReservedTable = () => {
             doc += "<td>" + reservationInfo[i].day + "</td>";
             doc += "<td>" + reservationInfo[i].time + "</td>";
             doc += "<td>" + reservationInfo[i].seats + "</td>";
+            doc += "<td><button type='submit' class='btn btn-primary' id=" + reservationInfo[i].reservationID.valueOf() + ">delete</button></td>"
             doc += "</tr>";
         }
         return doc;

@@ -118,7 +118,7 @@ exports.validate_user_login = (req, res) => {
     // access User model to check db if username password combo exists
     // iff success, send bool true?
     // res.status(201).send("Not yet implemented");
-    const {username, email_address, password} = req.body.userInfo;
+    const {username, email_address, password} = req.body;
 
     if (!(username || email_address) || !password) {
         res.status(400).send({error: true, status: "Username and password required"})
@@ -133,6 +133,22 @@ exports.validate_user_login = (req, res) => {
                 } else {
                     res.send(results)
                 }
+            }
+        })
+    }
+}
+
+exports.get_user_salt_by_email_or_username = function (req, res) {
+    const {username, email_address} = req.body.Info;
+
+    if (!(username || email_address)) {
+        res.status(404).send({error: true, status: "No salt found for user"});
+    } else {
+        User.get_user_salt(username, email_address, (err, result) => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(result);
             }
         })
     }

@@ -19,18 +19,31 @@ User.get_all_users_from_db = (results) => {
     let get_all_users_query = `SELECT users.id, username, email_address, first_name, last_name, phone_number
                                FROM users
                                         INNER JOIN user_roles ON users.user_role = user_roles.id`;
-    conn.query(get_all_users_query, (err, res) => {
+
+    // Updated to use explicit pool connection
+    // (But not needed for everything. conn.query still works with the pool. It does the same thing and automatically calls conn.release() )
+    conn.getConnection((err, connection) => {
         if (err) {
             results(err, null);
         } else {
-            results(null, res);
+            conn.query(get_all_users_query, (err, res) => {
+                if (err) {
+                    results(err, null);
+                } else {
+                    results(null, res);
+                }
+            });
+
+            connection.release();
         }
-    });
+    })
+
 };
 
 User.crate_a_new_user = (newUserToInsert, result) => {
     let create_new_user_query = `INSERT INTO users
                                  SET ?`;
+
     conn.query(create_new_user_query, newUserToInsert, (err, res) => {
         if (err) {
             result(err, null);
@@ -141,20 +154,52 @@ User.delete_user_by_id = (userID, results) => {
 }
 
 User.validate_login = (username, email, password, results) => {
+    const bcrypt = require('bcrypt');
+
     let sql_query = `SELECT users.id, username, email_address, first_name, last_name, phone_number
                      FROM users
                               INNER JOIN user_roles ON users.user_role = user_roles.id
                      WHERE (users.username = ? OR users.email_address = ?)
                        AND users.hashed_password = ?`;
 
-    conn.query(sql_query, [username, email, password], (err, res) => {
+    let get_salt = `SELECT password_salt
+                    FROM users
+                    WHERE (users.username = ? OR users.email_address = ?)`;
+
+    conn.query(get_salt, [username, email], (err, saltRes) => {
+        if (err) {
+            console.log(err)
+            results(err, null)
+        } else {
+            let user_salt = saltRes[0].password_salt;
+            let hash_val = bcrypt.hashSync(password, user_salt);
+
+            conn.query(sql_query, [username, email, hash_val], (err, loginRes) => {
+                if (err) {
+                    console.log(err);
+                    results(err, null);
+                } else if (loginRes.length > 0) {
+                    results(null, loginRes)
+                } else {
+                    results(null, false)
+                }
+            })
+        }
+    })
+}
+
+User.get_user_salt = (username, email_address, results) => {
+    let get_salt = `SELECT password_salt
+                    FROM users
+                    WHERE (users.username = ? OR users.email_address = ?)`;
+
+    conn.query(get_salt, [username, email_address], (err, res) => {
         if (err) {
             console.log(err);
-            results(err, null);
-        } else if (res.length > 0) {
-            results(null, res)
+            results(err, null)
         } else {
-            results(null, false)
+            console.log(results);
+            results(null, res[0])
         }
     })
 }

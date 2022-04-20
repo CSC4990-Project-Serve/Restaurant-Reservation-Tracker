@@ -1,6 +1,7 @@
 import React from 'react';
 import {useSetState} from 'react-use';
 import $ from "jquery";
+
 const fetch = require("node-fetch");
 const bcrypt = require('bcryptjs');
 const axios = require("axios");
@@ -8,7 +9,7 @@ const axios = require("axios");
 var salt = bcrypt.genSaltSync(10);
 
 const initialState = {
-    userid:null,
+    userid: null,
     loggedin: false,
     isPending: false,
     username: "",
@@ -18,8 +19,8 @@ const initialState = {
     lName: "",
     isadmin: false,
     loginError: null,
-    salt : salt,
-    phone_number : ""
+    salt: salt,
+    phone_number: ""
 }
 
 export const AuthContext = React.createContext(null);
@@ -58,12 +59,23 @@ export const ContextProvider = props => {
         });
     }
     const login = (username, password) => {
-        var hash = bcrypt.hashSync(password);
+
+        // bcrypt.compare('password', 'hash_from_db', (err, res) => {
+        //
+        // })
+
+        // axios.post("http://localhost:5000/api/login", {username, password}, {
+        //     method: "POST"
+        // })
+        //     .then(response => console.log(response))
+        //     .then(data => console.log(data))
+        //     .catch(err => console.log(err));
+
         setLoginPending(true);
         setLoginSuccess(false);
         setLoginError(null);
 
-        fetchLogin(state, username, hash, (response) => {
+        fetchLogin(state, username, password, (response) => {
             setLoginPending(false);
             console.log(response);
             if (response.data !== false) {
@@ -73,15 +85,16 @@ export const ContextProvider = props => {
                 state.fName = response.data[0].first_name;
                 state.lName = response.data[0].last_name;
                 state.phone_number = response.data[0].phone_number;
-                state.password = "$2a$10$8V1T0ItVevmJUS.u3qv3t.ExfM9vXdZp4ErwVta9q3q0bShg/EoLm";
+                // state.password = "$2a$10$8V1T0ItVevmJUS.u3qv3t.ExfM9vXdZp4ErwVta9q3q0bShg/EoLm";
+                state.password = null;
                 // alert("username: " + state.username + "\nemail: " + state.emailAddress + "\nfname: " + state.firstName +
                 //     "\nlname: " + state.lastName + "\nphoneNumber: " + state.phone_number + "\npassword: " + state.password);
                 setLoginSuccess(true);
                 console.log('correct login')
                 //console.log(state);
-            } else if(state.userid === null){
+            } else if (state.userid === null) {
                 setLoginError(response.data);
-            }else {
+            } else {
                 setLoginError(response.data);
             }
         });
@@ -115,11 +128,11 @@ const fetchLogin = (state, username, password, callback) =>
             //first_name: "",
             //last_name: "",
             //phone_number: "",
-            password : "$2a$10$8V1T0ItVevmJUS.u3qv3t.ExfM9vXdZp4ErwVta9q3q0bShg/EoLm",
+            password: password,
             //password_salt: state.salt
         }
         console.log(JSON.stringify(userInfo))
-        axios.post("http://localhost:5000/api/login", {userInfo},{
+        axios.post("http://localhost:5000/api/login", {...userInfo}, {
             headers: {
                 "access-control-allow-origin": "*",
             }
@@ -150,15 +163,29 @@ const fetchRegister = (state, username, password, callback) =>
         }
         // ToDo: currently hardcoded, have it actually check database using user model
         $.ajax({
-            type:"POST",
-            url:"http://localhost:5000/api/users",
-            data : userInfo,
-            success : function(){
+            type: "POST",
+            url: "http://localhost:5000/api/users",
+            data: userInfo,
+            success: function () {
                 return callback(null);
             },
-            error : function(){
+            error: function () {
                 return callback(new Error('Error, invalid or account already Exists'));
             },
-            dataType:"json"
+            dataType: "json"
         });
     }, 1000);
+
+function getUserSalt(username, callback) {
+    const Info = {
+        username: username,
+        email_address: username
+    }
+    axios.post("http://localhost:5000/api/login/salt", {Info}, {
+        headers: {
+            "access-control-allow-origin": "*",
+        }
+    }).then(response => callback(response))
+        .then(response => console.log(response.data[0]))
+        .catch(err => console.warn(err));
+}
