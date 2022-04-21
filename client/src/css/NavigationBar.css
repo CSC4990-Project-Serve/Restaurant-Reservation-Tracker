@@ -41,4 +41,9 @@
         margin-top: 0.5rem;
         text-align: right;
     }
+
+    .navbar-nav {
+        flex-direction: row-reverse;
+    }
+
 }
