@@ -1,4 +1,4 @@
-import React, {useEffect, useContext, useState, Fragment} from "react";
+import React, {useContext} from "react";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {AuthContext} from "./context/Auth.Context";
 
@@ -14,42 +14,22 @@ import UserHome from "./pages/UserHome";
 
 function App() {
 
-    const [user, setUser] = useState()
-    const { state } = useContext(AuthContext);
+    //todo: add proper context here? Make sure it is always passed to every page?
+    const {state} = useContext(AuthContext);
 
-    useEffect(() => {
-        const getUsers = async () => {
-            const usersFromServer = await getUsersFromAPI();
-            setUser(usersFromServer)
-        }
-
-        getUsers();
-    }, [])
-
-
-    // Get all users from server
-    const getUsersFromAPI = async () => {
-        const res = await fetch('http://localhost:5000/api/users');
-        const data = await res.json();
-
-        return data;
-    }
 
     return (
         <>
             <BrowserRouter>
-                {/*TODO: Why do we use Fragment*/}
-                <Fragment>
-                    <Routes>
-                        <Route path="/register" element={<Register />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/" element={<HomePage />} />
-                        <Route path="/search" element={<SearchPage />} />
-                        <Route path="/search/:id" element={<RestaurantPage />} />
-                        <Route path="/admin" element={<AdminPage />} />
-                        <Route path={"/UserHome"} element={<UserHome/>}/>
-                    </Routes>
-                </Fragment>
+                <Routes>
+                    <Route path="/register" element={<Register/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/" element={<HomePage/>}/>
+                    <Route path="/search" element={<SearchPage/>}/>
+                    <Route path="/search/:id" element={<RestaurantPage/>}/>
+                    <Route path="/admin" element={<AdminPage/>}/>
+                    <Route path={"/UserHome"} element={<UserHome/>}/>
+                </Routes>
             </BrowserRouter>
         </>
     );

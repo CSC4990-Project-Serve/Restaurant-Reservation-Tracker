@@ -113,6 +113,7 @@ const Register = (props) => {
                                                placeholder="Enter a password"
                                                onChange={onFieldChange}/>
 
+                                        <br/>
                                         <button className="btn btn-primary btn-lg btn-block" type="submit">Register</button>
                                         { isPending && <div className={'text-dark'}>Please wait...</div> }
                                         { loggedin && <div className={'text-dark'} onLoad={redirect()}>Success.</div> }

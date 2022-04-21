@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react';
-import { useSetState } from 'react-use';
+import {useSetState} from 'react-use';
 import {useNavigate} from 'react-router-dom';
 import {AuthContext} from '../context/Auth.Context';
 import Footer from "../components/Footer";
@@ -12,7 +12,7 @@ const Login = (props) => {
         username: '',
         password: ''
     }
-    const { state: ContextState, login } = useContext(AuthContext);
+    const {state: ContextState, login} = useContext(AuthContext);
     const {
         loggedin,
         isPending,
@@ -25,21 +25,21 @@ const Login = (props) => {
     let navigate = useNavigate();
 
     // todo: this method is now obsolete, but could be changed to a log-out function that simply
-    // todo: changes the boolean of being logged in to false and wipes any stored user info.
+    //  changes the boolean of being logged in to false and wipes any stored user info.
     // check if user is already logged in and if so, redirect home
     // useEffect(() => {
     //     if(props.isLoggedIn) {
-    //         //todo: redirect home and don't allow user to login
+    //         // redirect home and don't allow user to login
     //     }
     // }, [])
 
     // Form validation (On Submission)
     const onSubmit = (event) => {
         event.preventDefault();
-        const { username, password } = state;
+        const {username, password} = state;
         console.log(username);
         console.log(password);
-        login(username,password);
+        login(username, password);
         setState({
             username: '',
             password: ''
@@ -61,7 +61,7 @@ const Login = (props) => {
 
     return (
         <>
-            <NavigationBar />
+            <NavigationBar/>
 
             <form onSubmit={onSubmit}>
                 <section className="vh-100 background-area">
@@ -71,26 +71,33 @@ const Login = (props) => {
                                 <div className="card shadow-2-strong card-area">
                                     <div className="card-body p-5 text-center">
 
-                                        <h3 className="mb-5 text-primary">Sign in</h3>
+                                        <h3 className="mb-5 text-primary">Sign In</h3>
 
-                                        <label htmlFor="username" className="form-label text-dark">Username/Email</label>
-                                                     <input type="text" id={"username"} name={"username"}
-                                                            className={state.username === "" ? "form-control is-invalid" : "form-control"}
-                                                            value={state.username}
-                                                            placeholder="Enter your username or email address"
-                                                            onChange={onFieldChange}/>
+                                        <div className={"form-group"}>
+                                            <label htmlFor="username"
+                                                   className="form-label text-dark">Username or Email Address</label>
+                                            <input type="text" id={"username"} name={"username"}
+                                                   className={state.username === "" ? "form-control is-invalid" : "form-control"}
+                                                   value={state.username}
+                                                   placeholder="Enter your username or email address"
+                                                   onChange={onFieldChange}/>
+                                        </div>
 
-                                                     <label htmlFor="password" className={"form-label text-dark"}>Password</label>
-                                                     <input type="password" id="password" name={"password"}
-                                                            className={state.password === "" ? "form-control is-invalid" : "form-control"}
-                                                            value={state.password}
-                                                            placeholder="Enter your password"
-                                                            onChange={onFieldChange}/>
 
-                                        <button className="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-                                        { isPending && <div>Please wait...</div> }
-                                        { loggedin && <div onLoad={redirect()}>Success.</div> }
-                                        { loginError && <div>{loginError.message}</div> }
+                                        <br/>
+                                        <label htmlFor="password" className={"form-label text-dark"}>Password</label>
+                                        <input type="password" id="password" name={"password"}
+                                               className={state.password === "" ? "form-control is-invalid" : "form-control"}
+                                               value={state.password}
+                                               placeholder="Enter your password"
+                                               onChange={onFieldChange}/>
+
+                                        <br/>
+                                        <button className="btn btn-primary btn-lg btn-block" type="submit">Login
+                                        </button>
+                                        {isPending && <div>Please wait...</div>}
+                                        {loggedin && <div onLoad={redirect}>Success.</div>}
+                                        {loginError && <div>{loginError.message}</div>}
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +108,7 @@ const Login = (props) => {
 
             <Footer/>
         </>
-            );
+    );
 };
 
 export default Login;
