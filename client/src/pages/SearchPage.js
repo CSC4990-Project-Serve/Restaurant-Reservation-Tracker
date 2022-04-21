@@ -1,7 +1,7 @@
 import {Link, useLocation} from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
-import {Button, Card, Col, Container, Row} from "react-bootstrap";
+import {Card, Col, Container, Row} from "react-bootstrap";
 import {MDBIcon} from "mdb-react-ui-kit";
 import '../css/SearchPage.css';
 import dummy_image from '../imgs/dummy-restaurant.jpg';
