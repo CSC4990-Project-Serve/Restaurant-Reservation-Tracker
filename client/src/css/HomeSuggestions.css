@@ -12,7 +12,6 @@ h2 {
     border: none;
     margin-right: 2.5rem;
     transition: 0.5s ease-in-out;
-    overflow: hidden;
 }
 .restaurant-cards:hover {
     transform: scale(1.05);
@@ -22,7 +21,6 @@ h2 {
 }
 .restaurant-cards-img {
     opacity: 0.9;
-    max-height: 180px;
 }
 .card-body-home {
     background-color:#1F1F1F;
@@ -32,14 +30,19 @@ h2 {
 .card-title-home {
     font-size: 1.1em;
     font-weight: 600;
+    overflow: hidden;
+
 }
 .card-subtitle-home {
     font-size: 1em;
     margin-top: -0.5rem;
+
 }
 .card-text-home {
     font-size: 0.9em;
     margin: 0.5rem 0 0.5rem 0;
+    height: 100px;
+    overflow: hidden;
 }
 .cards-button {
     font-family: 'Roboto', sans-serif;
@@ -59,4 +62,24 @@ h2 {
     color: #D0CFD2;
     border: 1px solid #D0CFD2;
     box-shadow: none;
+}
+@media only screen and (max-width: 1000px) {
+    .suggestions-container {
+        position: relative;
+    }
+    .suggestions-container h2 {
+        text-align: center;
+    }
+    .suggestions-container .suggestion-groups {
+        flex-direction: column;
+        max-width: 75%;
+        margin: 0 auto;
+    }
+
+    .restaurant-cards {
+        margin: 1rem 0 1rem 0;
+    }
+    .restaurant-cards:last-child {
+        margin-right: 0;
+    }
 }

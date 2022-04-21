@@ -93,13 +93,13 @@ const HomeSuggestions = () => {
     return (
         <>
             {/* Container for Cards */}
-            <Container>
+            <Container className="suggestions-container">
                 <h2>Featured Restaurants</h2>
-                <CardGroup>
+                <CardGroup className="suggestion-groups">
                     {FeaturedCards}
                 </CardGroup>
                 <h2>Recommended Restaurants</h2>
-                <CardGroup>
+                <CardGroup className="suggestion-groups">
                     {RecommendedCards}
                 </CardGroup>
             </Container>
