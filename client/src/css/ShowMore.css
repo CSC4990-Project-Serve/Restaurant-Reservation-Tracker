@@ -5,8 +5,8 @@
     text-align: center;
     font-size: 0.85em;
     font-family: 'Open Sans', sans-serif;
+    margin-top: 1rem;
 }
-
 .show-more:last-of-type {
     margin-bottom: 4rem;
 }
@@ -17,7 +17,7 @@
     height: 1px;
     position: relative;
     vertical-align: middle;
-    width: 34.5%;
+    width: 50%;
 }
 .show-more:before {
     right: 0.5rem;
@@ -27,7 +27,6 @@
     left: 0.5rem;
     margin-right: -50%;
 }
-
 
 button {
     background-color: transparent;
@@ -48,7 +47,6 @@ button span {
 button:hover {
     background-color: #3A3A3D;
 }
-
 button:focus {
     background-color: #3A3A3D;
     box-shadow: none;

@@ -84,6 +84,7 @@ const HomeSuggestions = () => {
                             <Button className="cards-button">Reserve Now</Button>
                         </Card.Body>
                     </Card>
+
                 )
             }
         }
@@ -98,13 +99,15 @@ const HomeSuggestions = () => {
                 <CardGroup className="suggestion-groups">
                     {FeaturedCards}
                 </CardGroup>
+                <ShowMore/>
+
                 <h2>Recommended Restaurants</h2>
                 <CardGroup className="suggestion-groups">
                     {RecommendedCards}
                 </CardGroup>
-            </Container>
+                <ShowMore/>
 
-            <ShowMore/>
+            </Container>
         </>
     )
 };
