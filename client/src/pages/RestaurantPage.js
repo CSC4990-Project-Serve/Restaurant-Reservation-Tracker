@@ -76,8 +76,8 @@ const RestaurantPage = () => {
         );
     }
     //TODO: rendering data before its fetched?
-    console.log(restaurant_data);
-    console.log(restaurant_data.location.address1);
+    // console.log(restaurant_data);
+    // console.log(restaurant_data.location.address1);
     const RightColumn = () => {
         return (
             <Col className="right-col-restaurant-details">
