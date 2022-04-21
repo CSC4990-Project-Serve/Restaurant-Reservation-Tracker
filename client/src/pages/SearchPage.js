@@ -13,6 +13,7 @@ const SearchPage = () => {
 
     const location = useLocation();
     const [userSearchTerm, setUserSearchTerm] = useState(location.state);
+    const[restaurant_data, setRestaurantData] = useState([]);
 
     // used for search bar form
     const searchForm = useRef(null);
@@ -25,8 +26,6 @@ const SearchPage = () => {
         setUserSearchTerm(form['searchInput'].value);
     }
 
-    const[restaurant_data, setRestaurantData] = useState([]);
-
     let restaurant_route = "http://localhost:5000/api/restaurant/";
 
     useEffect(() => {
@@ -35,34 +34,34 @@ const SearchPage = () => {
     }, []);
 
     const SearchCards = restaurant_data.map(row => {
-
         return (
-            <Card type="button" className="card-container" key={row.id}>
-                <Row>
-                    <Col md={4}>
-                        <Card.Img variant="top" src={dummy_image}/>
-                    </Col>
-                    <Col md={8}>
-                        <Card.Body className="card-body-search">
-                            <Card.Title className="card-title-search">{row.restaurant_name}</Card.Title>
-                            <Card.Subtitle className="card-subtitle-search">{row.location.city}, {row.location.state}</Card.Subtitle>
-                            <Card.Text className="card-text-icons">
-                                <MDBIcon fas icon="star"/>
-                                <MDBIcon fas icon="star"/>
-                                <MDBIcon fas icon="star"/>
-                                <MDBIcon fas icon="star"/>
-                                <MDBIcon far icon="star"/>
-                            </Card.Text>
-                            <Card.Text className="card-text-search">
-                                {row.restaurant_description}
-                            </Card.Text>
-                        </Card.Body>
-                    </Col>
-                </Row>
-            </Card>
+            <Link to={`/search/${row.id}`} style={{textDecoration: 'none'}} key={row.id}>
+                <Card type="button" className="card-container" key={row.id}>
+                    <Row>
+                        <Col md={4}>
+                            <Card.Img variant="top" src={dummy_image}/>
+                        </Col>
+                        <Col md={8}>
+                            <Card.Body className="card-body-search">
+                                <Card.Title className="card-title-search">{row.restaurant_name}</Card.Title>
+                                <Card.Subtitle className="card-subtitle-search">{row.location.city}, {row.location.state}</Card.Subtitle>
+                                <Card.Text className="card-text-icons">
+                                    <MDBIcon fas icon="star"/>
+                                    <MDBIcon fas icon="star"/>
+                                    <MDBIcon fas icon="star"/>
+                                    <MDBIcon fas icon="star"/>
+                                    <MDBIcon far icon="star"/>
+                                </Card.Text>
+                                <Card.Text className="card-text-search">
+                                    {row.restaurant_description}
+                                </Card.Text>
+                            </Card.Body>
+                        </Col>
+                    </Row>
+                </Card>
+            </Link>
         )
     });
-
 
     return (
         <>
@@ -85,11 +84,9 @@ const SearchPage = () => {
             </Container>
 
             <Container>
-                {/*TODO: Fix routing for all rendering... needs to match actual back-end*/}
+
                 {SearchCards}
 
-                    {/*<Link to="/search/1" style={{textDecoration: 'none'}} key={index}>*/}
-                    {/*</Link>*/}
             </Container>
             <Footer/>
         </>
