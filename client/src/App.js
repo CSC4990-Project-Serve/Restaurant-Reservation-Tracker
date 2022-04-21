@@ -1,8 +1,6 @@
 import {useContext} from "react";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {AuthContext} from "./context/Auth.Context";
-
-
 import HomePage from './pages/HomePage'
 import SearchPage from "./pages/SearchPage";
 import RestaurantPage from "./pages/RestaurantPage";
