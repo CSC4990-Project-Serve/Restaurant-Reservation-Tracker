@@ -31,13 +31,13 @@ body {
     margin-top: -6.5rem;
 }
 .carousel-header {
-    position: absolute;
+    position: relative;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
     font-size: 3rem;
-    margin-top: -4.5rem;
+    margin-top: -14.5rem;
     font-family: 'Paytone One', sans-serif;
     text-shadow:
             -1px -1px 0 #141414,
