@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import axios from "axios";
-import {Button,Carousel, Col, Container, Form, Row} from "react-bootstrap";
-import {MDBIcon} from "mdb-react-ui-kit";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
+import {Button,Carousel, Col, Container, Form, Row} from "react-bootstrap";
+import {MDBIcon} from "mdb-react-ui-kit";
 import '../css/RestaurantPage.css';
 import carousel_img from '../imgs/carousel-overhead.jpg';
 

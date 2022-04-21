@@ -1,11 +1,10 @@
 import {useState} from "react";
 import ReactDOM from 'react-dom'
-import {Container} from "react-bootstrap";
 import axios from "axios";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import AdminTable from '../components/AdminTable';
-import "@fortawesome/fontawesome-free/css/all.min.css";
+import {Container} from "react-bootstrap";
 import '../css/AdminPage.css';
 
 

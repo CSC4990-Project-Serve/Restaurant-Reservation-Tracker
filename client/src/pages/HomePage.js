@@ -1,14 +1,14 @@
+import {useState} from "react";
 import {Link} from "react-router-dom";
-import {Carousel, Container} from "react-bootstrap";
-import {MDBIcon} from "mdb-react-ui-kit";
 import HomeSuggestions from "../components/HomeSuggestions";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import HorizontalLine from "../components/HorizontalLine";
+import {Carousel, Container} from "react-bootstrap";
+import {MDBIcon} from "mdb-react-ui-kit";
 import '../css/HomePage.css';
 import carousel01 from '../imgs/carousel-overhead.jpg';
 import carousel02 from '../imgs/carousel-outdoor.jpg';
-import {useState} from "react";
 // import carousel03 from '../imgs/carousel-indoor.jpg';
 // import carousel04 from '../imgs/carousel-food.jpg';
 // import carousel05 from '../imgs/carousel-eating.jpg';

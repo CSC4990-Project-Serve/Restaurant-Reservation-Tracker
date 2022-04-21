@@ -1,7 +1,3 @@
-import {Link} from "react-router-dom";
-import {useEffect, useState} from "react";
-import axios from "axios";
-
 const AdminTable = (props) => {
     const {choice, restaurant_data, user_data} = props;
 

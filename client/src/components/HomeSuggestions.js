@@ -1,11 +1,10 @@
-import {Button, Card, CardGroup, Container} from "react-bootstrap";
+import {useEffect, useState} from "react";
+import axios from "axios";
 import ShowMore from "./ShowMore";
+import {Button, Card, CardGroup, Container} from "react-bootstrap";
 import '../css/HomeSuggestions.css';
 import dummy_image from '../imgs/dummy-restaurant.jpg';
-import axios from "axios";
-import ReactDOM from "react-dom";
-import AdminTable from "./AdminTable";
-import {useEffect, useState} from "react";
+
 
 //TODO: get ID of individual card and have button navigate to individual restaurant page from click of button
 
