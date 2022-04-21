@@ -14,6 +14,7 @@ const RestaurantPage = () => {
 
     let restaurant_route = "http://localhost:5000/api/restaurant/" + id;
 
+    //TODO: might be this (breaking middle column) maybe middle column is rendering before the fetch grabs data
     useEffect(() => {
         axios.get(restaurant_route)
             .then(response => setRestaurantData(response.data));
@@ -74,6 +75,9 @@ const RestaurantPage = () => {
             </Col>
         );
     }
+    //TODO: rendering data before its fetched?
+    console.log(restaurant_data);
+    console.log(restaurant_data.location.address1);
     const RightColumn = () => {
         return (
             <Col className="right-col-restaurant-details">
