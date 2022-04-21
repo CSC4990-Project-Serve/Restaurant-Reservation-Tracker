@@ -57,7 +57,7 @@ const SearchPage = (props) => {
         <>
             <NavigationBar/>
 
-            <Container className="search-container">
+            <div className="search-container">
                 <div className="search-together">
                     <form ref={searchForm}>
                         <input type="search" className="search-bar" placeholder="Location, Restaurant, or Cuisine"
@@ -67,7 +67,7 @@ const SearchPage = (props) => {
                         </button>
                     </form>
                 </div>
-            </Container>
+            </div>
 
             <Container>
                 <h2><strong>Results For:</strong> {userSearchTerm}</h2>
