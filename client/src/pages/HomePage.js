@@ -85,9 +85,7 @@ const HomePage = () => {
             <HorizontalLine/>
 
             {/* Container for Cards */}
-            {Array.from({length: 2}).map((_, index) => (
-                <HomeSuggestions key={index}/>
-            ))}
+            <HomeSuggestions />
 
             <Footer/>
         </>
