@@ -1,6 +1,5 @@
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
-import axios from "axios";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import {Card, Col, Container, Row} from "react-bootstrap";
@@ -8,13 +7,10 @@ import {MDBIcon} from "mdb-react-ui-kit";
 import '../css/SearchPage.css';
 import dummy_image from '../imgs/dummy-restaurant.jpg';
 
-
-
-const SearchPage = () => {
-
+const SearchPage = (props) => {
+    const {restaurant_data} = props;
     const location = useLocation();
     const [userSearchTerm, setUserSearchTerm] = useState(location.state);
-    const[restaurant_data, setRestaurantData] = useState([]);
 
     // used for search bar form
     const searchForm = useRef(null);
@@ -26,13 +22,6 @@ const SearchPage = () => {
 
         setUserSearchTerm(form['searchInput'].value);
     }
-
-    let restaurant_route = "http://localhost:5000/api/restaurant/";
-
-    useEffect(() => {
-        axios.get(restaurant_route)
-            .then(response => setRestaurantData(response.data));
-    }, []);
 
     const SearchCards = restaurant_data.map(row => {
         return (
@@ -68,7 +57,7 @@ const SearchPage = () => {
         <>
             <NavigationBar/>
 
-            <div className="search-container">
+            <Container className="search-container">
                 <div className="search-together">
                     <form ref={searchForm}>
                         <input type="search" className="search-bar" placeholder="Location, Restaurant, or Cuisine"
@@ -78,16 +67,11 @@ const SearchPage = () => {
                         </button>
                     </form>
                 </div>
-            </div>
-
-            <Container>
-                <h2><strong>Results For:</strong> {userSearchTerm}</h2>
             </Container>
 
             <Container>
-
+                <h2><strong>Results For:</strong> {userSearchTerm}</h2>
                 {SearchCards}
-
             </Container>
             <Footer/>
         </>

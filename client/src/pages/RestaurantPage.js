@@ -8,8 +8,6 @@ import {MDBIcon} from "mdb-react-ui-kit";
 import '../css/RestaurantPage.css';
 import carousel_img from '../imgs/carousel-overhead.jpg';
 
-
-
 const RestaurantPage = () => {
     const {id} = useParams();
     const[restaurant_data, setRestaurantData] = useState([]);
@@ -58,7 +56,7 @@ const RestaurantPage = () => {
         );
     }
 
-    //BREAKING because we are going into the location object... i think
+    //only reason i see this breaking is because we are accessing a object inside the restaurant data
     const MiddleColumn = () => {
         return (
             <Col className="middle-col-restaurant-details">
@@ -82,7 +80,8 @@ const RestaurantPage = () => {
                 <h2 className="restaurant-details-heading">Order now</h2>
 
                 {/*TODO: change format of time in database (varchar and HH:MM format)*/}
-                <p><MDBIcon fas icon="phone"/>&nbsp;&nbsp; {restaurant_data.restaurant_phone_number}</p>
+                {/*TODO: phone icon not rendering*/}
+                <p><MDBIcon fas icon="phone" className="phone-icon"/>&nbsp;&nbsp; {restaurant_data.restaurant_phone_number}</p>
 
                 <div className="reservation-widget">
                     <h2 className="reservation-heading">Make a Reservation</h2>

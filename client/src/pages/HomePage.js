@@ -13,8 +13,8 @@ import carousel02 from '../imgs/carousel-outdoor.jpg';
 // import carousel04 from '../imgs/carousel-food.jpg';
 // import carousel05 from '../imgs/carousel-eating.jpg';
 
-const HomePage = () => {
-
+const HomePage = (props) => {
+    const {restaurant_data} = props;
     const [userSearchTerm, setUserSearchTerm] = useState("");
 
     const handleSearchTermChange = (event) => {
@@ -85,7 +85,7 @@ const HomePage = () => {
             <HorizontalLine/>
 
             {/* Container for Cards */}
-            <HomeSuggestions />
+            <HomeSuggestions restaurant_data={restaurant_data} />
 
             <Footer/>
         </>

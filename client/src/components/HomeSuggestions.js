@@ -1,5 +1,4 @@
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {Link} from "react-router-dom";
 import ShowMore from "./ShowMore";
 import {Button, Card, CardGroup, Container} from "react-bootstrap";
 import '../css/HomeSuggestions.css';
@@ -8,15 +7,8 @@ import dummy_image from '../imgs/dummy-restaurant.jpg';
 
 //TODO: get ID of individual card and have button navigate to individual restaurant page from click of button
 
-const HomeSuggestions = () => {
-    const[restaurant_data, setRestaurantData] = useState([]);
-
-    let restaurant_route = "http://localhost:5000/api/restaurant/";
-
-    useEffect(() => {
-        axios.get(restaurant_route)
-            .then(response => setRestaurantData(response.data));
-    }, []);
+const HomeSuggestions = (props) => {
+    const {restaurant_data} = props;
 
     let randomNums = [];
     const numOfSuggestions = 4
@@ -59,7 +51,9 @@ const HomeSuggestions = () => {
                             <Card.Text className="card-text-home">
                                 {row.restaurant_description}
                             </Card.Text>
-                            <Button className="cards-button">Reserve Now</Button>
+                            <Link to={`search/${row.id}`}>
+                                <Button className="cards-button">Reserve Now</Button>
+                            </Link>
                         </Card.Body>
                     </Card>
                 )
@@ -88,7 +82,6 @@ const HomeSuggestions = () => {
             }
         }
     })
-
 
     return (
         <>

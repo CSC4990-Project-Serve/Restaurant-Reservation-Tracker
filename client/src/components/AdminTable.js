@@ -30,7 +30,7 @@ const AdminTable = (props) => {
         // TODO: Update route not implemented yet
     }
 
-    const RestaurantData = restaurant_data.data.map(row => {
+    const RestaurantData = restaurant_data.map(row => {
 
         return (
             <tr key={row.id}>
@@ -71,7 +71,7 @@ const AdminTable = (props) => {
         )
     }
 
-    const UserData = user_data.data.map(row => {
+    const UserData = user_data.map(row => {
         return (
             <tr key={row.id}>
                 <td>{row.id}</td>
