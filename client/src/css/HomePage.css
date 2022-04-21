@@ -37,7 +37,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     font-size: 3rem;
-    margin-top: -14.5rem;
+    margin-top: -4.5rem;
     font-family: 'Paytone One', sans-serif;
     text-shadow:
             -1px -1px 0 #141414,
@@ -87,4 +87,18 @@ body {
 .search-icon-carousel:focus {
     border: 1px solid #EFEFF1;
     background-color: #141414;
+}
+
+@media only screen and (max-width: 1000px) {
+    .carousel-header {
+        position: relative;
+        font-size: 2rem;
+        margin-top: -4.5rem;
+        font-family: 'Paytone One', sans-serif;
+    }
+    .search-bar-carousel {
+        width: 200px;
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        font-size: 0.75rem;
+    }
 }
