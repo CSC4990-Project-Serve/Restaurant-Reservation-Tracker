@@ -22,7 +22,7 @@ const HomeSuggestions = () => {
     const numOfSuggestions = 4
     while (randomNums.length < numOfSuggestions) {
         if (numOfSuggestions > restaurant_data.length) {
-            console.log("ERROR: num of desired suggestions is greater than data available");
+            // console.log("ERROR: num of desired suggestions is greater than data available");
             break;
         }
 
@@ -36,7 +36,7 @@ const HomeSuggestions = () => {
     const numOfSuggestions2 = 4
     while (randomNums2.length < numOfSuggestions2) {
         if (numOfSuggestions2 > restaurant_data.length) {
-            console.log("ERROR: num of desired suggestions is greater than data available");
+            // console.log("ERROR: num of desired suggestions is greater than data available");
             break;
         }
 
@@ -48,7 +48,7 @@ const HomeSuggestions = () => {
 
     const FeaturedCards = restaurant_data.map(row => {
         for(let i = 0; i < randomNums.length; i++) {
-            console.log(randomNums[i])
+            // console.log(randomNums[i])
             if(randomNums[i] === row.id) {
                 return (
                     <Card className="restaurant-cards" key={row.id}>
@@ -69,7 +69,7 @@ const HomeSuggestions = () => {
 
     const RecommendedCards = restaurant_data.map(row => {
         for(let i = 0; i < randomNums2.length; i++) {
-            console.log(randomNums2[i])
+            // console.log(randomNums2[i])
             if(randomNums2[i] === row.id) {
                 return (
                     <Card className="restaurant-cards" key={row.id}>
