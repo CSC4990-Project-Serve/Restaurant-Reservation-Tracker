@@ -40,11 +40,11 @@
 }
 .form-control:focus {
     box-shadow: none;
-    border-color: transparent;
+    /*border-color: transparent;*/
 }
 .form-select:focus {
     box-shadow: none;
-    border-color: transparent;
+    /*border-color: transparent;*/
 }
 
 .reservation-button {
