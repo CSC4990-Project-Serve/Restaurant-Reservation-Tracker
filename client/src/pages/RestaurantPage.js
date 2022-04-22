@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
+import Modal from '../components/Modal';
 import {Button,Carousel, Col, Container, Form, Row} from "react-bootstrap";
 import {MDBIcon} from "mdb-react-ui-kit";
 import '../css/RestaurantPage.css';
@@ -10,7 +11,6 @@ import carousel_img from '../imgs/carousel-overhead.jpg';
 
 const RestaurantPage = () => {
     const {id} = useParams();
-
     const[restaurant_data, setRestaurantData] = useState({ name: "", description: "", phone: "", address: "", city: "", state: "", postal_code: "", mon: "", tue: "", wed: "", thu: "", fri: "", sat: "", sun: "" });
 
     useEffect(() => {
@@ -26,6 +26,13 @@ const RestaurantPage = () => {
         }
         fetchData();
     }, []);
+
+    const [modal,setModal] = useState(false);
+
+    const handleReservation = () => {
+        //TODO: POST request
+        setModal(true)
+    }
 
     return (
         <>
@@ -141,12 +148,14 @@ const RestaurantPage = () => {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Button className="reservation-button" type="submit">Complete Reservation</Button>
+                                    <Button className="reservation-button" type="button" onClick={handleReservation}>Complete Reservation</Button>
                                 </Row>
                             </Form>
                         </div>
                     </Col>
                 </Row>
+
+                <Modal show={modal} onHide={() => setModal(false)} />
             </Container>
 
 
