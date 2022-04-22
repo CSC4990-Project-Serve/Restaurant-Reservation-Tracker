@@ -66,3 +66,6 @@
     border: 1px solid #D0CFD2;
     box-shadow: none;
 }
+.phone-icon {
+    transform: scaleX(-1);
+}
