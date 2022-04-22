@@ -1,24 +1,24 @@
-import React, {useContext} from 'react';
+import React, {useContext, useMemo, useState} from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
-import {AuthContext} from "../Context/Auth.Context";
+import {UserContext} from "../Context/UserContext";
 import {Button, Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import logo from '../imgs/logo.png';
 import '../css/NavigationBar.css';
+import {logout} from "./utils/logout";
 
 const NavigationBar = () => {
     const navigate = useNavigate();
-    const { state } = useContext(AuthContext);
-    const { logout } = useContext(AuthContext);
+    const { user,setUser } = useContext(UserContext);
 
     const routeLogin = () => {
-        if (!state.loggedin){
-            let path = '/Login';
+        if (!user.loggedin){
+            let path = '/LoginPage';
             navigate(path);
         }else{
             let path = '/';
             // eslint-disable-next-line no-restricted-globals
             if(confirm("Logging out?")){
-                logout();
+                setUser(logout());
                 navigate(path);
             }else{
                 console.log('did not log out');
@@ -26,11 +26,11 @@ const NavigationBar = () => {
         }
     }
     const routeRegister = () => {
-        let path = '/Register';
-        if(!state.loggedin){
+        let path = '/RegisterPage';
+        if(!user.loggedin){
             navigate(path);
         }else{
-            alert("Already Logged in, logout to Register")
+            alert("Already Logged in, logout to RegisterPage")
         }
     }
 
@@ -66,15 +66,15 @@ const NavigationBar = () => {
                         >
                             <NavDropdown title="More" id="collapsible-nav-dropdown"  className="ms-auto">
                                 <NavDropdown.Item onClick={navigateHome}>Home</NavDropdown.Item>
-                                <NavDropdown.Item onClick={navigateUserHome}>{state.loggedin && <div>My Reservations</div>}</NavDropdown.Item>
+                                <NavDropdown.Item onClick={navigateUserHome}>{user.loggedin && <div>My Reservations</div>}</NavDropdown.Item>
                                 <NavDropdown.Item >Something</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item >Separated link</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Item className="nav-button">
                                 <Button variant="outline-success" onClick={routeLogin}>
-                                    {state.loggedin && <div>Logout</div>}
-                                    {!state.loggedin && <div>Login</div>}
+                                    {user.loggedin && <div>Logout</div>}
+                                    {!user.loggedin && <div>Login</div>}
                                 </Button>
                             </Nav.Item>
                             <Nav.Item className="nav-button">

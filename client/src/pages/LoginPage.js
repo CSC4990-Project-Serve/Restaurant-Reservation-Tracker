@@ -1,26 +1,21 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { useSetState } from 'react-use';
 import {useNavigate} from 'react-router-dom';
-import {AuthContext} from '../Context/Auth.Context';
 import Footer from "../components/Footer";
 import NavigationBar from "../components/Navbar";
 import '../css/Login.css';
+import {UserContext} from "../Context/UserContext";
+import {login} from "../components/utils/login";
 
-const Login = (props) => {
+const LoginPage = (props) => {
     // need a better solution than setting defaults to []
     const initialState = {
         username: '',
-        password: ''
+        password: '',
+        loggedin: false,
+        loginError : null
     }
-    const { state: ContextState, login } = useContext(AuthContext);
-    const {
-        loggedin,
-        isPending,
-        username,
-        password,
-        isadmin,
-        loginError
-    } = ContextState;
+    const {user, setUser} = useContext(UserContext);
     const [state, setState] = useSetState(initialState);
     let navigate = useNavigate();
 
@@ -34,16 +29,21 @@ const Login = (props) => {
     // }, [])
 
     // Form validation (On Submission)
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
-        const { username, password } = state;
+        const {username, password} = state;
         console.log(username);
         console.log(password);
-        login(username,password);
+        var theUser = await login(username, password);
+        setUser(theUser);
         setState({
             username: '',
-            password: ''
+            password: '',
+            loggedin : user.loggedin,
+            loginError : user.loginError
         });
+        console.log(user);
+        console.log(state);
         //console.warn(formData);
     }
 
@@ -86,9 +86,9 @@ const Login = (props) => {
                                                         onChange={onFieldChange}/>
 
                                     <button className="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-                                    { isPending && <div>Please wait...</div> }
-                                    { loggedin && <div onLoad={redirect()}>Success.</div> }
-                                    { loginError && <div>{loginError.message}</div> }
+                                    { !state.loggedin && <div>JSON.stringify(user)</div> }
+                                    { state.loggedin && <div onLoad={redirect()}>Success.</div> }
+                                    { state.loginError && <div>{state.loginError.message}</div> }
                                 </div>
                             </div>
                         </div>
@@ -101,4 +101,4 @@ const Login = (props) => {
             );
 };
 
-export default Login;
+export default LoginPage;

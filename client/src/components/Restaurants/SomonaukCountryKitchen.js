@@ -34,7 +34,7 @@ const SomonaukCountryKitchen = () => {
                 console.log(reserv.resSeats);
                 console.log(reserv.locationSelect);
             }else{
-                navigate('/Login')
+                navigate('/LoginPage')
             }
             return false;
     }

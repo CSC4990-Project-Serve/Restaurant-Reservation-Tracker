@@ -149,7 +149,7 @@ const fetchLogin = (state, username, password, callback) =>
         // }
     }, 1000);
 
-// fake Register User
+// fake RegisterPage User
 const fetchRegister = (state, username, password, callback) =>
     setTimeout(() => {
         const userInfo = {

@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
-import {AuthContext} from "../Context/Auth.Context";
+import {UserContext} from "../Context/UserContext";
 import parse from "html-react-parser";
 
 const ReservedTable = () => {
-    const {State} = useContext(AuthContext);
+    const {user} = useContext(UserContext);
     //ToDo: read in current user's reservations and output them to a table body component
     //ToDo: change hard coded info to database info
     const reservationInfo = [{
