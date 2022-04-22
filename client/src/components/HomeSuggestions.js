@@ -74,7 +74,9 @@ const HomeSuggestions = (props) => {
                             <Card.Text className="card-text-home">
                                 {row.restaurant_description}
                             </Card.Text>
-                            <Button className="cards-button">Reserve Now</Button>
+                            <Link to={`search/${row.id}`}>
+                                <Button className="cards-button">Reserve Now</Button>
+                            </Link>
                         </Card.Body>
                     </Card>
 
