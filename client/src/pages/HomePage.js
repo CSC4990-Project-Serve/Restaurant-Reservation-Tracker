@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {Link} from "react-router-dom";
+import {useRef, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import HomeSuggestions from "../components/HomeSuggestions";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
@@ -15,11 +15,21 @@ import carousel02 from '../imgs/carousel-outdoor.jpg';
 
 const HomePage = (props) => {
     const {restaurant_data} = props;
-    const [userSearchTerm, setUserSearchTerm] = useState("");
+    // const [userSearchTerm, setUserSearchTerm] = useState("");
+
+    const searchBox = useRef(null);
+
+    let navigate = useNavigate();
 
     const handleSearchTermChange = (event) => {
-        setUserSearchTerm(event.target.value);
+        event.preventDefault();
+        const form = searchBox.current;
+
+        let searchTerm = form['searchVal'].value;
+
+        navigate('/search', {state: searchTerm})
     };
+
 
     return (
         <>
@@ -68,24 +78,22 @@ const HomePage = (props) => {
                 {/* Search Button in Carousel */}
                 <div className="carousel-search-section">
                     <div className="carousel-header">Find a meal for every occasion.</div>
-                    <input type="search" className="search-bar-carousel"
-                           placeholder="Location, Restaurant, or Cuisine"
-                           name={"searchVal"}
-                           id={"searchVal"}
-                           onChange={handleSearchTermChange}
-                    />
-                    <Link to="/search" state={userSearchTerm}>
-                        <button type="button" className="search-icon-carousel">
+                    <form ref={searchBox}>
+                        <input type="text" className="search-bar-carousel"
+                               placeholder="Location, Restaurant, or Cuisine"
+                               name={"searchVal"}
+                        />
+                        <button type="submit" className="search-icon-carousel" onClick={handleSearchTermChange}>
                             <MDBIcon fas icon="search"/>
                         </button>
-                    </Link>
+                    </form>
                 </div>
             </Container>
 
             <HorizontalLine/>
 
             {/* Container for Cards */}
-            <HomeSuggestions restaurant_data={restaurant_data} />
+            <HomeSuggestions restaurant_data={restaurant_data}/>
 
             <Footer/>
         </>

@@ -15,6 +15,8 @@ const SearchPage = (props) => {
     // used for search bar form
     const searchForm = useRef(null);
 
+    console.log(`user searchTerm: ${location.state}`)
+
     // update the userSearchTerm state with the value within the search box on button click
     const updateSearchTerm = (event) => {
         event.preventDefault();
