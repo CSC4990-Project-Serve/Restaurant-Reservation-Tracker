@@ -12,27 +12,26 @@ import UserHome from "./pages/UserHome";
 
 function App() {
     //todo: add proper context here? Make sure it is always passed to every page?
-    const {state} = useContext(AuthContext);
+    // const {state} = useContext(AuthContext);
 
     const[restaurant_data, setRestaurantData] = useState([]);
     const[user_data, setUserData] = useState([]);
 
-    let restaurant_route = "http://localhost:5000/api/restaurant/";
-    let user_route = "http://localhost:5000/api/users/";
-
-    const requestOne = axios.get(restaurant_route);
-    const requestTwo = axios.get(user_route);
+    const getData = () => {
+        let routes = [
+            'http://localhost:5000/api/restaurant/',
+            'http://localhost:5000/api/users/',
+        ];
+        Promise.all(routes.map((route) => axios.get(route))).then(([{data: restaurant_data}, {data: user_data}] )=> {
+            setRestaurantData(restaurant_data)
+            setUserData(user_data)
+        });
+    }
+    // console.log(restaurant_data)
 
     useEffect(() => {
-        axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
-            const restaurants = responses[0];
-            const users = responses[1];
-            setRestaurantData(restaurants.data);
-            setUserData(users.data);
-        })).catch(errors => {
-            console.log(errors);
-        })
-    }, [])
+        getData();
+    }, []);
 
 
     return (
