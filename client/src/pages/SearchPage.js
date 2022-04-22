@@ -1,5 +1,5 @@
 import {useRef, useState} from "react";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import {Card, Col, Container, Row} from "react-bootstrap";
@@ -9,13 +9,14 @@ import dummy_image from '../imgs/dummy-restaurant.jpg';
 
 const SearchPage = (props) => {
     const {restaurant_data} = props;
+
     const location = useLocation();
+    const navigate = useNavigate();
+
     const [userSearchTerm, setUserSearchTerm] = useState(location.state);
 
     // used for search bar form
     const searchForm = useRef(null);
-
-    console.log(`user searchTerm: ${location.state}`)
 
     // update the userSearchTerm state with the value within the search box on button click
     const updateSearchTerm = (event) => {
@@ -23,6 +24,7 @@ const SearchPage = (props) => {
         const form = searchForm.current;
 
         setUserSearchTerm(form['searchInput'].value);
+        navigate(location.pathname, {}); //clear the old search term from the home page
     }
 
     const SearchCards = restaurant_data.map(row => {
