@@ -1,7 +1,7 @@
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import axios from "axios";
-import {AuthContext} from "./context/Auth.Context";
+import ScrollToTop from "./components/ScrollToTop";
 import HomePage from './pages/HomePage'
 import SearchPage from "./pages/SearchPage";
 import RestaurantPage from "./pages/RestaurantPage";
@@ -27,16 +27,15 @@ function App() {
             setUserData(user_data)
         });
     }
-    // console.log(restaurant_data)
 
     useEffect(() => {
         getData();
     }, []);
 
-
     return (
         <>
             <BrowserRouter>
+                <ScrollToTop />
                 <Routes>
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/login" element={<Login/>}/>

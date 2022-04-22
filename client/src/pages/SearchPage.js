@@ -9,7 +9,6 @@ import dummy_image from '../imgs/dummy-restaurant.jpg';
 
 const SearchPage = (props) => {
     const {restaurant_data} = props;
-
     const location = useLocation();
     const navigate = useNavigate();
 
