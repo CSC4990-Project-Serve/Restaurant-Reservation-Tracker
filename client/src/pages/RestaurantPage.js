@@ -21,7 +21,7 @@ const RestaurantPage = () => {
                 .then(response => setRestaurantData({ name: response.data.restaurant_name, description: response.data.restaurant_description, phone: response.data.restaurant_phone_number, address: response.data.location.address1, city: response.data.location.city, state: response.data.location.state, postal_code: response.data.location.postal_code, mon: response.data.hours.monday, tue: response.data.hours.tuesday,wed: response.data.hours.wednesday, thu: response.data.hours.thursday, fri: response.data.hours.friday, sat: response.data.hours.saturday, sun: response.data.hours.sunday }));
         }
         fetchData();
-    })
+    }, []);
 
     // useEffect(() => {
     //     axios.get(restaurant_route)
