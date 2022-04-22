@@ -10,24 +10,30 @@ import carousel_img from '../imgs/carousel-overhead.jpg';
 
 const RestaurantPage = () => {
     const {id} = useParams();
-    const[restaurant_data, setRestaurantData] = useState([]);
+
+    const[restaurant_data, setRestaurantData] = useState({ name: "", description: "", phone: "", address: "", city: "", state: "", postal_code: "", mon: "", tue: "", wed: "", thu: "", fri: "", sat: "", sun: "" });
 
     let restaurant_route = "http://localhost:5000/api/restaurant/" + id;
 
-    //TODO: might be this (breaking middle column) maybe middle column is rendering before the fetch grabs data
     useEffect(() => {
-        axios.get(restaurant_route)
-            .then(response => setRestaurantData(response.data));
-    }, []);
+        const fetchData = async () => {
+            await axios.get(restaurant_route)
+                .then(response => setRestaurantData({ name: response.data.restaurant_name, description: response.data.restaurant_description, phone: response.data.restaurant_phone_number, address: response.data.location.address1, city: response.data.location.city, state: response.data.location.state, postal_code: response.data.location.postal_code, mon: response.data.hours.monday, tue: response.data.hours.tuesday,wed: response.data.hours.wednesday, thu: response.data.hours.thursday, fri: response.data.hours.friday, sat: response.data.hours.saturday, sun: response.data.hours.sunday }));
+        }
+        fetchData();
+    })
 
-    // console.log(id)
-    // console.log(restaurant_route)
-    // console.log(restaurant_data)
+    // useEffect(() => {
+    //     axios.get(restaurant_route)
+    //         .then(response => setRestaurantData(response.data));
+    // }, []);
+    //
+
 
     const LeftColumn = () => {
         return (
             <Col className="left-col-restaurant-details">
-                <h2 className="restaurant-details-heading">{restaurant_data.restaurant_name}</h2>
+                <h2 className="restaurant-details-heading">{restaurant_data.name}</h2>
 
                 <Carousel>
                     <Carousel.Item interval={5000}>
@@ -41,51 +47,47 @@ const RestaurantPage = () => {
                         <img
                             className="carousel-img"
                             src={carousel_img}
-                            alt="Overhead of Restaurant"                                />
+                            alt="Overhead of Restaurant"
+                        />
                     </Carousel.Item>
                     <Carousel.Item interval={5000}>
                         <img
                             className="carousel-img"
                             src={carousel_img}
-                            alt="Overhead of Restaurant"                                />
+                            alt="Overhead of Restaurant"
+                        />
                     </Carousel.Item>
                 </Carousel>
 
                 <h2 className="restaurant-details-heading">About Us</h2>
-                <p>{restaurant_data.restaurant_description}</p>
+                <p>{restaurant_data.description}</p>
             </Col>
         );
     }
-
-    //only reason i see this breaking is because we are accessing a object inside the restaurant data
     const MiddleColumn = () => {
         return (
             <Col className="middle-col-restaurant-details">
                 <h2 className="restaurant-details-heading">Location</h2>
-                <p>{restaurant_data.location.address1}, {restaurant_data.location.city}, {restaurant_data.location.state} {restaurant_data.location.postal_code}</p>
+                <p>{restaurant_data.address}, {restaurant_data.city}, {restaurant_data.state} {restaurant_data.postal_code}</p>
 
                 <h2 className="restaurant-details-heading">Hours of Operation</h2>
-                <p>Monday: {restaurant_data.hours.monday}</p>
-                <p>Tuesday: {restaurant_data.hours.tuesday}</p>
-                <p>Wednesday: {restaurant_data.hours.wednesday}</p>
-                <p>Thursday: {restaurant_data.hours.thursday}</p>
-                <p>Friday: {restaurant_data.hours.friday}</p>
-                <p>Saturday: {restaurant_data.hours.saturday}</p>
-                <p>Sunday: {restaurant_data.hours.sunday}</p>
+                <p>Monday: {restaurant_data.mon}</p>
+                <p>Tuesday: {restaurant_data.tue}</p>
+                <p>Wednesday: {restaurant_data.wed}</p>
+                <p>Thursday: {restaurant_data.thu}</p>
+                <p>Friday: {restaurant_data.fri}</p>
+                <p>Saturday: {restaurant_data.sat}</p>
+                <p>Sunday: {restaurant_data.sun}</p>
             </Col>
         );
     }
-    //TODO: rendering data before its fetched?
-    // console.log(restaurant_data);
-    // console.log(restaurant_data.location.address1);
     const RightColumn = () => {
         return (
             <Col className="right-col-restaurant-details">
                 <h2 className="restaurant-details-heading">Order now</h2>
 
                 {/*TODO: change format of time in database (varchar and HH:MM format)*/}
-                {/*TODO: phone icon not rendering*/}
-                <p><MDBIcon fas icon="phone" className="phone-icon"/>&nbsp;&nbsp; {restaurant_data.restaurant_phone_number}</p>
+                <p><MDBIcon fas icon="phone" className="phone-icon"/>&nbsp;&nbsp; {restaurant_data.phone}</p>
 
                 <div className="reservation-widget">
                     <h2 className="reservation-heading">Make a Reservation</h2>
@@ -153,7 +155,6 @@ const RestaurantPage = () => {
             </Col>
         );
     }
-
     const RestaurantDetails = () => {
         return (
             <Row>
@@ -161,7 +162,7 @@ const RestaurantPage = () => {
 
                 {/*Split every individual column to see what was breaking the page*/}
                 {/*TODO: figure out why middle column is breaking page*/}
-                {/*{MiddleColumn()}*/}
+                {MiddleColumn()}
 
                 {RightColumn()}
             </Row>
