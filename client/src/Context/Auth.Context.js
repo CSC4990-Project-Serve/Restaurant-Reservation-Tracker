@@ -20,7 +20,8 @@ const initialState = {
     isadmin: false,
     loginError: null,
     salt: salt,
-    phone_number: ""
+    phone_number: "",
+    reservations : null
 }
 
 export const AuthContext = React.createContext(null);

@@ -13,23 +13,23 @@ function App() {
     const [user, setUser] = useState()
     const { state } = useContext(AuthContext);
 
-    useEffect(() => {
-        const getUsers = async () => {
-            const usersFromServer = await getUsersFromAPI();
-            setUser(usersFromServer)
-        }
-
-        getUsers();
-    }, [])
-
-
-    // Get all users from server
-    const getUsersFromAPI = async () => {
-        const res = await fetch('http://localhost:5000/users');
-        const data = await res.json();
-
-        return data;
-    }
+    // useEffect(() => {
+    //     const getUsers = async () => {
+    //         const usersFromServer = await getUsersFromAPI();
+    //         setUser(usersFromServer)
+    //     }
+    //
+    //     getUsers();
+    // }, [])
+    //
+    //
+    // // Get all users from server
+    // const getUsersFromAPI = async () => {
+    //     const res = await fetch('http://localhost:5000/users');
+    //     const data = await res.json();
+    //
+    //     return data;
+    // }
 
     return (
         <Router>

@@ -43,8 +43,8 @@ const UserHome = () => {
                             <th scope={"col"}>Restaurant</th>
                             <th scope={"col"}>Day</th>
                             <th scope={"col"}>Time</th>
-                            <th scope={"col"}>seats</th>
-                            <th scope={"col"}>cancel</th>
+                            <th scope={"col"}>purpose</th>
+                            <th scope={"col"}>status</th>
                         </tr>
                         </thead>
                         <tbody>

@@ -1,41 +1,68 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from "../Context/Auth.Context";
 import parse from "html-react-parser";
+import axios from "axios";
+import {useSetState} from "react-use";
 
 const ReservedTable = () => {
+
     const {State} = useContext(AuthContext);
-    //ToDo: read in current user's reservations and output them to a table body component
-    //ToDo: change hard coded info to database info
-    const reservationInfo = [{
-        reservationID : 1,
-        restaurantName : "first breakfast",
-        day : "11/11/22",
-        time : "2:30",
-        seats : 1
-    },
-        {
-            reservationID : 2,
-            restaurantName : "second breakfast",
-            day : "11/22/22",
-            time : "3:30",
-            seats : 2
-        }];
-    function reservations(reservationInfo){
-        let doc = "";
-        for(let i = 0;i < reservationInfo.length;i++){
-            doc += "<tr>";
-            doc += "<td>" + reservationInfo[i].reservationID + "</td>";
-            doc += "<td>" + reservationInfo[i].restaurantName + "</td>";
-            doc += "<td>" + reservationInfo[i].day + "</td>";
-            doc += "<td>" + reservationInfo[i].time + "</td>";
-            doc += "<td>" + reservationInfo[i].seats + "</td>";
-            doc += "<td><button type='submit' class='btn btn-primary' id=" + reservationInfo[i].reservationID.valueOf() + ">delete</button></td>"
-            doc += "</tr>";
+
+    const [userInformation, setUserInformation] = useState({
+        id: null,
+        username: "",
+        email_address: "",
+        first_name: "",
+        last_name: "",
+        phone_number: "",
+        reservations: []
+    });
+    const [userReservations, setUserReservations] = useState([{}]);
+
+    useEffect(() => {
+        const fetchData = async (id) => {
+            try {
+                let restaurant_route = `http://localhost:5000/api/users/${id}?reservations=1`;
+                await axios.get(restaurant_route)
+                    .then(response => {
+                        // console.log(response.data);
+                        setUserInformation(response.data);
+                    });
+
+            } catch (err) {
+                console.log(err)
+            }
         }
-        return doc;
+
+        fetchData(1);
+    }, [])
+
+
+    useEffect(() => {
+        setUserReservations(userInformation.reservations);
+    }, [userInformation])
+
+
+    const IndividualReservation = ({reservationData}) => {
+        return (
+            <tr>
+                <td>{reservationData.reservation_id}</td>
+                <td>{reservationData.restaurant_name}</td>
+                <td>{new Date(reservationData.reservation_date).toLocaleDateString()}</td>
+                <td>{reservationData.reservation_time}</td>
+                <td>{reservationData.purpose}</td>
+                <td>{reservationData.reservation_status === 1 ? "Confirmed" : "Unconfirmed"}</td>
+            </tr>
+        )
     }
-    return(
-        parse(reservations(reservationInfo))
+
+    return (
+        <>
+            {userReservations.map((reservation, index) => {
+                return <IndividualReservation reservationData={reservation} key={index}/>
+            })}
+        </>
+
     );
 }
 
