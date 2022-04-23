@@ -86,7 +86,7 @@ const LoginPage = (props) => {
                                                         onChange={onFieldChange}/>
 
                                     <button className="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-                                    { !state.loggedin && <div>JSON.stringify(user)</div> }
+                                    { !state.loggedin && <div>Login</div> }
                                     { state.loggedin && <div onLoad={redirect()}>Success.</div> }
                                     { state.loginError && <div>{state.loginError.message}</div> }
                                 </div>
