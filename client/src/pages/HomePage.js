@@ -17,8 +17,8 @@ import {UserContext} from "../context/UserContext";
 const HomePage = (props) => {
 
     //test context for user
-    const {user, setUser} = useContext(UserContext);
-    console.log(`UserState from context ${JSON.stringify(user)}`)
+    const {userProfileData, setUserProfileData} = useContext(UserContext);
+    console.log(`IN HOME: UserState from context ${JSON.stringify(userProfileData)}`)
 
     const {restaurant_data} = props;
     // const [userSearchTerm, setUserSearchTerm] = useState("");

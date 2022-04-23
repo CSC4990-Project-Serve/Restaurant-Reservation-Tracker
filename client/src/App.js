@@ -1,4 +1,4 @@
-import {useContext, useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import axios from "axios";
 import ScrollToTop from "./components/ScrollToTop";
@@ -10,17 +10,21 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import UserHome from "./pages/UserHome";
 import './css/App.css';
+import {UserContext} from "./context/UserContext";
 
 function App() {
-    //todo: add proper context here? Make sure it is always passed to every page?
-    // const {state} = useContext(AuthContext);
+
     const userProfile = {
-        name: "James",
-        age: 18,
-        id: 123,
+        isLoggedIn: false,
+        isAdmin: false,
+        user: {
+            id: 0,
+            name: "Adam",
+            age: 21,
+        }
     }
-    const [user, setUser] = useState(userProfile);
-    const providerValue = useMemo(() => ({user, setUser}), [user, setUser])
+    const [userProfileData, setUserProfileData] = useState(userProfile);
+    const userContextProviderVal = useMemo(() => ({userProfileData, setUserProfileData}), [userProfileData, setUserProfileData])
 
 
     const [restaurant_data, setRestaurantData] = useState([]);
@@ -38,7 +42,7 @@ function App() {
     }
 
     useEffect(() => {
-        // getData();
+        getData();
     }, []);
 
     //TODO: reset password, delete account, view user information, update name
@@ -46,7 +50,7 @@ function App() {
 
     return (
         <>
-            <UserContext.Provider value={providerValue}>
+            <UserContext.Provider value={userContextProviderVal}>
                 <BrowserRouter>
                     <ScrollToTop/>
                     <Routes>

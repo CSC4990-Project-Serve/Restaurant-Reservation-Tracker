@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import NavigationBar from "../components/NavigationBar";
@@ -8,10 +8,16 @@ import {Button,Carousel, Col, Container, Form, Row} from "react-bootstrap";
 import {MDBIcon} from "mdb-react-ui-kit";
 import '../css/RestaurantPage.css';
 import carousel_img from '../imgs/carousel-overhead.jpg';
+import {UserContext} from "../context/UserContext";
 
 const RestaurantPage = () => {
     const {id} = useParams();
     const[restaurant_data, setRestaurantData] = useState({ name: "", description: "", phone: "", address: "", city: "", state: "", postal_code: "", mon: "", tue: "", wed: "", thu: "", fri: "", sat: "", sun: "" });
+
+    //test context for user
+    const {userProfileData, setUserProfileData} = useContext(UserContext);
+    console.log(`IN RESTAURANT PAGE: UserState from context ${JSON.stringify(userProfileData)}`)
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,6 +31,9 @@ const RestaurantPage = () => {
             }
         }
         fetchData();
+
+        // test update
+        setUserProfileData({test: "THis is a new state"})
     }, []);
 
     const [modal,setModal] = useState(false);
