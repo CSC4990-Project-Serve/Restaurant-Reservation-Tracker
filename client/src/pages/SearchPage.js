@@ -12,7 +12,11 @@ const SearchPage = () => {
     const navigate = useNavigate();
 
     const [userSearchTerm, setUserSearchTerm] = useState(location.state);
-    const [restaurantResults, setRestaurantResults] = useState([{restaurant_name: "", restaurant_description: "", location: {city: "", state: ""}}]);
+    const [restaurantResults, setRestaurantResults] = useState([{
+        restaurant_name: "",
+        restaurant_description: "",
+        location: {city: "", state: ""}
+    }]);
 
     let api_route = `http://localhost:5000/api/search/${userSearchTerm}`;
     useEffect(() => {
@@ -31,6 +35,7 @@ const SearchPage = () => {
         const form = searchForm.current;
 
         setUserSearchTerm(form['searchInput'].value);
+        // https://stackoverflow.com/questions/40099431/how-do-i-clear-location-state-in-react-router-on-page-reload
         navigate(location.pathname, {}); //clear the old search term from the home page
     }
 
