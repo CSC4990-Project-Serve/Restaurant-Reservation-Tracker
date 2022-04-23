@@ -7,8 +7,10 @@ import '../css/NavigationBar.css';
 
 const NavigationBar = () => {
     const navigate = useNavigate();
-    const {state} = useContext(AuthContext);
-    const {logout} = useContext(AuthContext);
+    // const {state} = useContext(AuthContext);
+    const state = {};
+    // const {logout} = useContext(AuthContext);
+    const logout = null;
 
     const routeLogin = () => {
         if (!state.loggedin) {

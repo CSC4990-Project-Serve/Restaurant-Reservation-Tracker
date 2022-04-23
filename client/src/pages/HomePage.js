@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import HomeSuggestions from "../components/HomeSuggestions";
 import NavigationBar from "../components/NavigationBar";
@@ -9,11 +9,17 @@ import {MDBIcon} from "mdb-react-ui-kit";
 import '../css/HomePage.css';
 import carousel01 from '../imgs/carousel-overhead.jpg';
 import carousel02 from '../imgs/carousel-outdoor.jpg';
+import {UserContext} from "../context/UserContext";
 // import carousel03 from '../imgs/carousel-indoor.jpg';
 // import carousel04 from '../imgs/carousel-food.jpg';
 // import carousel05 from '../imgs/carousel-eating.jpg';
 
 const HomePage = (props) => {
+
+    //test context for user
+    const {user, setUser} = useContext(UserContext);
+    console.log(`UserState from context ${JSON.stringify(user)}`)
+
     const {restaurant_data} = props;
     // const [userSearchTerm, setUserSearchTerm] = useState("");
 

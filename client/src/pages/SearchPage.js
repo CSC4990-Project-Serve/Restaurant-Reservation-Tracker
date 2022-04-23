@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
@@ -6,8 +6,14 @@ import {Card, Col, Container, Row} from "react-bootstrap";
 import {MDBIcon} from "mdb-react-ui-kit";
 import '../css/SearchPage.css';
 import dummy_image from '../imgs/dummy-restaurant.jpg';
+import {UserContext} from "../context/UserContext";
 
 const SearchPage = (props) => {
+
+    //test context for user
+    const {user, setUser} = useContext(UserContext);
+    console.log(`UserState from context ${JSON.stringify(user)}`)
+
     const {restaurant_data} = props;
     const location = useLocation();
     const navigate = useNavigate();
