@@ -1,23 +1,31 @@
-import {useRef, useState} from "react";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useEffect, useRef, useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
+import axios from "axios";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
-import {Card, Col, Container, Row} from "react-bootstrap";
-import {MDBIcon} from "mdb-react-ui-kit";
+import {Container} from "react-bootstrap";
 import '../css/SearchPage.css';
-import dummy_image from '../imgs/dummy-restaurant.jpg';
+import SearchCards from "./SearchComponents/SearchCards";
 
-const SearchPage = (props) => {
-    const {restaurant_data} = props;
+const SearchPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
     const [userSearchTerm, setUserSearchTerm] = useState(location.state);
+    const [restaurantResults, setRestaurantResults] = useState([{restaurant_name: "", restaurant_description: "", location: {city: "", state: ""}}]);
 
-    // used for search bar form
-    const searchForm = useRef(null);
+    let api_route = `http://localhost:5000/api/search/${userSearchTerm}`;
+    useEffect(() => {
+        axios.get(api_route)
+            .then(response => {
+                setRestaurantResults(response.data);
+            })
+    }, [userSearchTerm])
+
+    console.log(restaurantResults)
 
     // update the userSearchTerm state with the value within the search box on button click
+    const searchForm = useRef(null); // used for search bar form
     const updateSearchTerm = (event) => {
         event.preventDefault();
         const form = searchForm.current;
@@ -26,35 +34,6 @@ const SearchPage = (props) => {
         navigate(location.pathname, {}); //clear the old search term from the home page
     }
 
-    const SearchCards = restaurant_data.map(row => {
-        return (
-            <Link to={`/search/${row.id}`} style={{textDecoration: 'none'}} key={row.id}>
-                <Card type="button" className="card-container" key={row.id}>
-                    <Row>
-                        <Col md={4}>
-                            <Card.Img variant="top" src={dummy_image}/>
-                        </Col>
-                        <Col md={8}>
-                            <Card.Body className="card-body-search">
-                                <Card.Title className="card-title-search">{row.restaurant_name}</Card.Title>
-                                <Card.Subtitle className="card-subtitle-search">{row.location.city}, {row.location.state}</Card.Subtitle>
-                                <Card.Text className="card-text-icons">
-                                    <MDBIcon fas icon="star"/>
-                                    <MDBIcon fas icon="star"/>
-                                    <MDBIcon fas icon="star"/>
-                                    <MDBIcon fas icon="star"/>
-                                    <MDBIcon far icon="star"/>
-                                </Card.Text>
-                                <Card.Text className="card-text-search">
-                                    {row.restaurant_description}
-                                </Card.Text>
-                            </Card.Body>
-                        </Col>
-                    </Row>
-                </Card>
-            </Link>
-        )
-    });
 
     return (
         <>
@@ -74,7 +53,10 @@ const SearchPage = (props) => {
 
             <Container>
                 <h2><strong>Results For:</strong> {userSearchTerm}</h2>
-                {SearchCards}
+                {restaurantResults.map((row, index) => {
+                    return <SearchCards restaurant_data={row} key={index}/>
+                })}
+
             </Container>
             <Footer/>
         </>
