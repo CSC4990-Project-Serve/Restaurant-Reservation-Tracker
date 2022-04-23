@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Damion&family=Open+Sans&family=Roboto:wght@500&display=swap');
-
 .footer-distributed {
+    font-family: 'Open Sans', sans-serif;
     background-color: #0A0A0A;
     box-sizing: border-box;
     padding: 3rem 3rem 1.25rem 3rem;
@@ -22,15 +21,12 @@
     color:  #D0CFD2;
 }
 .footer-distributed .company-about .company-about-header {
-    color:  #EFEFF1;
     font-weight: bold;
     font-size: 1.25em;
-    font-family: 'Open Sans', sans-serif;
 }
 .footer-distributed .company-about .company-about-info {
     margin: 0.1rem 0 0.75rem 0;
-    font-size: 0.9em;
-    font-family: 'Roboto', sans-serif;
+    font-size: 0.95em;
 }
 .footer-distributed .footer-icons a {
     color: #EFEFF1;
@@ -56,17 +52,13 @@
     vertical-align: top;
 }
 .footer-distributed .footer-center .link-header {
-    color:  #EFEFF1;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 1.25em;
-    margin-bottom: 0.1rem;
-    font-family: 'Roboto', sans-serif;
 }
 .footer-distributed .footer-center .footer-links a {
     text-decoration: none;
     color:  #D0CFD2;
-    font-size: 0.9em;
-    font-family: 'Roboto', sans-serif;
+    font-size: 0.95em;
     transition: 0.3s;
 }
 .footer-distributed .footer-center .footer-links a:hover {
@@ -81,9 +73,8 @@
     text-align: right;
 }
 .footer-distributed .footer-company-name {
-    color:  #D0CFD2;
-    font-size: 0.75rem;
-    font-family: 'Roboto', sans-serif;
+    margin-top: -.25rem;
+    font-size: 0.75em;
 }
 /* The company logo */
 .footer-distributed h3 {
