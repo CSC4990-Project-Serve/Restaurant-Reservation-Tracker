@@ -9,7 +9,7 @@ import AdminPage from "./pages/AdminPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import UserHome from "./pages/UserHome";
-import {UserContext} from "./context/UserContext";
+import './css/App.css';
 
 function App() {
     //todo: add proper context here? Make sure it is always passed to every page?
@@ -40,6 +40,9 @@ function App() {
     useEffect(() => {
         // getData();
     }, []);
+
+    //TODO: reset password, delete account, view user information, update name
+    //TODO: route= /user route= /user/reservations
 
     return (
         <>

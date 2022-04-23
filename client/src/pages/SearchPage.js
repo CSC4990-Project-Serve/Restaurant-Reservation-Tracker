@@ -78,7 +78,7 @@ const SearchPage = (props) => {
                 </div>
             </div>
 
-            <Container>
+            <Container className="search-results-container">
                 <h2><strong>Results For:</strong> {userSearchTerm}</h2>
                 {SearchCards}
             </Container>

@@ -46,14 +46,6 @@ const AdminTable = (props) => {
                 <td className="td-button">
                     <button key={row.id} type="button" className="btn btn-danger" onClick={() => DeleteRow(row.id)}>Delete</button>
                 </td>
-
-                {/*TODO: fix Link not working here*/}
-                {/*<td>*/}
-                {/*    <Link to={`/search/${row.id}`}>*/}
-                {/*        <button key={row.id} type="button" className="btn btn-dark">More Info</button>*/}
-                {/*    </Link>*/}
-                {/*</td>*/}
-
             </tr>
         )
     })

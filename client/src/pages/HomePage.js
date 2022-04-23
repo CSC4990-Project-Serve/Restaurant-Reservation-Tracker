@@ -42,7 +42,7 @@ const HomePage = (props) => {
             <NavigationBar/>
 
             {/* Container for Carousel Images */}
-            <Container>
+            <Container className="home-page-container">
                 <Carousel>
                     <Carousel.Item interval={5000}>
                         <img

@@ -1,15 +1,16 @@
-@import URL('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,600;1,600;1,700&display=swap');
-
 .navbar-color {
     background-color: #FFFAFA;
+    color: #141414;
 }
 .navbar-container {
+    font-family: 'Open Sans', sans-serif;
     margin-left: 2.5rem;
     margin-right: 2.5rem;
 }
 .nav-title {
     font-family: 'Exo', sans-serif;
     font-size: 2.25em;
+    font-weight: bold;
     margin-left: 1.5rem;
     line-height: 0;
 }
@@ -17,12 +18,14 @@
     width: 90px;
     margin-left: .75rem;
 }
-.dropdown-toggle {
-    color: #000000;
-    font-weight: 500;
+.nav-button2 {
+    width: 90px;
 }
-.dropdown-item {
-    color: #000000;
+.navbar-light .navbar-nav .nav-link {
+    color: #141414;
+}
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #141414;
 }
 
 /* Mobile Styling */
@@ -41,9 +44,7 @@
         margin-top: 0.5rem;
         text-align: right;
     }
-
     .navbar-nav {
         flex-direction: row-reverse;
     }
-
 }

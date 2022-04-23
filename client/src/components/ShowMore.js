@@ -7,7 +7,7 @@ const ShowMore = () => {
         <>
             <h1 className="show-more">
                 <Link to="/search">
-                    <button>Show more
+                    <button className="show-more-button">Show more
                         <span>
                             <MDBIcon fas icon="angle-down" />
                         </span>
