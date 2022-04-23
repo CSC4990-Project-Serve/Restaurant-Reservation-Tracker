@@ -9,6 +9,7 @@ import AdminPage from "./pages/AdminPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import UserHome from "./pages/UserHome";
+import './css/App.css';
 
 function App() {
     //todo: add proper context here? Make sure it is always passed to every page?
@@ -32,6 +33,9 @@ function App() {
         getData();
     }, []);
 
+    //TODO: reset password, delete account, view user information, update name
+    //TODO: route= /user route= /user/reservations
+
     return (
         <>
             <BrowserRouter>
@@ -43,7 +47,7 @@ function App() {
                     <Route path="/search" element={<SearchPage restaurant_data={restaurant_data} />}/>
                     <Route path="/search/:id" element={<RestaurantPage />}/>
                     <Route path="/admin" element={<AdminPage restaurant_data={restaurant_data} user_data={user_data} />}/>
-                    <Route path={"/UserHome"} element={<UserHome/>}/>
+                    <Route path="/UserHome" element={<UserHome/>}/>
                 </Routes>
             </BrowserRouter>
         </>

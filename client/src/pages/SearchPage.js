@@ -51,7 +51,7 @@ const SearchPage = () => {
                 </div>
             </div>
 
-            <Container>
+            <Container className="search-results-container">
                 <h2><strong>Results For:</strong> {userSearchTerm}</h2>
                 {restaurantResults.map((row, index) => {
                     return <SearchCards restaurant_data={row} key={index}/>

@@ -72,7 +72,7 @@ const NavigationBar = () => {
                             {
                                 // only show register button if not logged in
                                 !state.loggedin &&
-                                <Nav.Item className="nav-button">
+                                <Nav.Item className="nav-button2">
                                     <Button variant="primary" onClick={routeRegister}>Register</Button>
                                 </Nav.Item>
                             }

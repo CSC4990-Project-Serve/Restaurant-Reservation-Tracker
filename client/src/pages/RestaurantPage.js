@@ -39,7 +39,7 @@ const RestaurantPage = () => {
             <NavigationBar />
 
             <Container className="restaurant-details-container">
-                <Row>
+                <Row className="vertical-center">
                     <Col className="left-col-restaurant-details">
                         <h2 className="restaurant-details-heading">{restaurant_data.name}</h2>
 
