@@ -1,3 +1,6 @@
+import {useState} from "react";
+import AdminUpdate from "../components/AdminUpdate"
+
 const AdminTable = (props) => {
     const {choice, restaurant_data, user_data} = props;
 
@@ -13,43 +16,6 @@ const AdminTable = (props) => {
             </tr>
         )
     }
-
-    function DeleteRow(id) {
-        console.log("Deleting ID: " + id);
-
-        // TODO: Delete route not implemented yet
-        // axios.delete('http://localhost:5000/api/restaurant/' + id)
-        // .then(response => console.log(response))
-        // .catch(error => {
-        //     console.error('There was an error!', error);
-        // });
-    }
-
-    function UpdateRow(id) {
-        console.log("Updating ID: " + id);
-        // TODO: Update route not implemented yet
-    }
-
-    const RestaurantData = restaurant_data.map(row => {
-
-        return (
-            <tr key={row.id}>
-                <td>{row.id}</td>
-                <td>{row.restaurant_name}</td>
-                <td>{row.location.address1}</td>
-                <td>{row.location.city}</td>
-                <td>{row.location.state}</td>
-                <td>{row.restaurant_phone_number}</td>
-                <td className="td-button">
-                    <button key={row.id} type="button" className="btn btn-success" onClick={() => UpdateRow(row.id)}>Update</button>
-                </td>
-                <td className="td-button">
-                    <button key={row.id} type="button" className="btn btn-danger" onClick={() => DeleteRow(row.id)}>Delete</button>
-                </td>
-            </tr>
-        )
-    })
-
     const UserHeading = () => {
         return (
             <tr>
@@ -63,6 +29,42 @@ const AdminTable = (props) => {
         )
     }
 
+    const RestaurantData = restaurant_data.map(row => {
+        return (
+            <tr key={row.id}>
+                <td>{row.id}</td>
+                <td>{row.restaurant_name}</td>
+                <td>{row.location.address1}</td>
+                <td>{row.location.city}</td>
+                <td>{row.location.state}</td>
+                <td>{row.restaurant_phone_number}</td>
+                <td className="td-button">
+                    <button key={row.id} type="button" className="btn btn-success" onClick={(e) => handleRestaurantUpdate(row.id, e)}>Update</button>
+                </td>
+                <td className="td-button">
+                    <button key={row.id} type="button" className="btn btn-danger" onClick={(e) => handleRestaurantDelete(row.id, e)}>Delete</button>
+                </td>
+            </tr>
+        )
+    })
+    const handleRestaurantDelete = (id, e) => {
+        e.preventDefault();
+
+        //TODO: need delete and update implemented in back end
+        console.log("Deleting ID: " + id);
+
+        // fetch( 'http://localhost:5000/api/restaurant/' + id, {
+        //     method: 'DELETE',
+        // }).then(() => {
+        //     alert("Delete successful.");
+        // });
+    }
+    const handleRestaurantUpdate = (id, e) => {
+        console.log("Updating ID: " + id);
+    }
+
+    const[updateActive, setUpdateActive] = useState({ update: false, id: 0, username: "", email_address: "", first_name: "", last_name: "", phone_number: "" });
+
     const UserData = user_data.map(row => {
         return (
             <tr key={row.id}>
@@ -73,14 +75,30 @@ const AdminTable = (props) => {
                 <td>{row.last_name}</td>
                 <td>{row.phone_number}</td>
                 <td className="td-button">
-                    <button key={row.id} type="button" className="btn btn-success" onClick={() => UpdateRow(row.id)}>Update</button>
+                    <button key={row.id} type="button" className="btn btn-success" onClick={(e) => handleUserUpdate(row.id, row.username, row.email_address, row.first_name, row.last_name, row.phone_number, e)}>Update</button>
                 </td>
                 <td className="td-button">
-                    <button key={row.id} type="button" className="btn btn-danger" onClick={() => DeleteRow(row.id)}>Delete</button>
+                    <button key={row.id} type="button" className="btn btn-danger" onClick={(e) => handleUserDelete(row.id)}>Delete</button>
                 </td>
             </tr>
         )
     })
+    const handleUserDelete = (id, e) => {
+        e.preventDefault();
+
+        fetch( 'http://localhost:5000/api/users/' + id, {
+            method: 'DELETE',
+        }).then(() => {
+            alert("Delete successful.");
+        });
+
+    }
+    const handleUserUpdate = (id, username, email_address, first_name, last_name, phone_number) => {
+        // e.preventDefault();
+        console.log("Updating ID: " + id);
+
+       setUpdateActive({update: true, id: id, username: username, email_address: email_address, first_name: first_name, last_name: last_name, phone_number: phone_number});
+    }
 
     return (
         <>
@@ -92,6 +110,10 @@ const AdminTable = (props) => {
                     {choice === "Restaurants" ? RestaurantData : UserData}
                 </tbody>
             </table>
+
+            <div className="update-container">
+                {updateActive.update === true && <AdminUpdate  choice={choice} update={updateActive.update} id={updateActive.id} old_username={updateActive.username} old_email_address={updateActive.email_address} old_first_name={updateActive.first_name} old_last_name={updateActive.last_name} old_phone_number={updateActive.phone_number}/>}
+            </div>
         </>
     )
 }
