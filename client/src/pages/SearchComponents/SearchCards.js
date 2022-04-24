@@ -5,7 +5,6 @@ import {MDBIcon} from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
 
 function SearchCards(props) {
-    console.log(`recievedProps: ${JSON.stringify(props)}`)
     const {restaurant_data} = props;
 
     return (

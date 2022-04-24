@@ -82,6 +82,7 @@ const HomePage = (props) => {
                         <input type="text" className="search-bar-carousel"
                                placeholder="Location, Restaurant, or Cuisine"
                                name={"searchVal"}
+                               defaultValue={""}
                         />
                         <button type="submit" className="search-icon-carousel" onClick={handleSearchTermChange}>
                             <MDBIcon fas icon="search"/>
