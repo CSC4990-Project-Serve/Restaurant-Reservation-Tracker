@@ -8,7 +8,7 @@ import '../css/AdminPage.css';
 
 
 //TODO: Delete, Update Restaurants
-//TODO: Create, Update Users
+//TODO: Create Users
 
 const AdminPage = (props) => {
     const {restaurant_data, user_data} = props;
