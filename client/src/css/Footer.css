@@ -105,10 +105,8 @@
     .footer-distributed .footer-right {
         display: block;
         width: 100%;
-        margin-bottom: 40px;
+        margin-bottom: 1rem;
         text-align: center;
     }
-    .footer-distributed .footer-center i {
-        margin-left: 0;
-    }
+
 }
