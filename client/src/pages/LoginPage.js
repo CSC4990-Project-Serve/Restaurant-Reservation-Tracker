@@ -16,7 +16,7 @@ const LoginPage = (props) => {
         loggedin: false,
         loginError : null
     }
-    const {user, setUser} = useContext(UserContext);
+    const {userProfileData, setUserProfileData} = useContext(UserContext);
     const [state, setState] = useSetState(initialState);
     let navigate = useNavigate();
 
@@ -48,7 +48,7 @@ const LoginPage = (props) => {
                 "access-control-allow-origin": "*",
             }
         })
-            .then(response => setUser({
+            .then(response => setUserProfileData({
                 loggedin: true,
                 isadmin: false,
                 loginError: null,
@@ -57,7 +57,7 @@ const LoginPage = (props) => {
             }))
             .then(response => console.log(response.data[0]))
             .catch(err => console.warn(err));
-        console.log(user);
+        console.log(userProfileData);
         console.log(state);
         //console.warn(formData);
     }
@@ -71,7 +71,7 @@ const LoginPage = (props) => {
     }
 
     function redirect() {
-        navigate(-1)
+        navigate('/')
     }
 
     return (
@@ -101,9 +101,9 @@ const LoginPage = (props) => {
                                                onChange={onFieldChange}/>
 
                                         <button className="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-                                        { !state.loggedin && <div>Login</div> }
-                                        { state.loggedin && <div onLoad={redirect()}>Success.</div> }
-                                        { state.loginError && <div>{state.loginError.message}</div> }
+                                        { !userProfileData.loggedin && <div>Login</div> }
+                                        { userProfileData.loggedin && <div onLoad={redirect()}>Success.</div> }
+                                        { userProfileData.loginError && <div>{userProfileData.loginError.message}</div> }
                                     </div>
                                 </div>
                             </div>

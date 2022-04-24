@@ -1,6 +1,7 @@
 'use strict';
 
 const conn = require('../model/db');
+const bcrypt = require("bcrypt");
 
 const User = function (userInfo) {
     // front end is looking for value on right-hand side to be sent (exact naming)
@@ -172,18 +173,23 @@ User.validate_login = (username, email, password, results) => {
             results(err, null)
         } else {
             let user_salt = saltRes[0].password_salt;
-            let hash_val = bcrypt.hashSync(password, user_salt);
 
-            conn.query(sql_query, [username, email, hash_val], (err, loginRes) => {
-                if (err) {
-                    console.log(err);
-                    results(err, null);
-                } else if (loginRes.length > 0) {
-                    results(null, loginRes)
-                } else {
-                    results(null, false)
-                }
-            })
+            if (user_salt === null || user_salt === "") {
+                results({error: "No db salt for user"}, null)
+            } else {
+                let hash_val = bcrypt.hashSync(password, user_salt);
+
+                conn.query(sql_query, [username, email, hash_val], (err, loginRes) => {
+                    if (err) {
+                        console.log(err);
+                        results(err, null);
+                    } else if (loginRes.length > 0) {
+                        results(null, loginRes)
+                    } else {
+                        results(null, false)
+                    }
+                })
+            }
         }
     })
 }

@@ -1,34 +1,35 @@
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import {UserContext} from "../context/UserContext";
 import {Button, Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import logo from '../imgs/logo.png';
 import '../css/NavigationBar.css';
+import {use} from "bcrypt/promises";
 
 const NavigationBar = () => {
 
-    var userProfile = {
-        loggedin: false,
-        isAdmin: false,
-        loginError: null,
-        userid: null,
-        username: "",
-    }
     const navigate = useNavigate();
-    const {user,setUser} = useContext(UserContext);
+    const {userProfileData, setUserProfileData} = useContext(UserContext);
     // const {logout} = useContext(AuthContext);
-    const logout = null;
-    userProfile = user;
+
+    console.log(`userState in NavBar: ${JSON.stringify(userProfileData)}`);
+
 
     const routeLogin = () => {
-        if (!userProfile.loggedin) {
+        if (!userProfileData.loggedin) {
             let path = '/login';
             navigate(path);
         } else {
             let path = '/';
             // eslint-disable-next-line no-restricted-globals
             if (confirm("Logging out?")) {
-                logout();
+                    setUserProfileData({
+                        loggedin: false,
+                        isAdmin: false,
+                        loginError: null,
+                        userid: null,
+                        username: "",
+                    });
                 navigate(path);
             } else {
                 console.log('did not log out');
@@ -38,7 +39,7 @@ const NavigationBar = () => {
 
     const routeRegister = () => {
         let path = '/register';
-        if (!userProfile.loggedin) {
+        if (!userProfileData.loggedin) {
             navigate(path);
         } else {
             alert("Already Logged in, logout to RegisterPage")
@@ -76,12 +77,12 @@ const NavigationBar = () => {
                             </NavDropdown>
                             <Nav.Item className="nav-button">
                                 <Button variant="outline-success" onClick={routeLogin}>
-                                    {userProfile.loggedin ? "Sign Out" : "Sign In"}
+                                    {userProfileData.loggedin ? "Sign Out" : "Sign In"}
                                 </Button>
                             </Nav.Item>
                             {
                                 // only show register button if not logged in
-                                !userProfile.loggedin &&
+                                !userProfileData.loggedin &&
                                 <Nav.Item className="nav-button2">
                                     <Button variant="primary" onClick={routeRegister}>Register</Button>
                                 </Nav.Item>

@@ -21,7 +21,7 @@ const RegisterPage = (props) => {
         phone_number:'',
         password: ''
     }
-    const {user, setUser} = useContext(UserContext);
+    const {userProfileData, setUserProfileData} = useContext(UserContext);
     const [state, setState] = useSetState(initialState);
     let navigate = useNavigate()
 
@@ -51,7 +51,7 @@ const RegisterPage = (props) => {
             url: "http://localhost:5000/api/users",
             data: userInfo,
             success: function () {
-                setUser({
+                setUserProfileData({
                     loggedin: true,
                     isadmin: false,
                     loginError: null,
@@ -127,8 +127,8 @@ const RegisterPage = (props) => {
                                                onChange={onFieldChange}/>
 
                                         <button className="btn btn-primary btn-lg btn-block" type="submit">Register</button>
-                                        { user.loggedin && <div className={'text-dark'} onLoad={redirect()}>Success.</div> }
-                                        { user.loginError && <div className={'text-dark'}>{user.loginError.message}</div> }
+                                        { userProfileData.loggedin && <div className={'text-dark'} onLoad={redirect()}>Success.</div> }
+                                        { userProfileData.loginError && <div className={'text-dark'}>{userProfileData.loginError.message}</div> }
                                     </div>
                                 </div>
                             </div>

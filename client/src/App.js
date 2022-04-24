@@ -11,14 +11,15 @@ import LoginPage from "./pages/LoginPage";
 import UserHome from "./pages/UserHome";
 import './css/App.css';
 import {UserContext} from "./context/UserContext";
+import NavigationBar from "./components/NavigationBar";
 
 function App() {
 
     const userProfile = {
-        loggedin: false,
+        loggedIn: false,
         isAdmin: false,
         loginError: null,
-        userid: null,
+        userId: null,
         username: "",
     }
     const [userProfileData, setUserProfileData] = useState(userProfile);
@@ -52,6 +53,7 @@ function App() {
                 <BrowserRouter>
                     <ScrollToTop/>
                     <Routes>
+                        <Route path={"/navbar"} element={<NavigationBar/>}/>
                         <Route path="/register" element={<RegisterPage/>}/>
                         <Route path="/login" element={<LoginPage/>}/>
                         <Route path="/" element={<HomePage restaurant_data={restaurant_data}/>}/>
