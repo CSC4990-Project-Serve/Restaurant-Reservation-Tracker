@@ -9,6 +9,7 @@ const Restaurant = function (restaurantInfo) {
     this.restaurant_name = restaurantInfo.restaurant_name;
     this.restaurant_description = restaurantInfo.restaurant_description;
     this.restaurant_phone_number = restaurantInfo.restaurant_phone_number;
+    this.star_rating = restaurantInfo.star_rating;
     this.location = {
         location_id: restaurantInfo.location_id,
         location_name: restaurantInfo.location_name,
@@ -39,6 +40,7 @@ Restaurant.get_all_restaurants_from_db = (results) => {
                             restaurant_name,
                             restaurant_description,
                             restaurant_phone_number,
+                            star_rating,
                             location_name,
                             rl.id location_id,
                             address1,
@@ -85,6 +87,7 @@ Restaurant.get_restaurant_by_id = (restaurantID, results) => {
                             restaurant_name,
                             restaurant_description,
                             restaurant_phone_number,
+                            star_rating,
                             rl.id location_id,
                             location_name,
                             address1,
@@ -130,6 +133,7 @@ Restaurant.get_restaurant_by_id_with_reservations = (restaurantID, results) => {
                                      restaurant_name,
                                      restaurant_description,
                                      restaurant_phone_number,
+                                     star_rating,
                                      rl.id location_id,
                                      location_name,
                                      address1,
@@ -195,7 +199,8 @@ Restaurant.update_by_id = (idToUpdate, updatedInfo, results) => {
     const updateRestaurantMainInformation = `UPDATE restaurants
                                              SET restaurant_name         = ?,
                                                  restaurant_description  = ?,
-                                                 restaurant_phone_number = ?
+                                                 restaurant_phone_number = ?,
+                                                 star_rating = ?
                                              WHERE id = ?`;
     const updateRestaurantLocation = `UPDATE restaurant_locations
                                       SET location_name = ?,
@@ -228,9 +233,9 @@ Restaurant.create_new_restaurant = (restaurantInfo, results) => {
     let insertRestaurantHours = `INSERT INTO restaurant_hours (monday, tuesday, wednesday, thursday, friday, saturday, sunday)
                                  VALUES (?, ?, ?, ?, ?, ?, ?)`;
     //insert into restaurants
-    let insertRestaurant = `INSERT INTO restaurants (restaurant_name, restaurant_description, restaurant_phone_number,
+    let insertRestaurant = `INSERT INTO restaurants (restaurant_name, restaurant_description, restaurant_phone_number, star_rating,
                                                      restaurant_hours, location_ID, menu_ID)
-                            VALUES (?, ?, ?, ?, ?, ?)`;
+                            VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
     conn.query(insertRestaurantLocation, [restaurantInfo.location.location_name, restaurantInfo.location.address1, restaurantInfo.location.address2, restaurantInfo.location.city, restaurantInfo.location.state, restaurantInfo.location.postal_code, restaurantInfo.location.country], (err, locationRes) => {
         if (err) {

@@ -11,10 +11,7 @@
       <user-name>root</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema">
-            <name qname="@" />
-            <name qname="csc4990_project_serve" />
-          </node>
+          <node kind="schema" qname="@" />
         </introspection-scope>
       </schema-mapping>
     </data-source>
@@ -28,7 +25,7 @@
       <user-name>prserve_S2022</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema" qname="prserve_S2022" />
+          <node kind="schema" qname="@" />
         </introspection-scope>
       </schema-mapping>
     </data-source>

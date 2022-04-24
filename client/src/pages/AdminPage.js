@@ -7,8 +7,8 @@ import {Container, Form, Tab, Tabs} from "react-bootstrap";
 import '../css/AdminPage.css';
 
 
-//TODO: Create, Delete, Update Restaurants
-//TODO: Create, Delete, Update Users
+//TODO: Delete, Update Restaurants
+//TODO: Create Users
 
 const AdminPage = (props) => {
     const {restaurant_data, user_data} = props;
@@ -23,8 +23,6 @@ const AdminPage = (props) => {
             <NavigationBar/>
 
             <Container className="admin-page-container">
-
-
                 <Tabs>
                     <Tab eventKey="data" title="All Data" >
                         <div className="all-data-container">
