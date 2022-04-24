@@ -12,12 +12,12 @@ const SearchPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [userSearchTerm, setUserSearchTerm] = useState(location.state);
+    const [userSearchTerm, setUserSearchTerm] = useState(location.state || "");
     const [restaurantResults, setRestaurantResults] = useState([{
-        restaurant_name: "", restaurant_description: "", location: {city: "", state: ""}
+        restaurant_name: null, restaurant_description: null, location: {city: null, state: null}
     }]);
 
-    let api_route = userSearchTerm === "" ? `http://localhost:5000/api/restaurant` : `http://localhost:5000/api/search/${userSearchTerm}`;
+    let api_route = (userSearchTerm === "") ? `http://localhost:5000/api/restaurant` : `http://localhost:5000/api/search/${userSearchTerm}`;
     useEffect(() => {
         axios.get(api_route)
             .then(response => {
@@ -25,7 +25,6 @@ const SearchPage = () => {
             })
     }, [userSearchTerm])
 
-    console.log(restaurantResults)
 
     // update the userSearchTerm state with the value within the search box on button click
     const searchForm = useRef(null); // used for search bar form

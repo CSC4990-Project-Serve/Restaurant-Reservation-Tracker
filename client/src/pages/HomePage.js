@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import HomeSuggestions from "../components/HomeSuggestions";
 import NavigationBar from "../components/NavigationBar";
@@ -15,7 +15,6 @@ import carousel02 from '../imgs/carousel-outdoor.jpg';
 
 const HomePage = (props) => {
     const {restaurant_data} = props;
-    // const [userSearchTerm, setUserSearchTerm] = useState("");
 
     const searchBox = useRef(null);
 
@@ -25,7 +24,7 @@ const HomePage = (props) => {
         event.preventDefault();
         const form = searchBox.current;
 
-        let searchTerm = form['searchVal'].value;
+        let searchTerm = form['searchVal'].value || "";
 
         navigate('/search', {state: searchTerm})
     };
@@ -82,7 +81,6 @@ const HomePage = (props) => {
                         <input type="text" className="search-bar-carousel"
                                placeholder="Location, Restaurant, or Cuisine"
                                name={"searchVal"}
-                               defaultValue={""}
                         />
                         <button type="submit" className="search-icon-carousel" onClick={handleSearchTermChange}>
                             <MDBIcon fas icon="search"/>
