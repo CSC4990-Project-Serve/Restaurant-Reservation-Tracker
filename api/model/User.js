@@ -61,6 +61,27 @@ User.update_a_user = (userID, updatedUserInfo, results) => {
                                   first_name=?,
                                   last_name=?,
                                   phone_number=?,
+                                  updatedAt=?
+                              WHERE id = ?`;
+    conn.query(update_users_query,
+        [updatedUserInfo.username, updatedUserInfo.email_address, updatedUserInfo.first_name, updatedUserInfo.last_name, updatedUserInfo.phone_number, new Date().toISOString().slice(0, 19).replace('T', ' '), userID],
+        (err, res) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.affectedRows > 0 ? results(null, true) : results(null, false);
+            }
+        }
+    )
+}
+
+User.update_user_with_new_password = (userID, updatedUserInfo, results) => {
+    let update_users_query = `UPDATE users
+                              SET username=?,
+                                  email_address=?,
+                                  first_name=?,
+                                  last_name=?,
+                                  phone_number=?,
                                   hashed_password=?,
                                   password_salt=?,
                                   updatedAt=?

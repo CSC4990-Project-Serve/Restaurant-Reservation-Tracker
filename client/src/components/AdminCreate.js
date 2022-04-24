@@ -115,20 +115,17 @@ const AdminCreate = (props) => {
     const[last_name, setLastName] = useState("Doe");
     const[phone_number, setUserPhone] = useState("123-456-7890");
     // const[password, setPassword] = useState("default password")
-    // const[salt, setSalt] = useState("");
-
-
-    //TODO: FIX THIS, ask Jared for input, dont really know how hashing and salting works
-    const bcrypt = require('bcryptjs');
-    let salt = bcrypt.genSaltSync(10);
-    let hashed_password = bcrypt.hashSync("default_password", salt)
-
-    // console.log(`salt: ${salt} \nhashedPass: ${password}`)
+    // const[salt, setSalt] = useState()
 
 
     const handleUserSubmit = (e) => {
         e.preventDefault(); // prevent page from auto refresh
-        const new_user = {username, email_address, first_name, last_name, phone_number, hashed_password, salt};
+
+        //TODO: FIX THIS, ask Jared for input, dont really know how hashing and salting
+        let password_salt = bcrypt.genSaltSync(10);
+        let hashed_password = bcrypt.hashSync("default_password", password_salt)
+
+        const new_user = {username, email_address, first_name, last_name, phone_number, hashed_password, password_salt};
 
 
         console.log(JSON.stringify(new_user));
