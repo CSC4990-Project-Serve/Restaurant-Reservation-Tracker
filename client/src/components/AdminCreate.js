@@ -130,6 +130,7 @@ const AdminCreate = (props) => {
         e.preventDefault(); // prevent page from auto refresh
         const new_user = {username, email_address, first_name, last_name, phone_number, hashed_password, salt};
 
+
         console.log(JSON.stringify(new_user));
 
         fetch("http://localhost:5000/api/users", {

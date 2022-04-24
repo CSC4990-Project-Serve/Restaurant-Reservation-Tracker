@@ -7,6 +7,8 @@ import {Link} from "react-router-dom";
 function SearchCards(props) {
     const {restaurant_data} = props;
 
+    // console.log(restaurant_data)
+
     return (
         <Link to={`/search/${restaurant_data.id}`} style={{textDecoration: 'none'}} key={restaurant_data.id}>
             <Card type="button" className="card-container" key={restaurant_data.id}>
