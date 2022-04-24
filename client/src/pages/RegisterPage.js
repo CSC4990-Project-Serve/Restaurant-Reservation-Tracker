@@ -1,11 +1,16 @@
 import React, {useEffect, useState, useContext} from 'react';
 import { useSetState } from 'react-use';
+import { register} from '../components/utils/register'
 import {useNavigate} from 'react-router-dom';
 import Footer from "../components/Footer";
 import NavigationBar from "../components/NavigationBar";
-import {AuthContext} from '../context/Auth.Context';
+import {UserContext} from "../context/UserContext";
 import '../css/Login.css';
-const Register = (props) => {
+import $ from "jquery";
+const bcrypt = require('bcryptjs');
+
+
+const RegisterPage = (props) => {
     // Registration Field Names: username, email_address, first_name,
     // last_name, phone_number, hashed_password
     const initialState = {
@@ -16,39 +21,49 @@ const Register = (props) => {
         phone_number:'',
         password: ''
     }
-    const { state: ContextState, register } = useContext(AuthContext);
-    const {
-        loggedin,
-        isPending,
-        username,
-        emailAddress,
-        firstName,
-        lastName,
-        password,
-        phone_number,
-        isadmin,
-        loginError
-    } = ContextState;
+    const {user, setUser} = useContext(UserContext);
     const [state, setState] = useSetState(initialState);
     let navigate = useNavigate()
 
     // Form validation (On Submission)
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
         //console.warn(formData);
         alert("username: " + state.username + "\nemail: " + state.emailAddress + "\nfname: " + state.firstName +
-        "\nlname: " + state.lastName + "\nphoneNumber: " + state.phone_number + "\npassword: " + state.password);
+            "\nlname: " + state.lastName + "\nphoneNumber: " + state.phone_number + "\npassword: " + state.password);
         //ToDo: on successful account creation, navigate back a page, otherwise display message
-        const { username, emailAddress, phone_number, firstName, lastName, password } = state;
-        register(username,emailAddress,firstName,lastName,password, phone_number);
-        // if (username === "username" && password === "password"){
-        //     //ToDo: hash password if account available, as well as upload all info to database
-        //     alert("registration successful")
-        //     register(username,emailAddress,fName,lName,password);
-        //     navigate(-1);
-        // }else{
-        //     alert("account unnavailable, try again");
-        // }
+        const {username, emailAddress, phone_number, firstName, lastName, password} = state;
+        //await register(username, emailAddress, firstName, lastName, password, phone_number);
+        var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(password, salt);
+        const userInfo = {
+            username: username,
+            email_address: emailAddress,
+            first_name: firstName,
+            last_name: lastName,
+            phone_number: phone_number,
+            hashed_password: hash,
+            password_salt: salt
+        }
+        // ToDo: currently hardcoded, have it actually check database using user model
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:5000/api/users",
+            data: userInfo,
+            success: function () {
+                setUser({
+                    loggedin: true,
+                    isadmin: false,
+                    loginError: null,
+                    userid: userInfo.userid,
+                    username: null,
+                });
+            },
+            error: function () {
+                console.log('Error, invalid or account already Exists');
+            },
+            dataType: "json"
+        });
     }
 
     function redirect() {
@@ -63,9 +78,7 @@ const Register = (props) => {
         setState({...state, [name]: value})
     }
     return (
-        <>
-            <NavigationBar />
-
+        <><NavigationBar />
             <form onSubmit={onSubmit}>
                 <section className="vh-150 background-area">
                     <div className="container py-5 h-150">
@@ -113,11 +126,9 @@ const Register = (props) => {
                                                placeholder="Enter a password"
                                                onChange={onFieldChange}/>
 
-                                        <br/>
                                         <button className="btn btn-primary btn-lg btn-block" type="submit">Register</button>
-                                        { isPending && <div className={'text-dark'}>Please wait...</div> }
-                                        { loggedin && <div className={'text-dark'} onLoad={redirect()}>Success.</div> }
-                                        { loginError && <div className={'text-dark'}>{loginError.message}</div> }
+                                        { user.loggedin && <div className={'text-dark'} onLoad={redirect()}>Success.</div> }
+                                        { user.loginError && <div className={'text-dark'}>{user.loginError.message}</div> }
                                     </div>
                                 </div>
                             </div>
@@ -125,10 +136,9 @@ const Register = (props) => {
                     </div>
                 </section>
             </form>
-
             <Footer/>
         </>
-            );
+    );
 };
 
-export default Register;
+export default RegisterPage;

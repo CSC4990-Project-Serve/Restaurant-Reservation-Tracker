@@ -1,19 +1,27 @@
 import {useContext} from 'react';
 import {useNavigate} from "react-router-dom";
-import {AuthContext} from "../context/Auth.Context";
+import {UserContext} from "../context/UserContext";
 import {Button, Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import logo from '../imgs/logo.png';
 import '../css/NavigationBar.css';
 
 const NavigationBar = () => {
+
+    var userProfile = {
+        loggedin: false,
+        isAdmin: false,
+        loginError: null,
+        userid: null,
+        username: "",
+    }
     const navigate = useNavigate();
-    // const {state} = useContext(AuthContext);
-    const state = {};
+    const {user,setUser} = useContext(UserContext);
     // const {logout} = useContext(AuthContext);
     const logout = null;
+    userProfile = user;
 
     const routeLogin = () => {
-        if (!state.loggedin) {
+        if (!userProfile.loggedin) {
             let path = '/login';
             navigate(path);
         } else {
@@ -30,10 +38,10 @@ const NavigationBar = () => {
 
     const routeRegister = () => {
         let path = '/register';
-        if (!state.loggedin) {
+        if (!userProfile.loggedin) {
             navigate(path);
         } else {
-            alert("Already Logged in, logout to Register")
+            alert("Already Logged in, logout to RegisterPage")
         }
     }
 
@@ -68,12 +76,12 @@ const NavigationBar = () => {
                             </NavDropdown>
                             <Nav.Item className="nav-button">
                                 <Button variant="outline-success" onClick={routeLogin}>
-                                    {state.loggedin ? "Sign Out" : "Sign In"}
+                                    {userProfile.loggedin ? "Sign Out" : "Sign In"}
                                 </Button>
                             </Nav.Item>
                             {
                                 // only show register button if not logged in
-                                !state.loggedin &&
+                                !userProfile.loggedin &&
                                 <Nav.Item className="nav-button2">
                                     <Button variant="primary" onClick={routeRegister}>Register</Button>
                                 </Nav.Item>

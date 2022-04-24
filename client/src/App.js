@@ -6,8 +6,8 @@ import HomePage from './pages/HomePage'
 import SearchPage from "./pages/SearchPage";
 import RestaurantPage from "./pages/RestaurantPage";
 import AdminPage from "./pages/AdminPage";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
+import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
 import UserHome from "./pages/UserHome";
 import './css/App.css';
 import {UserContext} from "./context/UserContext";
@@ -15,13 +15,11 @@ import {UserContext} from "./context/UserContext";
 function App() {
 
     const userProfile = {
-        isLoggedIn: false,
+        loggedin: false,
         isAdmin: false,
-        user: {
-            id: 0,
-            name: "Adam",
-            age: 21,
-        }
+        loginError: null,
+        userid: null,
+        username: "",
     }
     const [userProfileData, setUserProfileData] = useState(userProfile);
     const userContextProviderVal = useMemo(() => ({userProfileData, setUserProfileData}), [userProfileData, setUserProfileData])
@@ -54,8 +52,8 @@ function App() {
                 <BrowserRouter>
                     <ScrollToTop/>
                     <Routes>
-                        <Route path="/register" element={<Register/>}/>
-                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/register" element={<RegisterPage/>}/>
+                        <Route path="/login" element={<LoginPage/>}/>
                         <Route path="/" element={<HomePage restaurant_data={restaurant_data}/>}/>
                         <Route path="/search" element={<SearchPage restaurant_data={restaurant_data}/>}/>
                         <Route path="/search/:id" element={<RestaurantPage/>}/>

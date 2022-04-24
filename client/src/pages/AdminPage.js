@@ -41,10 +41,10 @@ const AdminPage = (props) => {
                             </div>
                         </div>
                     </Tab>
-                    <Tab eventKey="create" title="Register" >
+                    <Tab eventKey="create" title="RegisterPage" >
                         <div className="create-container">
                             <form>
-                                <h2>Register restaurant or user?</h2>
+                                <h2>RegisterPage restaurant or user?</h2>
                                 <Form.Select className="category-select" name="category" onChange={getCategory}>
                                     <option value="Restaurants">Restaurants</option>
                                     <option value="Users">Users</option>
