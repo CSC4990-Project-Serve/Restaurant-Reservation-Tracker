@@ -6,6 +6,7 @@ import NavigationBar from "../components/NavigationBar";
 import {UserContext} from "../context/UserContext";
 import '../css/Login.css';
 import $ from "jquery";
+import axios from "axios";
 
 const bcrypt = require('bcryptjs');
 
@@ -46,28 +47,44 @@ const RegisterPage = (props) => {
             password_salt: salt
         }
         // ToDo: currently hardcoded, have it actually check database using user model
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:5000/api/users",
-            data: userInfo,
-            success: function () {
+        axios.post("http://localhost:5000/api/users", {...userInfo}, {
+            headers: {
+                "access-control-allow-origin": "*",
+            }
+        })
+            .then(response => {
+                //console.log(response);
                 setUserProfileData({
-                    loggedin: true,
-                    isadmin: false,
-                    loginError: null,
-                    userid: userInfo.userid,
-                    username: null,
-                });
-            },
-            error: function () {
-                console.log('Error, invalid or account already Exists');
-            },
-            dataType: "json"
-        });
+                    loggedIn: true,
+                    isAdmin: false,
+                    loginError: false,
+                    user: {
+                        id: response.data.userId,
+                        username: userInfo.username,
+                        email_address: userInfo.email_address,
+                        first_name: userInfo.first_name,
+                        last_name: userInfo.last_name,
+                        phone_number: userInfo.phone_number,
+                    },
+                })
+                redirect();
+            })
+            //.then(response => console.log(response.data[0]))
+            .catch(err => {
+                if (err) {
+                    setUserProfileData({
+                        loggedIn: false,
+                        isAdmin: false,
+                        loginError: err,
+                        user: {},
+                    })
+                    console.log(err);
+                }
+            });
     }
 
     function redirect() {
-        navigate(-1);
+        navigate("/");
     }
 
     // Form validation on data entry to a field (Updates each time a letter is entered)

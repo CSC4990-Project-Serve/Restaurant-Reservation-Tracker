@@ -6,6 +6,7 @@ import NavigationBar from "../components/NavigationBar";
 import '../css/Login.css';
 import {UserContext} from "../context/UserContext";
 import axios from "axios";
+import {use} from "bcrypt/promises";
 
 const LoginPage = (props) => {
     // need a better solution than setting defaults to []
@@ -39,23 +40,29 @@ const LoginPage = (props) => {
         })
             .then(response => {
                 setUserProfileData({
-                    loggedin: true,
-                    isadmin: false,
-                    loginError: null,
-                    userId: response.data[0].id,
-                    username: response.data[0].username,
+                    loggedIn: true,
+                    isAdmin: false,
+                    loginError: false,
+                    user: {
+                        id: response.data[0].id,
+                        username: response.data[0].username,
+                        email_address: response.data[0].email_address,
+                        first_name: response.data[0].first_name,
+                        last_name: response.data[0].last_name,
+                        phone_number: response.data[0].phone_number,
+                    },
                 })
+
                 redirect();
             })
             //.then(response => console.log(response.data[0]))
             .catch(err => {
                 if (err) {
                     setUserProfileData({
-                        loggedin: false,
-                        isadmin: false,
+                        loggedIn: false,
+                        isAdmin: false,
                         loginError: err,
-                        userId: "",
-                        username: null,
+                        user: {},
                     })
                     console.log(err);
                 }

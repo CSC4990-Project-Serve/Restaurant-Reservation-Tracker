@@ -28,7 +28,7 @@ exports.createANewUser = function (req, res) {
                 console.log(err);
                 res.send(err)
             } else {
-                res.send({error: false, status: `New user created with id: ${results}`})
+                res.send({error: false, status: `New user created with id: ${results}`, userId: `${results}`})
             }
         })
     }
