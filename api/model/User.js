@@ -192,11 +192,11 @@ User.validate_login = (username, email, password, results) => {
         if (err) {
             console.log(err)
             results(err, null)
-        } else {
+        } else if (saltRes.length > 0) {
             let user_salt = saltRes[0].password_salt;
 
             if (user_salt === null || user_salt === "") {
-                results({error: "No db salt for user"}, null)
+                results({error: true, message: "No salt in DB for user! This is a bad error that indicates a server error!"}, null)
             } else {
                 let hash_val = bcrypt.hashSync(password, user_salt);
 
@@ -211,6 +211,8 @@ User.validate_login = (username, email, password, results) => {
                     }
                 })
             }
+        } else {
+            results({error: true, message: "No user/salt combination found in database!"}, null);
         }
     })
 }

@@ -19,11 +19,21 @@ function App() {
         loggedIn: false,
         isAdmin: false,
         loginError: null,
-        userId: null,
-        username: "",
+        user: {
+            id: null,
+            username: null,
+            email_address: null,
+            first_name: null,
+            last_name: null,
+            phone_number: null,
+        },
     }
+
     const [userProfileData, setUserProfileData] = useState(userProfile);
-    const userContextProviderVal = useMemo(() => ({userProfileData, setUserProfileData}), [userProfileData, setUserProfileData])
+    const userContextProviderVal = useMemo(() => ({
+        userProfileData,
+        setUserProfileData
+    }), [userProfileData, setUserProfileData])
 
 
     const [restaurant_data, setRestaurantData] = useState([]);

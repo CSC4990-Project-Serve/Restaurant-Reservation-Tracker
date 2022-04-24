@@ -1,4 +1,4 @@
-import {useRef} from "react";
+import {useContext, useRef} from "react";
 import {useNavigate} from "react-router-dom";
 import HomeSuggestions from "../components/HomeSuggestions";
 import NavigationBar from "../components/NavigationBar";

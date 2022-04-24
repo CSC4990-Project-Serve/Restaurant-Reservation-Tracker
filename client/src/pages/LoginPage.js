@@ -1,11 +1,10 @@
 import React, {useEffect, useState, useContext} from 'react';
-import { useSetState } from 'react-use';
+import {useSetState} from 'react-use';
 import {useNavigate} from 'react-router-dom';
 import Footer from "../components/Footer";
 import NavigationBar from "../components/NavigationBar";
 import '../css/Login.css';
 import {UserContext} from "../context/UserContext";
-import {login} from "../components/utils/login";
 import axios from "axios";
 
 const LoginPage = (props) => {
@@ -14,60 +13,61 @@ const LoginPage = (props) => {
         username: '',
         password: '',
         loggedin: false,
-        loginError : null
+        loginError: null
     }
     const {userProfileData, setUserProfileData} = useContext(UserContext);
-    const [state, setState] = useSetState(initialState);
-    let navigate = useNavigate();
+    const [loginFormInformation, setLoginFormInformation] = useSetState(initialState);
 
-    // todo: this method is now obsolete, but could be changed to a log-out function that simply
-    // todo: changes the boolean of being logged in to false and wipes any stored user info.
-    // check if user is already logged in and if so, redirect home
-    // useEffect(() => {
-    //     if(props.isLoggedIn) {
-    //         //todo: redirect home and don't allow user to login
-    //     }
-    // }, [])
+    let navigate = useNavigate();
 
     // Form validation (On Submission)
     const onSubmit = async (event) => {
         event.preventDefault();
-        const {username, password} = state;
-        console.log(username);
-        console.log(password);
-        //await login(username, password);
+
+        const {username, password} = loginFormInformation;
+
         const userInfo = {
             username: username,
             email_address: username,
             password: password,
         }
-        console.log(username, password, JSON.stringify(userInfo));
-        console.log(JSON.stringify(userInfo))
+
         axios.post("http://localhost:5000/api/login", {...userInfo}, {
             headers: {
                 "access-control-allow-origin": "*",
             }
         })
-            .then(response => setUserProfileData({
-                loggedin: true,
-                isadmin: false,
-                loginError: null,
-                userid: response.data[0].userid,
-                username: response.data[0].username,
-            }))
-            .then(response => console.log(response.data[0]))
-            .catch(err => console.warn(err));
-        console.log(userProfileData);
-        console.log(state);
-        //console.warn(formData);
+            .then(response => {
+                setUserProfileData({
+                    loggedin: true,
+                    isadmin: false,
+                    loginError: null,
+                    userId: response.data[0].id,
+                    username: response.data[0].username,
+                })
+                redirect();
+            })
+            //.then(response => console.log(response.data[0]))
+            .catch(err => {
+                if (err) {
+                    setUserProfileData({
+                        loggedin: false,
+                        isadmin: false,
+                        loginError: err,
+                        userId: "",
+                        username: null,
+                    })
+                    console.log(err);
+                }
+            });
     }
 
     // Form validation on data entry to a field (Updates each time a letter is entered)
-    // updates the state
+    // updates the loginFormInformation
     function onFieldChange(event) {
         let {name, value} = event.target;
 
-        setState({...state, [name]: value})
+        setLoginFormInformation({...loginFormInformation, [name]: value})
     }
 
     function redirect() {
@@ -75,7 +75,7 @@ const LoginPage = (props) => {
     }
 
     return (
-        <><NavigationBar />
+        <><NavigationBar/>
             <form onSubmit={onSubmit}>
                 <section className="vh-100 background-area">
                     <div className="container py-5 h-100">
@@ -86,24 +86,26 @@ const LoginPage = (props) => {
 
                                         <h3 className="mb-5 text-primary">Sign in</h3>
 
-                                        <label htmlFor="username" className="form-label text-dark">Username/Email</label>
+                                        <label htmlFor="username"
+                                               className="form-label text-dark">Username/Email</label>
                                         <input type="text" id={"username"} name={"username"}
-                                               className={state.username === "" ? "form-control is-invalid" : "form-control"}
-                                               value={state.username}
+                                               className={loginFormInformation.username === "" ? "form-control is-invalid" : "form-control"}
+                                               value={loginFormInformation.username}
                                                placeholder="Enter your username or email address"
                                                onChange={onFieldChange}/>
 
                                         <label htmlFor="password" className={"form-label text-dark"}>Password</label>
                                         <input type="password" id="password" name={"password"}
-                                               className={state.password === "" ? "form-control is-invalid" : "form-control"}
-                                               value={state.password}
+                                               className={loginFormInformation.password === "" ? "form-control is-invalid" : "form-control"}
+                                               value={loginFormInformation.password}
                                                placeholder="Enter your password"
                                                onChange={onFieldChange}/>
 
-                                        <button className="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-                                        { !userProfileData.loggedin && <div>Login</div> }
-                                        { userProfileData.loggedin && <div onLoad={redirect()}>Success.</div> }
-                                        { userProfileData.loginError && <div>{userProfileData.loginError.message}</div> }
+                                        <button className="btn btn-primary btn-lg btn-block" type="submit">Login
+                                        </button>
+                                        {!userProfileData.loggedin && <div>Login</div>}
+                                        {userProfileData.loggedin && <div>Success.</div>}
+                                        {userProfileData.loginError && <div>invalid username/password combo</div>}
                                     </div>
                                 </div>
                             </div>

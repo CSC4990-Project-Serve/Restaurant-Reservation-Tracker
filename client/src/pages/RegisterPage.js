@@ -1,12 +1,12 @@
 import React, {useEffect, useState, useContext} from 'react';
-import { useSetState } from 'react-use';
-import { register} from '../components/utils/register'
+import {useSetState} from 'react-use';
 import {useNavigate} from 'react-router-dom';
 import Footer from "../components/Footer";
 import NavigationBar from "../components/NavigationBar";
 import {UserContext} from "../context/UserContext";
 import '../css/Login.css';
 import $ from "jquery";
+
 const bcrypt = require('bcryptjs');
 
 
@@ -15,10 +15,10 @@ const RegisterPage = (props) => {
     // last_name, phone_number, hashed_password
     const initialState = {
         username: '',
-        emailAddress:'',
-        firstName:'',
-        lastName:'',
-        phone_number:'',
+        emailAddress: '',
+        firstName: '',
+        lastName: '',
+        phone_number: '',
         password: ''
     }
     const {userProfileData, setUserProfileData} = useContext(UserContext);
@@ -77,8 +77,9 @@ const RegisterPage = (props) => {
 
         setState({...state, [name]: value})
     }
+
     return (
-        <><NavigationBar />
+        <><NavigationBar/>
             <form onSubmit={onSubmit}>
                 <section className="vh-150 background-area">
                     <div className="container py-5 h-150">
@@ -95,7 +96,8 @@ const RegisterPage = (props) => {
                                                value={state.username}
                                                placeholder="Enter a username"
                                                onChange={onFieldChange}/>
-                                        <label htmlFor="emailAddress" className="form-label text-dark">Email Address</label>
+                                        <label htmlFor="emailAddress" className="form-label text-dark">Email
+                                            Address</label>
                                         <input type="text" id={"emailAddress"} name={"emailAddress"}
                                                className={"form-control"}
                                                value={state.emailAddress}
@@ -113,7 +115,8 @@ const RegisterPage = (props) => {
                                                value={state.lastName}
                                                placeholder="Enter your Last Name"
                                                onChange={onFieldChange}/>
-                                        <label htmlFor="phone_number" className="form-label text-dark">Phone Number</label>
+                                        <label htmlFor="phone_number" className="form-label text-dark">Phone
+                                            Number</label>
                                         <input type="text" id={"phone_number"} name={"phone_number"}
                                                className={"form-control"}
                                                value={state.phone_number}
@@ -126,9 +129,12 @@ const RegisterPage = (props) => {
                                                placeholder="Enter a password"
                                                onChange={onFieldChange}/>
 
-                                        <button className="btn btn-primary btn-lg btn-block" type="submit">Register</button>
-                                        { userProfileData.loggedin && <div className={'text-dark'} onLoad={redirect()}>Success.</div> }
-                                        { userProfileData.loginError && <div className={'text-dark'}>{userProfileData.loginError.message}</div> }
+                                        <button className="btn btn-primary btn-lg btn-block" type="submit">Register
+                                        </button>
+                                        {userProfileData.loggedin &&
+                                        <div className={'text-dark'} onLoad={redirect()}>Success.</div>}
+                                        {userProfileData.loginError &&
+                                        <div className={'text-dark'}>{userProfileData.loginError.message}</div>}
                                     </div>
                                 </div>
                             </div>
