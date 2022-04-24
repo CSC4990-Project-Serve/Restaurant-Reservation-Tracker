@@ -1,13 +1,14 @@
 .home-page-container {
     margin-top: 2rem;
     margin-bottom: 2rem;
+    width: 60%;
 }
 
 
 /* Carousel Styling */
 .carousel-img-home {
     width: 100%;
-    height: 15%;
+    height: 20%;
     opacity: 0.7;
 }
 .carousel-search-section {
@@ -83,15 +84,47 @@
 }
 
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1400px) {
+    .home-page-container {
+        min-width: 65%;
+    }
+}
+@media only screen and (max-width: 1325px) {
+    .home-page-container {
+        min-width: 75%;
+    }
+}
+@media only screen and (max-width: 1050px) {
+    .home-page-container {
+        min-width: 90%;
+    }
+}
+@media only screen and (max-width: 954px) {
     .carousel-header {
         position: relative;
-        font-size: 2rem;
-        margin-top: -4.5rem;
+        font-size: 2.5em;
+        margin-top: -2.5rem;
     }
     .search-bar-carousel {
         width: 200px;
         padding: 0.5rem 1rem 0.5rem 1rem;
         font-size: 0.75rem;
+    }
+}
+@media only screen and (max-width: 800px) {
+    .home-page-container {
+        min-width: 100%;
+    }
+    .carousel-header {
+        position: relative;
+        font-size: 2em;
+        margin-top: -2.5rem;
+    }
+}
+@media only screen and (max-width: 800px) {
+    .carousel-header {
+        position: relative;
+        font-size: 2em;
+        margin-top: -5.5rem;
     }
 }
