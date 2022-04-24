@@ -130,3 +130,26 @@
     scrollbar-width: auto;          /* "auto" or "thin" */
     scrollbar-color: #EFEFF1 #141414;   /* scroll thumb and track */
 }
+
+
+@media only screen and (max-width: 750px) {
+    .search-container .search-together {
+        width: 100%;
+    }
+    .search-container .search-bar {
+        width: 60%;
+    }
+
+    .search-container .search-icon {
+        width: 20%;
+        padding: 0 .5rem 0 .5rem;
+    }
+    .card-container {
+        width: 90%;
+        margin: 0 auto 2rem auto;
+    }
+    .search-results-container h2 {
+        width: 90%;
+        margin: 0 auto 1rem auto;
+    }
+}
