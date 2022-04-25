@@ -33,7 +33,7 @@ const RestaurantPage = () => {
         fetchData();
 
         // test update
-        setUserProfileData({test: "THis is a new state"})
+        //setUserProfileData({test: "THis is a new state"})
     }, []);
 
     const [modal,setModal] = useState(false);
