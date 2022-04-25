@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import AdminTable from '../components/AdminTable';
@@ -12,11 +12,6 @@ import '../css/AdminPage.css';
 
 const AdminPage = (props) => {
     const {restaurant_data, user_data} = props;
-    const[category, setCategory] = useState("Restaurants");
-
-    function getCategory(event) {
-        setCategory(event.target.value);
-    }
 
     return  (
         <>
@@ -26,30 +21,16 @@ const AdminPage = (props) => {
                 <Tabs>
                     <Tab eventKey="data" title="All Data" >
                         <div className="all-data-container">
-                            <form>
-                                <h2>Choose between restaurants and users</h2>
-                                <Form.Select name="category" onChange={getCategory}>
-                                    <option value="Restaurants">Restaurants</option>
-                                    <option value="Users">Users</option>
-                                </Form.Select>
 
-                            </form>
                             <div id="table-data">
-                                <AdminTable restaurant_data={restaurant_data} user_data={user_data} choice={category}/>
+                                <AdminTable restaurant_data={restaurant_data} user_data={user_data}/>
                             </div>
                         </div>
                     </Tab>
                     <Tab eventKey="create" title="Register" >
                         <div className="create-container">
-                            <form>
-                                <h2>Register restaurant or user?</h2>
-                                <Form.Select className="category-select" name="category" onChange={getCategory}>
-                                    <option value="Restaurants">Restaurants</option>
-                                    <option value="Users">Users</option>
-                                </Form.Select>
-                            </form>
                             <div id="table-data">
-                                <AdminCreate restaurant_data={restaurant_data} user_data={user_data} choice={category}/>
+                                <AdminCreate restaurant_data={restaurant_data} user_data={user_data}/>
                             </div>
                         </div>
                     </Tab>

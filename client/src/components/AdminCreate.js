@@ -6,7 +6,9 @@ import bcrypt from "bcryptjs";
 
 const AdminCreate = (props) => {
     const navigate = useNavigate();
-    const {choice, restaurant_data, user_data} = props;
+    const {restaurant_data, user_data} = props;
+    const[category, setCategory] = useState("Restaurants");
+
 
     //restaurants functionality
     const[restaurant_name, setRestaurantName] = useState("Restaurant Name");
@@ -103,7 +105,7 @@ const AdminCreate = (props) => {
                         </Form.Select>
                     </Form.Group>
                 </Row>
-                <Button variant="primary" type="submit">Submit</Button>
+                <Button variant="primary" type="submit">Add Restaurant</Button>
             </Form>
         )
     }
@@ -114,21 +116,14 @@ const AdminCreate = (props) => {
     const[first_name, setFirstName] = useState("John");
     const[last_name, setLastName] = useState("Doe");
     const[phone_number, setUserPhone] = useState("123-456-7890");
-    // const[password, setPassword] = useState("default password")
-    // const[salt, setSalt] = useState()
-
 
     const handleUserSubmit = (e) => {
         e.preventDefault(); // prevent page from auto refresh
 
-        //TODO: FIX THIS, ask Jared for input, dont really know how hashing and salting
         let password_salt = bcrypt.genSaltSync(10);
         let hashed_password = bcrypt.hashSync("default_password", password_salt)
 
         const new_user = {username, email_address, first_name, last_name, phone_number, hashed_password, password_salt};
-
-
-        console.log(JSON.stringify(new_user));
 
         fetch("http://localhost:5000/api/users", {
             method: 'POST',
@@ -166,14 +161,25 @@ const AdminCreate = (props) => {
                         <Form.Control type="tel" placeholder="Enter phone" required value={phone_number} onChange= {(e) => setUserPhone(e.target.value)} />
                     </Form.Group>
                 </Row>
-                <Button variant="primary" type="submit">Submit</Button>
+                <Button variant="primary" type="submit">Create User</Button>
             </Form>
         )
     }
 
     return (
         <>
-            {choice === "Restaurants" ? RestaurantForm() : UserForm()}
+            <Form>
+                <h2>Choose between restaurants and users</h2>
+                <Form.Select name="category" onChange={(e)=> setCategory(e.target.value)} className="header-dropdown">
+                    <option value="Restaurants">Restaurants</option>
+                    <option value="Users">Users</option>
+                </Form.Select>
+            </Form>
+
+            <div>
+                {category === "Restaurants" ? RestaurantForm() : UserForm()}
+            </div>
+
         </>
     )
 }

@@ -1,8 +1,10 @@
 import {useState} from "react";
 import AdminUpdate from "../components/AdminUpdate"
+import {Form} from "react-bootstrap";
 
 const AdminTable = (props) => {
-    const {choice, restaurant_data, user_data} = props;
+    const {restaurant_data, user_data} = props;
+    const[category, setCategory] = useState("Restaurants");
     const[updateActive, setUpdateActive] = useState({ update: false, id: 0, username: "", email_address: "", first_name: "", last_name: "", phone_number: "", restaurant_name: "",  address1: "", city: "", state: "", restaurant_phone_number: ""});
 
     const RestaurantHeading = () => {
@@ -35,8 +37,7 @@ const AdminTable = (props) => {
             </tr>
         )
     })
-
-    //TODO: ready in the front-end
+    //ready in the front-end
     const handleRestaurantDelete = (id, e) => {
         e.preventDefault();
 
@@ -48,8 +49,7 @@ const AdminTable = (props) => {
         //     alert("Delete successful.");
         // });
     }
-
-    //TODO: ready in the front-end
+    //ready in the front-end
     const handleRestaurantUpdate = (id, restaurant_name, address1, city, state, restaurant_phone_number, e) => {
         // e.preventDefault();
         console.log("Updating ID: " + id);
@@ -86,7 +86,6 @@ const AdminTable = (props) => {
             </tr>
         )
     })
-
     //working...
     const handleUserDelete = (id, e) => {
         // e.preventDefault();
@@ -99,8 +98,7 @@ const AdminTable = (props) => {
         });
 
     }
-
-    //TODO: ready in the front-end
+    //ready in the front-end
     const handleUserUpdate = (id, username, email_address, first_name, last_name, phone_number, e) => {
         // e.preventDefault();
         // console.log("Updating ID: " + id);
@@ -110,19 +108,27 @@ const AdminTable = (props) => {
 
     return (
         <>
+            <Form>
+                <h2>Choose between restaurants and users</h2>
+                <Form.Select name="category" onChange={(e)=> setCategory(e.target.value)} className="header-dropdown">
+                    <option value="Restaurants">Restaurants</option>
+                    <option value="Users">Users</option>
+                </Form.Select>
+            </Form>
+
             <table className="admin-page-table">
                 <thead>
-                {choice === "Restaurants" ? RestaurantHeading() : UserHeading()}
+                    {category === "Restaurants" ? RestaurantHeading() : UserHeading()}
                 </thead>
                 <tbody>
-                {choice === "Restaurants" ? RestaurantData : UserData}
+                    {category === "Restaurants" ? RestaurantData : UserData}
                 </tbody>
             </table>
 
             <div className="update-container">
                 {updateActive.update === true &&
                     <AdminUpdate
-                        choice={choice} update={updateActive.update} id={updateActive.id}
+                        choice={category} update={updateActive.update} id={updateActive.id}
                         old_username={updateActive.username} old_email_address={updateActive.email_address} old_first_name={updateActive.first_name} old_last_name={updateActive.last_name} old_phone_number={updateActive.phone_number}
                         old_restaurant_name={updateActive.restaurant_name} old_address1={updateActive.address1} old_city={updateActive.city} old_state={updateActive.state} old_restaurant_phone_number={updateActive.restaurant_phone_number}
                     />
