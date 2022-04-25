@@ -18,7 +18,7 @@ const HomePage = (props) => {
 
     //test context for user
     const {userProfileData, setUserProfileData} = useContext(UserContext);
-    console.log(`IN HOME: UserState from context ${JSON.stringify(userProfileData)}`)
+    // console.log(`IN HOME: UserState from context ${JSON.stringify(userProfileData)}`)
 
     const {restaurant_data} = props;
 

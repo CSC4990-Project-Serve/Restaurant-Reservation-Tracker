@@ -14,7 +14,7 @@ const NavigationBar = () => {
 
     //console.log(`userState in NavBar: ${JSON.stringify(userProfileData)}`);
 
-
+    // This is the Log-Out function/route
     const routeLogin = () => {
         if (!userProfileData.loggedIn) {
             let path = '/login';
@@ -23,14 +23,8 @@ const NavigationBar = () => {
             let path = '/';
             // eslint-disable-next-line no-restricted-globals
             if (confirm("Logging out?")) {
-                    setUserProfileData({
-                        loggedIn: false,
-                        isAdmin: false,
-                        loginError: null,
-                        userid: null,
-                        username: "",
-                    });
-                navigate(path);
+                    setUserProfileData(null);
+                    navigate(path);
             } else {
                 console.log('did not log out');
             }

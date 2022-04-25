@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from "react";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import axios from "axios";
 import ScrollToTop from "./components/ScrollToTop";
 import HomePage from './pages/HomePage'
@@ -12,6 +12,7 @@ import UserHome from "./pages/UserHome";
 import './css/App.css';
 import {UserContext} from "./context/UserContext";
 import NavigationBar from "./components/NavigationBar";
+import {CookiesProvider, useCookies} from 'react-cookie';
 
 function App() {
 
@@ -28,8 +29,21 @@ function App() {
             phone_number: null,
         },
     }
-    
-    const [userProfileData, setUserProfileData] = useState(userProfile);
+
+    const [cookies, setCookie, removeCookie] = useCookies();
+    const [userProfileData, setUserProfileData] = useState(cookies.userProfileData ? cookies.userProfileData : userProfile);
+    console.log(`cookie/state value: ${JSON.stringify(userProfileData)}`)
+
+
+    useEffect(() => {
+        if (userProfileData === null) {
+            removeCookie("userProfileData");
+            setUserProfileData(userProfile)
+        } else {
+            setCookie("userProfileData", userProfileData);
+        }
+    }, [userProfileData])
+
     const userContextProviderVal = useMemo(() => ({
         userProfileData,
         setUserProfileData
@@ -59,23 +73,24 @@ function App() {
 
     return (
         <>
-            <UserContext.Provider value={userContextProviderVal}>
-                <BrowserRouter>
-                    <ScrollToTop/>
-                    <Routes>
-                        <Route path={"/navbar"} element={<NavigationBar/>}/>
-                        <Route path="/register" element={<RegisterPage/>}/>
-                        <Route path="/login" element={<LoginPage/>}/>
-                        <Route path="/" element={<HomePage restaurant_data={restaurant_data}/>}/>
-                        <Route path="/search" element={<SearchPage restaurant_data={restaurant_data}/>}/>
-                        <Route path="/search/:id" element={<RestaurantPage/>}/>
-                        <Route path="/admin"
-                               element={<AdminPage restaurant_data={restaurant_data} user_data={user_data}/>}/>
-                        <Route path={"/UserHome"} element={<UserHome/>}/>
-                    </Routes>
-                </BrowserRouter>
-            </UserContext.Provider>
-
+            <CookiesProvider>
+                <UserContext.Provider value={userContextProviderVal}>
+                    <BrowserRouter>
+                        <ScrollToTop/>
+                        <Routes>
+                            <Route path={"/navbar"} element={<NavigationBar/>}/>
+                            <Route path="/register" element={<RegisterPage/>}/>
+                            <Route path="/login" element={<LoginPage/>}/>
+                            <Route path="/" element={<HomePage restaurant_data={restaurant_data}/>}/>
+                            <Route path="/search" element={<SearchPage restaurant_data={restaurant_data}/>}/>
+                            <Route path="/search/:id" element={<RestaurantPage/>}/>
+                            <Route path="/admin"
+                                   element={<AdminPage restaurant_data={restaurant_data} user_data={user_data}/>}/>
+                            <Route path={"/UserHome"} element={<UserHome/>}/>
+                        </Routes>
+                    </BrowserRouter>
+                </UserContext.Provider>
+            </CookiesProvider>
         </>
     );
 }

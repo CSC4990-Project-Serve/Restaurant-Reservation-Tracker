@@ -6,7 +6,7 @@ import NavigationBar from "../components/NavigationBar";
 import '../css/Login.css';
 import {UserContext} from "../context/UserContext";
 import axios from "axios";
-import {use} from "bcrypt/promises";
+import {useCookies} from "react-cookie";
 
 const LoginPage = (props) => {
     // need a better solution than setting defaults to []
@@ -16,6 +16,9 @@ const LoginPage = (props) => {
         loggedin: false,
         loginError: null
     }
+
+    const [cookie, setCookie] = useCookies();
+
     const {userProfileData, setUserProfileData} = useContext(UserContext);
     const [loginFormInformation, setLoginFormInformation] = useSetState(initialState);
 
@@ -61,7 +64,7 @@ const LoginPage = (props) => {
                     setUserProfileData({
                         loggedIn: false,
                         isAdmin: false,
-                        loginError: err,
+                        loginError: "Error logging in",
                         user: {},
                     })
                     console.log(err);
