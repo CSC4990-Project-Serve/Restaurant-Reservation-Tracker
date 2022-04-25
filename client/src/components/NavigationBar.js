@@ -23,7 +23,7 @@ const NavigationBar = () => {
             let path = '/';
             // eslint-disable-next-line no-restricted-globals
             if (confirm("Logging out?")) {
-                    setUserProfileData(null);
+                    setUserProfileData({loggedIn: false, user: null});
                     navigate(path);
             } else {
                 console.log('did not log out');
