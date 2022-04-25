@@ -28,7 +28,7 @@ function App() {
             phone_number: null,
         },
     }
-
+    
     const [userProfileData, setUserProfileData] = useState(userProfile);
     const userContextProviderVal = useMemo(() => ({
         userProfileData,

@@ -16,7 +16,7 @@ const NavigationBar = () => {
 
 
     const routeLogin = () => {
-        if (!userProfileData.loggedin) {
+        if (!userProfileData.loggedIn) {
             let path = '/login';
             navigate(path);
         } else {
@@ -24,7 +24,7 @@ const NavigationBar = () => {
             // eslint-disable-next-line no-restricted-globals
             if (confirm("Logging out?")) {
                     setUserProfileData({
-                        loggedin: false,
+                        loggedIn: false,
                         isAdmin: false,
                         loginError: null,
                         userid: null,
@@ -39,7 +39,7 @@ const NavigationBar = () => {
 
     const routeRegister = () => {
         let path = '/register';
-        if (!userProfileData.loggedin) {
+        if (!userProfileData.loggedIn) {
             navigate(path);
         } else {
             alert("Already Logged in, logout to RegisterPage")
@@ -77,12 +77,12 @@ const NavigationBar = () => {
                             </NavDropdown>
                             <Nav.Item className="nav-button">
                                 <Button variant="outline-success" onClick={routeLogin}>
-                                    {userProfileData.loggedin ? "Sign Out" : "Sign In"}
+                                    {userProfileData.loggedIn ? "Sign Out" : "Sign In"}
                                 </Button>
                             </Nav.Item>
                             {
                                 // only show register button if not logged in
-                                !userProfileData.loggedin &&
+                                !userProfileData.loggedIn &&
                                 <Nav.Item className="nav-button2">
                                     <Button variant="primary" onClick={routeRegister}>Register</Button>
                                 </Nav.Item>
