@@ -72,6 +72,15 @@ const NavigationBar = () => {
         }
     }
 
+    function navigateUserHome() {
+        let path = '/UserHome';
+        if (!userProfileData.loggedIn) {
+            navigate('/login');
+        } else {
+            navigate(path);
+        }
+    }
+
     return (
         <>
             <Navbar sticky="top" className="navbar-color" expand="lg">
@@ -96,6 +105,7 @@ const NavigationBar = () => {
                         >
                             <NavDropdown title="More" id="collapsible-nav-dropdown" className="ms-auto">
                                 <NavDropdown.Item href="/">Home</NavDropdown.Item>
+                                <NavDropdown.Item onClick={navigateUserHome}>My Reservations</NavDropdown.Item>
                                 <NavDropdown.Item href="/search">Search</NavDropdown.Item>
 
                                 <NavDropdown.Divider/>
