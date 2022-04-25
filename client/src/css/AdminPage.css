@@ -62,7 +62,9 @@
 }
 .admin-page-table {
     color: #EFEFF1;
-    margin-top: 1rem;
+    margin: 1.5rem auto 0 auto;
+    width: 100%;
+    justify-content: center;
 }
 .admin-page-table th {
     font-weight: bold;

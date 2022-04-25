@@ -4,7 +4,6 @@
     /*background-color: red;*/
     position: relative;
     height: 100px;
-
     width: 100vw;
     left: 50%;
     right: 50%;
@@ -61,6 +60,7 @@
 
 /* Result Container */
 .search-results-container {
+    min-height: calc(100vh - 410px); /*view port height - (size of nav + footer + search)*/
     margin-bottom: 4rem;
 }
 .search-results-container h2 {
@@ -108,6 +108,7 @@
     margin: 0.25rem 0 0.25rem 0;
 }
 .card-text-search {
+    margin-top: 1.5rem;
     font-size: 0.95em;
 }
 
@@ -129,4 +130,41 @@
 .card-container {
     scrollbar-width: auto;          /* "auto" or "thin" */
     scrollbar-color: #EFEFF1 #141414;   /* scroll thumb and track */
+}
+
+
+@media only screen and (max-width: 750px) {
+    .search-container .search-together {
+        width: 100%;
+    }
+    .search-container .search-bar {
+        width: 60%;
+    }
+
+    .search-container .search-icon {
+        width: 20%;
+        padding: 0 .5rem 0 .5rem;
+    }
+    .card-container {
+        width: 90%;
+        margin: 0 auto 2rem auto;
+    }
+    .search-results-container h2 {
+        width: 90%;
+        margin: 0 auto 1rem auto;
+    }
+    .card-title-search {
+        font-size: 1.35em;
+        font-weight: 600;
+    }
+    .card-subtitle-search {
+        font-size: 1.15em;
+    }
+    .card-text-icons {
+        font-size: 1.1em;
+    }
+    .card-text-search {
+        margin-top: 0.5rem;
+        font-size: 0.9em;
+    }
 }

@@ -38,30 +38,33 @@ const SearchPage = () => {
     }
 
 
-    return (<>
+    return (
+        <>
         <NavigationBar/>
 
-        <div className="search-container">
-            <div className="search-together">
-                <form ref={searchForm}>
-                    <input type="search" className="search-bar" placeholder="Location, Restaurant, or Cuisine"
-                           name={"searchInput"}/>
-                    <button type="submit" className="search-icon" onClick={updateSearchTerm}>
-                        Search
-                    </button>
-                </form>
+            <div className="search-container">
+                <div className="search-together">
+                    <form ref={searchForm}>
+                        <input type="search" className="search-bar" placeholder="Location, Restaurant, or Cuisine"
+                               name={"searchInput"}/>
+                        <button type="submit" className="search-icon" onClick={updateSearchTerm}>
+                            Search
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
 
-        <Container className="search-results-container">
-            <h2><strong>Results For:</strong> {userSearchTerm}</h2>
-            {restaurantResults.length > 0 ? restaurantResults.map((row, index) => {
-                return <SearchCards restaurant_data={row} key={index}/>
-            }) : <NoResultsCard/>}
+            <Container className="search-results-container">
+                <h2><strong>Results For:</strong> {userSearchTerm}</h2>
+                {restaurantResults.length > 0 ? restaurantResults.map((row, index) => {
+                    return <SearchCards restaurant_data={row} key={index}/>
+                }) : <NoResultsCard/>}
 
-        </Container>
-        <Footer/>
-    </>)
+            </Container>
+
+            <Footer/>
+        </>
+    )
 };
 
 export default SearchPage;
