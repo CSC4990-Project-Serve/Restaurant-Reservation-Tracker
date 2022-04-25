@@ -11,6 +11,14 @@ import axios from "axios";
 const bcrypt = require('bcryptjs');
 
 
+
+const saveToLocalStorage = (state) => {
+    try {
+        localStorage.setItem('userProfileData', JSON.stringify(state));
+    } catch (e) {
+        console.error(e);
+    }
+};
 const RegisterPage = (props) => {
     // Registration Field Names: username, email_address, first_name,
     // last_name, phone_number, hashed_password
@@ -55,6 +63,19 @@ const RegisterPage = (props) => {
             .then(response => {
                 //console.log(response);
                 setUserProfileData({
+                    loggedIn: true,
+                    isAdmin: false,
+                    loginError: false,
+                    user: {
+                        id: response.data.userId,
+                        username: userInfo.username,
+                        email_address: userInfo.email_address,
+                        first_name: userInfo.first_name,
+                        last_name: userInfo.last_name,
+                        phone_number: userInfo.phone_number,
+                    },
+                })
+                saveToLocalStorage({
                     loggedIn: true,
                     isAdmin: false,
                     loginError: false,

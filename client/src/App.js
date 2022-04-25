@@ -15,7 +15,7 @@ import NavigationBar from "./components/NavigationBar";
 
 function App() {
 
-    const userProfile = {
+    let userProfile = {
         loggedIn: false,
         isAdmin: false,
         loginError: null,
@@ -28,7 +28,30 @@ function App() {
             phone_number: null,
         },
     }
-    
+
+    const saveToLocalStorage = (state) => {
+        try {
+            localStorage.setItem('userProfileData', JSON.stringify(state));
+        } catch (e) {
+            console.error(e);
+        }
+    };
+    const loadFromLocalStorage = () => {
+        try {
+            const stateStr = localStorage.getItem('userProfileData');
+            return stateStr ? JSON.parse(stateStr) : undefined;
+        } catch (e) {
+            console.error(e);
+            return undefined;
+        }
+    };
+
+    if (loadFromLocalStorage() !== undefined){
+        userProfile = loadFromLocalStorage();
+    } else {
+        saveToLocalStorage(userProfile);
+    }
+
     const [userProfileData, setUserProfileData] = useState(userProfile);
     const userContextProviderVal = useMemo(() => ({
         userProfileData,

@@ -8,6 +8,14 @@ import {UserContext} from "../context/UserContext";
 import axios from "axios";
 import {use} from "bcrypt/promises";
 
+
+const saveToLocalStorage = (state) => {
+    try {
+        localStorage.setItem('userProfileData', JSON.stringify(state));
+    } catch (e) {
+        console.error(e);
+    }
+};
 const LoginPage = (props) => {
     // need a better solution than setting defaults to []
     const initialState = {
@@ -52,7 +60,19 @@ const LoginPage = (props) => {
                         phone_number: response.data[0].phone_number,
                     },
                 })
-
+                saveToLocalStorage({
+                    loggedIn: true,
+                    isAdmin: false,
+                    loginError: false,
+                    user: {
+                        id: response.data[0].id,
+                        username: response.data[0].username,
+                        email_address: response.data[0].email_address,
+                        first_name: response.data[0].first_name,
+                        last_name: response.data[0].last_name,
+                        phone_number: response.data[0].phone_number,
+                    },
+                })
                 redirect();
             })
             //.then(response => console.log(response.data[0]))

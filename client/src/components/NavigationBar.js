@@ -6,6 +6,13 @@ import logo from '../imgs/logo.png';
 import '../css/NavigationBar.css';
 import {use} from "bcrypt/promises";
 
+const saveToLocalStorage = (state) => {
+    try {
+        localStorage.setItem('userProfileData', JSON.stringify(state));
+    } catch (e) {
+        console.error(e);
+    }
+};
 const NavigationBar = () => {
 
     const navigate = useNavigate();
@@ -27,9 +34,28 @@ const NavigationBar = () => {
                         loggedIn: false,
                         isAdmin: false,
                         loginError: null,
-                        userid: null,
-                        username: "",
+                        user: {
+                            id: null,
+                            username: null,
+                            email_address: null,
+                            first_name: null,
+                            last_name: null,
+                            phone_number: null,
+                        },
                     });
+                    saveToLocalStorage({
+                        loggedIn: false,
+                        isAdmin: false,
+                        loginError: null,
+                        user: {
+                            id: null,
+                            username: null,
+                            email_address: null,
+                            first_name: null,
+                            last_name: null,
+                            phone_number: null,
+                        },
+                    })
                 navigate(path);
             } else {
                 console.log('did not log out');
