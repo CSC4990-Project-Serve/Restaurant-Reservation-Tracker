@@ -43,10 +43,6 @@
     box-shadow: none;
     border-color: transparent;
 }
-.form-select:focus {
-    box-shadow: none;
-    border-color: transparent;
-}
 .reservation-button {
     font-family: 'Roboto', sans-serif;
     background-color: #3A3A3D;
