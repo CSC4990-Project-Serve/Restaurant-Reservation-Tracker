@@ -1,14 +1,12 @@
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
-import '../css/AdminPage.css';
 import bcrypt from "bcryptjs";
 
 const AdminCreate = (props) => {
     const navigate = useNavigate();
     const {restaurant_data, user_data} = props;
     const[category, setCategory] = useState("Restaurants");
-
 
     //restaurants functionality
     const[restaurant_name, setRestaurantName] = useState("Restaurant Name");
@@ -20,20 +18,22 @@ const AdminCreate = (props) => {
     const[postal_code, setPostalCode] = useState("12345");
     const[hours_open, setHoursOpen] = useState("12:00PM");
     const[hours_close, setHoursClose] = useState("9:00PM")
+    const star_rating = 5;
 
-    const handleRestaurantSubmit = (e) => {
-        e.preventDefault(); // prevent page from auto refresh
-        const new_restaurant = {restaurant_name, restaurant_phone_number, restaurant_description, address1, city, state, postal_code, hours_open, hours_close};
+    //TODO: fix hours formatting
+    const handleRestaurantSubmit = () => {
+        // const new_restaurant = {restaurant_name, restaurant_phone_number, restaurant_description, address1, city, state, postal_code, hours_open, hours_close, star_rating};
+        const new_restaurant = {restaurant_name, restaurant_phone_number, restaurant_description, address1, city, state, postal_code, star_rating};
 
         fetch("http://localhost:5000/api/restaurant", {
             method: 'POST',
             headers: {"Content-type": "application/json" },
             body: JSON.stringify(new_restaurant)
         }).then(() => {
-            console.log("Done")
+            console.log("Restaurant added successfully.");
         });
+        alert("Restaurant added successfully.");
     }
-
     const RestaurantForm = () => {
         return (
             <Form onSubmit={handleRestaurantSubmit} className="restaurant-form">
@@ -117,9 +117,7 @@ const AdminCreate = (props) => {
     const[last_name, setLastName] = useState("Doe");
     const[phone_number, setUserPhone] = useState("123-456-7890");
 
-    const handleUserSubmit = (e) => {
-        e.preventDefault(); // prevent page from auto refresh
-
+    const handleUserSubmit = () => {
         let password_salt = bcrypt.genSaltSync(10);
         let hashed_password = bcrypt.hashSync("default_password", password_salt)
 
@@ -130,10 +128,10 @@ const AdminCreate = (props) => {
             headers: {"Content-type": "application/json" },
             body: JSON.stringify(new_user)
         }).then(() => {
-            console.log("Done")
+            console.log("User created successfully.");
         });
+        alert("User created successfully.");
     }
-
     const UserForm = () => {
         return (
             <Form onSubmit={handleUserSubmit} className="restaurant-form">

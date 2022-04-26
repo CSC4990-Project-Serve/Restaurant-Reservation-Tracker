@@ -50,10 +50,6 @@
 }
 
 
-
-
-
-
 /*AdminTable.js styling*/
 #table-data {
     justify-content: center;
@@ -80,14 +76,13 @@
 
 
 /*AdminCreate.js styling*/
-.create-container form .category-select {
-    width: 150px;
-    margin: 0 auto;
-}
 .restaurant-form {
     margin-top: 1rem;
     margin-bottom: 2rem;
 }
+
+
+/*AdminUpdate.js styling*/
 .update-container h2 {
     margin-bottom: 1rem;
 }

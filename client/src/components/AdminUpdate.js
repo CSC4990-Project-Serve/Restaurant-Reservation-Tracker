@@ -1,11 +1,15 @@
 import {Button, Col, Form, Row} from "react-bootstrap";
 import {useState} from "react";
 
-
-//TODO: implement update prop and refresh functionality
 const AdminUpdate = (props) => {
     //Global Properties:
-    const{choice, update, id } = props;
+    let {choice, update, id} = props;
+
+    if(update === true) {
+        window.scrollTo(0,1000);
+    }  else {
+        window.scrollTo(0,0);
+    }
 
     // User Properties:
     const {old_username, old_email_address, old_first_name, old_last_name, old_phone_number} = props;
@@ -16,18 +20,15 @@ const AdminUpdate = (props) => {
     const[phone_number, setUserPhone] = useState(old_phone_number);
 
     // done
-    const handleUserUpdate = (e) => {
-        e.preventDefault();
+    const handleUserUpdate = () => {
         const updated_user = {id, username, email_address, first_name, last_name, phone_number};
-
-        console.log(JSON.stringify(updated_user));
 
         fetch(`http://localhost:5000/api/users/${id}`, {
             method: 'PUT',
             headers: {"Content-type": "application/json" },
             body: JSON.stringify(updated_user)
         }).then(() => {
-            console.log("Done")
+            alert("Update successful.");
         });
     }
     const UserUpdateForm = () => {
@@ -73,8 +74,7 @@ const AdminUpdate = (props) => {
     const[restaurant_phone_number, setRestaurantPhone] = useState(old_restaurant_phone_number);
 
     // ready, just need back-end
-    const handleRestaurantUpdate = (e) => {
-        e.preventDefault();
+    const handleRestaurantUpdate = () => {
         const updated_restaurant = {id, restaurant_name, address1, city, restaurant_state, restaurant_phone_number};
 
         console.log(JSON.stringify(updated_restaurant));
@@ -84,8 +84,11 @@ const AdminUpdate = (props) => {
         //     headers: {"Content-type": "application/json" },
         //     body: JSON.stringify(updated_user)
         // }).then(() => {
-        //     console.log("Done")
+        //     alert("Update successful.");
         // });
+
+        alert("Update successful.");
+        window.location.reload();
     }
     const RestaurantUpdateForm = () => {
         return (
@@ -123,7 +126,7 @@ const AdminUpdate = (props) => {
 
     return (
         <>
-            {choice === "Restaurants" ? RestaurantUpdateForm() : UserUpdateForm()}
+            {choice === "Restaurants"  ? RestaurantUpdateForm() : UserUpdateForm()}
         </>
     );
 };

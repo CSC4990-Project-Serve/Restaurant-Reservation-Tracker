@@ -1,10 +1,11 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import AdminTable from '../components/AdminTable';
 import AdminCreate from '../components/AdminCreate';
-import {Container, Form, Tab, Tabs} from "react-bootstrap";
+import {Container,  Tab, Tabs} from "react-bootstrap";
 import '../css/AdminPage.css';
+
 
 
 //TODO: Delete, Update Restaurants
@@ -12,13 +13,14 @@ import '../css/AdminPage.css';
 
 const AdminPage = (props) => {
     const {restaurant_data, user_data} = props;
+    const [key, setKey] = useState('home');
 
     return  (
         <>
             <NavigationBar/>
 
             <Container className="admin-page-container">
-                <Tabs>
+                <Tabs onSelect={(k) => setKey(k)}>
                     <Tab eventKey="data" title="All Data" >
                         <div className="all-data-container">
 
