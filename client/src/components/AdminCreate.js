@@ -25,7 +25,7 @@ const AdminCreate = (props) => {
         // const new_restaurant = {restaurant_name, restaurant_phone_number, restaurant_description, address1, city, state, postal_code, hours_open, hours_close, star_rating};
         const new_restaurant = {restaurant_name, restaurant_phone_number, restaurant_description, address1, city, state, postal_code, star_rating};
 
-        fetch("http://localhost:5000/api/restaurant", {
+        fetch(`http://localhost:5000/api/restaurant`, {
             method: 'POST',
             headers: {"Content-type": "application/json" },
             body: JSON.stringify(new_restaurant)
@@ -123,7 +123,7 @@ const AdminCreate = (props) => {
 
         const new_user = {username, email_address, first_name, last_name, phone_number, hashed_password, password_salt};
 
-        fetch("http://localhost:5000/api/users", {
+        fetch(`http://localhost:5000/api/users`, {
             method: 'POST',
             headers: {"Content-type": "application/json" },
             body: JSON.stringify(new_user)

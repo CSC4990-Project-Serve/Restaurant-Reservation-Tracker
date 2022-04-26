@@ -20,8 +20,8 @@ function App() {
 
     const getData = () => {
         let routes = [
-            'http://localhost:5000/api/restaurant/',
-            'http://localhost:5000/api/users/',
+            `http://localhost:5000/api/restaurant/`,
+            `http://localhost:5000/api/users/`,
         ];
         Promise.all(routes.map((route) => axios.get(route))).then(([{data: restaurant_data}, {data: user_data}] )=> {
             setRestaurantData(restaurant_data)
