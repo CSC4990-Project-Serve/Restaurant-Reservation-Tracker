@@ -10,7 +10,8 @@ import '../css/RestaurantPage.css';
 import carousel_img from '../imgs/carousel-overhead.jpg';
 
 const RestaurantPage = () => {
-    const {id} = useParams();
+    const{id} = useParams();
+    const[modal,setModal] = useState(false);
     const[restaurant_data, setRestaurantData] = useState({ name: "", description: "", phone: "", address: "", city: "", state: "", postal_code: "", mon: "", tue: "", wed: "", thu: "", fri: "", sat: "", sun: "" });
 
     useEffect(() => {
@@ -27,10 +28,36 @@ const RestaurantPage = () => {
         fetchData();
     }, []);
 
-    const [modal,setModal] = useState(false);
 
-    const handleReservation = () => {
-        //TODO: POST request
+    const[restaurantID, setRestaurantID] = useState(id);
+    const userID = 2; //grab from useContext when logged in... this for sure
+    const[first_name, setFirstName] = useState("John");
+    const[last_name, setLastName] = useState("Doe");
+    const[email_address, setEmailAddress] = useState("project@serve.live"); //grab from useContext when logged in... this for sure
+    const[phone_number, setPhoneNumber] = useState("123-456-7890"); //grab from useContext when logged in... this for sure
+    const[reservation_date, setReservationDate] = useState("2022-01-01");
+    let [reservation_time, setReservationTime] = useState("12:00:00");
+    const[purpose, setPurpose] = useState("");
+    const[party_size, setPartySize] = useState(1);
+    const reservation_status = 0;
+
+    const handleReservation = (e) => {
+        e.preventDefault();
+
+        reservation_time = reservation_time + ":00";
+
+        const new_reservation = {userID, restaurantID, first_name, last_name, email_address, phone_number, reservation_date, reservation_time, purpose, party_size, reservation_status};
+
+        console.log(JSON.stringify(new_reservation));
+
+        fetch("http://localhost:5000/api/reservations", {
+            method: 'POST',
+            headers: {"Content-type": "application/json" },
+            body: JSON.stringify(new_reservation)
+        }).then(() => {
+            console.log("Done")
+        });
+
         setModal(true)
     }
 
@@ -86,69 +113,45 @@ const RestaurantPage = () => {
                     <Col className="right-col-restaurant-details">
                         <h2 className="restaurant-details-heading">Order now</h2>
 
-                        {/*TODO: change format of time in database (varchar and HH:MM format)*/}
                         <p><MDBIcon fas icon="phone" className="phone-icon"/>&nbsp;&nbsp; {restaurant_data.phone}</p>
 
                         <div className="reservation-widget">
                             <h2 className="reservation-heading">Make a Reservation</h2>
-                            <Form>
+                            <Form onSubmit={handleReservation}>
                                 <Row className="mb-3">
                                     <Col>
-                                        <Form.Control type="text" placeholder="First name" />
+                                        <Form.Control type="text" placeholder="First name" onChange= {(e) => setFirstName(e.target.value)} />
                                     </Col>
                                     <Col>
-                                        <Form.Control type="text" placeholder="Last name" />
+                                        <Form.Control type="text" placeholder="Last name" onChange= {(e) => setLastName(e.target.value)} />
                                     </Col>
                                 </Row>
                                 <Row className="mb-3">
                                     <Col>
-                                        <Form.Control type="email" placeholder="Email" />
+                                        <Form.Control type="email" placeholder="Email" onChange= {(e) => setEmailAddress(e.target.value)} />
                                     </Col>
                                     <Col>
-                                        <Form.Control type="tel" placeholder="Phone number" />
-                                    </Col>
-                                </Row>
-                                <Row className="mb-3">
-                                    <Col>
-                                        <Form.Control type="number" placeholder="Party size" />
-                                    </Col>
-                                    <Col>
-                                        <Form.Control type="text" placeholder="Occasion (optional)" />
+                                        <Form.Control type="tel" placeholder="Phone number" onChange= {(e) => setPhoneNumber(e.target.value)} />
                                     </Col>
                                 </Row>
                                 <Row className="mb-3">
                                     <Col>
-                                        <Form.Control type="date" placeholder="Date" />
+                                        <Form.Control type="number" placeholder="Party size" onChange= {(e) => setPartySize(parseInt(e.target.value))} />
                                     </Col>
                                     <Col>
-                                        <Form.Select>
-                                            <option>Time</option>
-                                            <option value="#">9:00 AM</option>
-                                            <option value="#">9:30 AM</option>
-                                            <option value="#">10:00 AM</option>
-                                            <option value="#">10:30 AM</option>
-                                            <option value="#">11:00 AM</option>
-                                            <option value="#">11:30 AM</option>
-                                            <option value="#">12:00 PM</option>
-                                            <option value="#">12:30 PM</option>
-                                            <option value="#">1:00 PM</option>
-                                            <option value="#">1:30 PM</option>
-                                            <option value="#">2:00 PM</option>
-                                            <option value="#">2:30 PM</option>
-                                            <option value="#">3:00 PM</option>
-                                            <option value="#">3:30 PM</option>
-                                            <option value="#">4:00 PM</option>
-                                            <option value="#">4:30 PM</option>
-                                            <option value="#">5:00 PM</option>
-                                            <option value="#">5:30 PM</option>
-                                            <option value="#">6:00 PM</option>
-                                            <option value="#">6:30 PM</option>
-                                            <option value="#">7:00 PM</option>
-                                        </Form.Select>
+                                        <Form.Control type="text" placeholder="Occasion (optional)" onChange= {(e) => setPurpose(e.target.value)} />
+                                    </Col>
+                                </Row>
+                                <Row className="mb-3">
+                                    <Col>
+                                        <Form.Control type="date" placeholder="Date" onChange= {(e) => setReservationDate(e.target.value)} />
+                                    </Col>
+                                    <Col>
+                                        <Form.Control type="time" onChange= {(e) => setReservationTime(e.target.value)} />
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Button className="reservation-button" type="button" onClick={handleReservation}>Complete Reservation</Button>
+                                    <Button className="reservation-button" type="submit">Complete Reservation</Button>
                                 </Row>
                             </Form>
                         </div>
