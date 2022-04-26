@@ -1,6 +1,8 @@
 'use strict';
 
 const Restaurant = require('../model/Restaurant');
+const hoursModel = require('../model/RestaurantHours');
+const locationModel = require('../model/RestaurantLocation');
 
 exports.getAllRestaurants = function (req, res) {
     Restaurant.get_all_restaurants_from_db((err, results) => {
@@ -76,38 +78,94 @@ exports.getRestaurantByID = function (req, res) {
 
 exports.updateRestaurantByID = function (req, res) {
     const restaurantIDtoUpdate = req.params.id;
-    let updatedRestaurant;
+    let updatedRestaurant = new Restaurant(req.body);
 
-    // fixme: need to fix this part
-    //  we cant just update the hours,location, and restaurant with the same id.
-    //  the hours and location may have a different id.
-    //  how to deal with this????
-    // Restaurant.get_restaurant_by_id(restaurantIDtoUpdate, (err, results) => {
-    //     if(err) {
-    //         console.log(err);
-    //     } else {
-    //         updatedRestaurant = results;
-    //     }
-    // });
+    if (!restaurantIDtoUpdate) {
+        res.status(400).send({error: true, message: `No restaurant id provided`})
+    } else {
+        //get the location id
+        hoursModel.get_hours_by_restaurant_id(restaurantIDtoUpdate, (err, hoursData) => {
+            if (err) {
+                res.status(400).send({
+                    error: true,
+                    message: `No hours found for restaurant with id ${restaurantIDtoUpdate}`
+                })
+            } else {
+                const hoursID = hoursData.id;
 
-    // if (!restaurantIDtoUpdate) {
-    //     res.status(400).send({error: true, message: `No restaurant id provided`})
-    // } else {
-    //     Restaurant.update_by_id(restaurantIDtoUpdate, updatedRestaurant, (err, results) => {
-    //         if (err) {
-    //             res.send(err);
-    //         } else if (results) {
-    //             res.send({error: false, message: `Restaurant with id ${restaurantIDtoUpdate} updated`});
-    //         } else {
-    //             res.status(404).send({error: true, message: `No restaurant found with id ${restaurantIDtoUpdate}`})
-    //         }
-    //     });
-    // }
+                locationModel.get_location_by_restaurant_id(restaurantIDtoUpdate, (err, locationData) => {
+                    if (err) {
+                        res.status(400).send({
+                            error: true,
+                            message: `No location found for restaurant with id ${restaurantIDtoUpdate}`
+                        })
+                    } else {
+                        const locationID = locationData.id;
 
+                        Restaurant.update_by_id(restaurantIDtoUpdate, hoursID, locationID, updatedRestaurant, (err, updateResults) => {
+                            if (err) {
+                                res.status(400).send({
+                                    error: true,
+                                    message: `Error updating restaurant information for id ${restaurantIDtoUpdate}`
+                                })
+                            } else {
+                                console.log(`updateRes is: ${updateResults}`);
+                                res.status(200).send({error: false, message: "Update success!"})
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
 }
 
 exports.deleteRestaurantByID = function (req, res) {
+    let restaurantIDtoDelete = req.params.id;
 
+    if (!restaurantIDtoDelete || isNaN(restaurantIDtoDelete)) {
+        res.status(400).send({error: true, message: `No restaurant id provided`})
+    } else {
+        locationModel.get_location_by_restaurant_id(restaurantIDtoDelete, (err, locationResults) => {
+            if (err) {
+                // console.log(err);
+                res.status(400).send({
+                    error: true,
+                    message: `Error finding location for restaurant with id ${restaurantIDtoDelete}`
+                })
+            } else {
+                const locationID = locationResults.id;
+
+                hoursModel.get_hours_by_restaurant_id(restaurantIDtoDelete, (err, hoursResults) => {
+                    if (err) {
+                        // console.log(err);
+                        res.status(400).send({
+                            error: true,
+                            message: `Error finding hours for restaurant with id ${restaurantIDtoDelete}`
+                        })
+                    } else {
+                        const hoursID = hoursResults.id;
+
+                        Restaurant.delete_restaurant_by_restaurantID(restaurantIDtoDelete, locationID, hoursID, (err, deleteResults) => {
+                            if (err) {
+                                res.status(400).send({
+                                    error: true,
+                                    message: `Error deleting restaurant with id ${restaurantIDtoDelete}`
+                                })
+                            } else {
+                                // console.log(`deleteRes is: ${deleteResults}`);
+                                res.send({
+                                    error: false,
+                                    status: `Restaurant with id:${restaurantIDtoDelete} was permanently deleted`
+                                })
+                            }
+                        })
+                    }
+                })
+
+            }
+        })
+    }
 }
 
 exports.searchForRestaurant = function (req, res) {

@@ -194,13 +194,12 @@ Restaurant.get_restaurant_by_id_with_reservations = (restaurantID, results) => {
     })
 }
 
-// fixme: same issue as controller with differing ids
-Restaurant.update_by_id = (idToUpdate, updatedInfo, results) => {
+Restaurant.update_by_id = (restaurantIdToUpdate, hoursID, locationID, updatedInfo, resultsCB) => {
     const updateRestaurantMainInformation = `UPDATE restaurants
                                              SET restaurant_name         = ?,
                                                  restaurant_description  = ?,
                                                  restaurant_phone_number = ?,
-                                                 star_rating = ?
+                                                 star_rating             = ?
                                              WHERE id = ?`;
     const updateRestaurantLocation = `UPDATE restaurant_locations
                                       SET location_name = ?,
@@ -221,6 +220,29 @@ Restaurant.update_by_id = (idToUpdate, updatedInfo, results) => {
                                        sunday    = ?
                                    WHERE id = ?`;
 
+    conn.query(updateRestaurantMainInformation, [updatedInfo.restaurant_name, updatedInfo.restaurant_description, updatedInfo.restaurant_phone_number, updatedInfo.star_rating, restaurantIdToUpdate], (err, mainInfoUpdateRes) => {
+        if (err) {
+            console.log(err)
+            resultsCB(err, null)
+        } else {
+            conn.query(updateRestaurantLocation, [updatedInfo.location.location_name, updatedInfo.location.address1, updatedInfo.location.address2, updatedInfo.location.city, updatedInfo.location.state, updatedInfo.location.postal_code, updatedInfo.location.country, locationID], (err, locationUpdateRes) => {
+                if (err) {
+                    console.log(err)
+                    resultsCB(err, null)
+                } else {
+                    conn.query(updateRestaurantHours, [updatedInfo.hours.monday, updatedInfo.hours.tuesday, updatedInfo.hours.wednesday, updatedInfo.hours.thursday, updatedInfo.hours.friday, updatedInfo.hours.saturday, updatedInfo.hours.sunday, hoursID], (err, hoursUpdateRes) => {
+                        if (err) {
+                            console.log(err)
+                            resultsCB(err, null)
+                        } else {
+                            console.log(`Update of all restaurant info success`)
+                            resultsCB(null, true)
+                        }
+                    })
+                }
+            })
+        }
+    })
 }
 
 Restaurant.create_new_restaurant = (restaurantInfo, results) => {
@@ -233,7 +255,8 @@ Restaurant.create_new_restaurant = (restaurantInfo, results) => {
     let insertRestaurantHours = `INSERT INTO restaurant_hours (monday, tuesday, wednesday, thursday, friday, saturday, sunday)
                                  VALUES (?, ?, ?, ?, ?, ?, ?)`;
     //insert into restaurants
-    let insertRestaurant = `INSERT INTO restaurants (restaurant_name, restaurant_description, restaurant_phone_number, star_rating,
+    let insertRestaurant = `INSERT INTO restaurants (restaurant_name, restaurant_description, restaurant_phone_number,
+                                                     star_rating,
                                                      restaurant_hours, location_ID, menu_ID)
                             VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
@@ -253,6 +276,44 @@ Restaurant.create_new_restaurant = (restaurantInfo, results) => {
                             results(err, null);
                         } else {
                             results(null, restaurantInfoRes);
+                        }
+                    })
+                }
+            })
+        }
+    })
+}
+
+Restaurant.delete_restaurant_by_restaurantID = (restaurantID, hoursID, locationID, results) => {
+    let delete_query_restaurantInfo = `DELETE
+                                       FROM restaurants
+                                       WHERE id = ?`;
+
+    let delete_query_hours = `DELETE
+                              FROM restaurant_hours
+                              WHERE id = ?`;
+
+    let delete_query_location = `DELETE
+                                 FROM restaurant_locations
+                                 WHERE id = ?`;
+
+
+    conn.query(delete_query_location, [locationID], (err, locationRes) => {
+        if (err) {
+            console.log(err);
+            results(err, null);
+        } else {
+            conn.query(delete_query_hours, [hoursID], (err, hoursRes) => {
+                if (err) {
+                    console.log(err);
+                    results(err, null);
+                } else {
+                    conn.query(delete_query_restaurantInfo, [restaurantID], (err, restaurantRes) => {
+                        if (err) {
+                            console.log(err);
+                            results(err, null);
+                        } else {
+                            restaurantRes.affectedRows > 0 ? results(null, true) : results(null, false)
                         }
                     })
                 }
