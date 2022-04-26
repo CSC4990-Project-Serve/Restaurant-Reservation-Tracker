@@ -3,8 +3,9 @@ import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import AdminTable from '../components/AdminTable';
 import AdminCreate from '../components/AdminCreate';
-import {Container, Form, Tab, Tabs} from "react-bootstrap";
+import {Container,  Tab, Tabs} from "react-bootstrap";
 import '../css/AdminPage.css';
+
 
 
 //TODO: Delete, Update Restaurants
@@ -12,44 +13,26 @@ import '../css/AdminPage.css';
 
 const AdminPage = (props) => {
     const {restaurant_data, user_data} = props;
-    const[category, setCategory] = useState("Restaurants");
-
-    function getCategory(event) {
-        setCategory(event.target.value);
-    }
+    const [key, setKey] = useState('home');
 
     return  (
         <>
             <NavigationBar/>
 
             <Container className="admin-page-container">
-                <Tabs>
+                <Tabs onSelect={(k) => setKey(k)}>
                     <Tab eventKey="data" title="All Data" >
                         <div className="all-data-container">
-                            <form>
-                                <h2>Choose between restaurants and users</h2>
-                                <Form.Select name="category" onChange={getCategory}>
-                                    <option value="Restaurants">Restaurants</option>
-                                    <option value="Users">Users</option>
-                                </Form.Select>
 
-                            </form>
                             <div id="table-data">
-                                <AdminTable restaurant_data={restaurant_data} user_data={user_data} choice={category}/>
+                                <AdminTable restaurant_data={restaurant_data} user_data={user_data}/>
                             </div>
                         </div>
                     </Tab>
-                    <Tab eventKey="create" title="RegisterPage" >
+                    <Tab eventKey="create" title="Register" >
                         <div className="create-container">
-                            <form>
-                                <h2>RegisterPage restaurant or user?</h2>
-                                <Form.Select className="category-select" name="category" onChange={getCategory}>
-                                    <option value="Restaurants">Restaurants</option>
-                                    <option value="Users">Users</option>
-                                </Form.Select>
-                            </form>
                             <div id="table-data">
-                                <AdminCreate restaurant_data={restaurant_data} user_data={user_data} choice={category}/>
+                                <AdminCreate restaurant_data={restaurant_data} user_data={user_data}/>
                             </div>
                         </div>
                     </Tab>

@@ -247,7 +247,7 @@ Restaurant.create_new_restaurant = (restaurantInfo, results) => {
                     console.log(err);
                     results(err, null);
                 } else {
-                    conn.query(insertRestaurant, [restaurantInfo.restaurant_name, restaurantInfo.restaurant_description, restaurantInfo.restaurant_phone_number, hoursRes.insertId, locationRes.insertId, restaurantInfo.menu], (err, restaurantInfoRes) => {
+                    conn.query(insertRestaurant, [restaurantInfo.restaurant_name, restaurantInfo.restaurant_description, restaurantInfo.restaurant_phone_number, restaurantInfo.star_rating, hoursRes.insertId, locationRes.insertId, restaurantInfo.menu], (err, restaurantInfoRes) => {
                         if (err) {
                             console.log(err);
                             results(err, null);
