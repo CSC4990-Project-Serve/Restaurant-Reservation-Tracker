@@ -22,7 +22,7 @@ const AdminUpdate = (props) => {
     const handleUserUpdate = () => {
         const updated_user = {id, username, email_address, first_name, last_name, phone_number};
 
-        fetch(`http://localhost:5000/api/users/${id}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/users/${id}`, {
             method: 'PUT',
             headers: {"Content-type": "application/json" },
             body: JSON.stringify(updated_user)
@@ -78,7 +78,7 @@ const AdminUpdate = (props) => {
 
         console.log(JSON.stringify(updated_restaurant));
 
-        fetch(`http://localhost:5000/api/restaurant/${id}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/restaurant/${id}`, {
             method: 'PUT',
             headers: {"Content-type": "application/json" },
             body: JSON.stringify(updated_restaurant)

@@ -16,7 +16,7 @@ const SearchPage = () => {
         restaurant_name: null, restaurant_description: null, location: {city: null, state: null}
     }]);
 
-    let api_route = (userSearchTerm === "") ? `http://localhost:5000/api/restaurant` : `http://localhost:5000/api/search/${userSearchTerm}`;
+    let api_route = (userSearchTerm === "") ? `${process.env.REACT_APP_API_URL}/api/restaurant` : `${process.env.REACT_APP_API_URL}/api/search/${userSearchTerm}`;
     useEffect(() => {
         axios.get(api_route)
             .then(response => {

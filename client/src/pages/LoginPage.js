@@ -33,7 +33,7 @@ const LoginPage = (props) => {
             password: password,
         }
 
-        axios.post(`http://localhost:5000/api/login`, {...userInfo}, {
+        axios.post(`${process.env.REACT_APP_API_URL}/api/login`, {...userInfo}, {
             headers: {
                 "access-control-allow-origin": "*",
             }

@@ -38,7 +38,7 @@ const AdminTable = (props) => {
         )
     })
     const handleRestaurantDelete = (id) => {
-        fetch(`http://localhost:5000/api/restaurant/${id}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/restaurant/${id}`, {
             method: 'DELETE',
         }).then(() => {
             alert("Delete successful.");
@@ -80,7 +80,7 @@ const AdminTable = (props) => {
         )
     })
     const handleUserDelete = (id) => {
-        fetch(`http://localhost:5000/api/users/${id}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/users/${id}`, {
             method: 'DELETE',
         }).then(() => {
             alert("Delete successful.");
