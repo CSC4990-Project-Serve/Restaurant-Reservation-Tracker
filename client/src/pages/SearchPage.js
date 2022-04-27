@@ -11,7 +11,6 @@ import NoResultsCard from "./SearchComponents/NoResultsCard";
 const SearchPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-
     const [userSearchTerm, setUserSearchTerm] = useState(location.state || "");
     const [restaurantResults, setRestaurantResults] = useState([{
         restaurant_name: null, restaurant_description: null, location: {city: null, state: null}
@@ -25,7 +24,6 @@ const SearchPage = () => {
             })
     }, [userSearchTerm])
 
-
     // update the userSearchTerm state with the value within the search box on button click
     const searchForm = useRef(null); // used for search bar form
     const updateSearchTerm = (event) => {
@@ -36,7 +34,6 @@ const SearchPage = () => {
         // https://stackoverflow.com/questions/40099431/how-do-i-clear-location-state-in-react-router-on-page-reload
         navigate(location.pathname, {}); //clear the old search term from the home page
     }
-
 
     return (
         <>
