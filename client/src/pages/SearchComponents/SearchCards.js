@@ -7,7 +7,69 @@ import {Link} from "react-router-dom";
 function SearchCards(props) {
     const {restaurant_data} = props;
 
-    // console.log(restaurant_data)
+    const UserRating = () => {
+        if(restaurant_data.star_rating === 5) {
+            return (
+                <Card.Text className="card-text-icons">
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon fas icon="star"/>
+                </Card.Text>
+            )
+        } else if(restaurant_data.star_rating === 4) {
+            return (
+                <Card.Text className="card-text-icons">
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon far icon="star"/>
+                </Card.Text>
+            )
+        } else if(restaurant_data.star_rating === 3) {
+            return (
+                <Card.Text className="card-text-icons">
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon far icon="star"/>
+                    <MDBIcon far icon="star"/>
+                </Card.Text>
+            )
+        } else if(restaurant_data.star_rating === 2) {
+            return (
+                <Card.Text className="card-text-icons">
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon far icon="star"/>
+                    <MDBIcon far icon="star"/>
+                    <MDBIcon far icon="star"/>
+                </Card.Text>
+            )
+        } else if(restaurant_data.star_rating === 1) {
+            return (
+                <Card.Text className="card-text-icons">
+                    <MDBIcon fas icon="star"/>
+                    <MDBIcon far icon="star"/>
+                    <MDBIcon far icon="star"/>
+                    <MDBIcon far icon="star"/>
+                    <MDBIcon far icon="star"/>
+                </Card.Text>
+            )
+        } else {
+            return (
+                <Card.Text className="card-text-icons">
+                    <MDBIcon far icon="star"/>
+                    <MDBIcon far icon="star"/>
+                    <MDBIcon far icon="star"/>
+                    <MDBIcon far icon="star"/>
+                    <MDBIcon far icon="star"/>
+                </Card.Text>
+            )
+        }
+    }
 
     return (
         <Link to={`/search/${restaurant_data.id}`} style={{textDecoration: 'none'}} key={restaurant_data.id}>
@@ -20,13 +82,7 @@ function SearchCards(props) {
                         <Card.Body className="card-body-search">
                             <Card.Title className="card-title-search">{restaurant_data.restaurant_name}</Card.Title>
                             <Card.Subtitle className="card-subtitle-search">{restaurant_data.location.city}, {restaurant_data.location.state}</Card.Subtitle>
-                            <Card.Text className="card-text-icons">
-                                <MDBIcon fas icon="star"/>
-                                <MDBIcon fas icon="star"/>
-                                <MDBIcon fas icon="star"/>
-                                <MDBIcon fas icon="star"/>
-                                <MDBIcon far icon="star"/>
-                            </Card.Text>
+                            {UserRating()}
                             <Card.Text className="card-text-search">
                                 {restaurant_data.restaurant_description}
                             </Card.Text>
