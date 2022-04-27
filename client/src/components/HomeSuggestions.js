@@ -4,9 +4,6 @@ import {Button, Card, CardGroup, Container} from "react-bootstrap";
 import '../css/HomeSuggestions.css';
 import dummy_image from '../imgs/dummy-restaurant.jpg';
 
-
-//TODO: get ID of individual card and have button navigate to individual restaurant page from click of button
-
 const HomeSuggestions = (props) => {
     const {restaurant_data} = props;
 
