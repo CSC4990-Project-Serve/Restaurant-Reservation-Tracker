@@ -143,14 +143,14 @@ const RestaurantPage = () => {
                                     </Col>
                                 </Row>
                                 <Row className="mb-3">
-                                    <Col>
+                                    <Col className="mb-3">
                                         <Form.Control type="date" placeholder="Date" onChange= {(e) => setReservationDate(e.target.value)} />
                                     </Col>
                                     <Col>
                                         <Form.Control type="time" onChange= {(e) => setReservationTime(e.target.value)} />
                                     </Col>
                                 </Row>
-                                <Row>
+                                <Row >
                                     <Button className="reservation-button" type="submit">Complete Reservation</Button>
                                 </Row>
                             </Form>
