@@ -13,7 +13,6 @@ import './css/App.css';
 import {UserContext} from "./context/UserContext";
 import NavigationBar from "./components/NavigationBar";
 import {CookiesProvider, useCookies} from 'react-cookie';
-import * as jose from 'jose'
 
 function App() {
 
