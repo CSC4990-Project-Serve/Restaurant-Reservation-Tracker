@@ -47,7 +47,7 @@ const RegisterPage = (props) => {
             password_salt: salt
         }
         // ToDo: currently hardcoded, have it actually check database using user model
-        axios.post("http://localhost:5000/api/users", {...userInfo}, {
+        axios.post(`http://localhost:5000/api/users`, {...userInfo}, {
             headers: {
                 "access-control-allow-origin": "*",
             }
