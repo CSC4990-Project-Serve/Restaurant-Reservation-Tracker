@@ -37,21 +37,15 @@ const AdminTable = (props) => {
             </tr>
         )
     })
-    //ready in the front-end
     const handleRestaurantDelete = (id) => {
-        console.log("Deleting ID: " + id);
-
-        // fetch( 'http://localhost:5000/api/restaurant/' + id, {
-        //     method: 'DELETE',
-        // }).then(() => {
-        //     alert("Delete successful.");
-        //     window.location.reload();
-        // });
+        fetch(`http://localhost:5000/api/restaurant/${id}`, {
+            method: 'DELETE',
+        }).then(() => {
+            alert("Delete successful.");
+            window.location.reload();
+        });
     }
-    //ready in the front-end
     const handleRestaurantUpdate = (id, restaurant_name, address1, city, state, restaurant_phone_number) => {
-        // e.preventDefault();
-        console.log("Updating ID: " + id);
         setUpdateActive({update: true, id: id, restaurant_name: restaurant_name, address1: address1, city: city, state: state, restaurant_phone_number: restaurant_phone_number, username: "", email_address: "", first_name: "", last_name: "", phone_number: ""});
     }
 
@@ -85,11 +79,8 @@ const AdminTable = (props) => {
             </tr>
         )
     })
-    //working...
     const handleUserDelete = (id) => {
-        console.log("Deleting ID: " + id);
-
-        fetch( 'http://localhost:5000/api/users/' + id, {
+        fetch(`http://localhost:5000/api/users/${id}`, {
             method: 'DELETE',
         }).then(() => {
             alert("Delete successful.");
@@ -97,11 +88,7 @@ const AdminTable = (props) => {
         });
 
     }
-    //ready in the front-end
     const handleUserUpdate = (id, username, email_address, first_name, last_name, phone_number) => {
-        // e.preventDefault();
-        // console.log("Updating ID: " + id);
-
         setUpdateActive({update: true, id: id, username: username, email_address: email_address, first_name: first_name, last_name: last_name, phone_number: phone_number, restaurant_name: "", address1: "", city: "", state: "", restaurant_phone_number: ""});
     }
 
