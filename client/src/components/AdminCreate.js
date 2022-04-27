@@ -1,11 +1,8 @@
-import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import bcrypt from "bcryptjs";
 
-const AdminCreate = (props) => {
-    const navigate = useNavigate();
-    const {restaurant_data, user_data} = props;
+const AdminCreate = () => {
     const[category, setCategory] = useState("Restaurants");
 
     //restaurants functionality
@@ -16,14 +13,21 @@ const AdminCreate = (props) => {
     const[city, setCity] = useState("City");
     const[state, setState] = useState("State");
     const[postal_code, setPostalCode] = useState("12345");
-    const[hours_open, setHoursOpen] = useState("12:00PM");
-    const[hours_close, setHoursClose] = useState("9:00PM")
+    const[hours_open, setHoursOpen] = useState("12:00 PM");
+    const[hours_close, setHoursClose] = useState("9:00 PM")
     const star_rating = 5;
 
-    //TODO: fix hours formatting
+    //setting hours
+    let monday = `${hours_open} - ${hours_close}`;
+    let tuesday = `${hours_open} - ${hours_close}`;
+    let wednesday = `${hours_open} - ${hours_close}`;
+    let thursday = `${hours_open} - ${hours_close}`;
+    let friday = `${hours_open} - ${hours_close}`;
+    let saturday = `${hours_open} - ${hours_close}`;
+    let sunday = `${hours_open} - ${hours_close}`;
+
     const handleRestaurantSubmit = () => {
-        // const new_restaurant = {restaurant_name, restaurant_phone_number, restaurant_description, address1, city, state, postal_code, hours_open, hours_close, star_rating};
-        const new_restaurant = {restaurant_name, restaurant_phone_number, restaurant_description, address1, city, state, postal_code, star_rating};
+        const new_restaurant = {restaurant_name, restaurant_phone_number, restaurant_description, address1, city, state, postal_code, star_rating, monday, tuesday, wednesday, thursday, friday, saturday, sunday};
 
         fetch(`http://localhost:5000/api/restaurant`, {
             method: 'POST',
@@ -74,34 +78,34 @@ const AdminCreate = (props) => {
                         <Form.Label>Opening Hours</Form.Label>
                         <Form.Select required value={hours_open} onChange= {(e) => setHoursOpen(e.target.value)} >
                             <option disabled={true}>Choose...</option>
-                            <option value="10:00AM">10:00AM</option>
-                            <option value="10:30AM">10:30AM</option>
-                            <option value="11:00AM">11:00AM</option>
-                            <option value="11:30AM">11:30AM</option>
-                            <option value="12:00PM">12:00PM</option>
-                            <option value="12:30PM">12:30PM</option>
-                            <option value="1:00PM">1:00PM</option>
-                            <option value="1:30PM">1:30PM</option>
-                            <option value="2:00PM">2:00PM</option>
+                            <option value="10:00AM">10:00 AM</option>
+                            <option value="10:30AM">10:30 AM</option>
+                            <option value="11:00AM">11:00 AM</option>
+                            <option value="11:30AM">11:30 AM</option>
+                            <option value="12:00PM">12:00 PM</option>
+                            <option value="12:30PM">12:30 PM</option>
+                            <option value="1:00PM">1:00 PM</option>
+                            <option value="1:30PM">1:30 PM</option>
+                            <option value="2:00PM">2:00 PM</option>
                         </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3" as={Col} controlId="close_hours">
                         <Form.Label>Closing Hours</Form.Label>
                         <Form.Select required value={hours_close} onChange= {(e) => setHoursClose(e.target.value)} >
                             <option disabled={true}>Choose...</option>
-                            <option value="5:00PM">5:00PM</option>
-                            <option value="5:30PM">5:30PM</option>
-                            <option value="6:00PM">6:00PM</option>
-                            <option value="6:30PM">6:30PM</option>
-                            <option value="7:00PM">7:00PM</option>
-                            <option value="7:30PM">7:30PM</option>
-                            <option value="8:00PM">8:00PM</option>
-                            <option value="8:30PM">8:30PM</option>
-                            <option value="9:00PM">9:00PM</option>
-                            <option value="9:30PM">9:30PM</option>
-                            <option value="10:00PM">10:00PM</option>
-                            <option value="10:30PM">10:30PM</option>
-                            <option value="11:00PM">11:00PM</option>
+                            <option value="5:00PM">5:00 PM</option>
+                            <option value="5:30PM">5:30 PM</option>
+                            <option value="6:00PM">6:00 PM</option>
+                            <option value="6:30PM">6:30 PM</option>
+                            <option value="7:00PM">7:00 PM</option>
+                            <option value="7:30PM">7:30 PM</option>
+                            <option value="8:00PM">8:00 PM</option>
+                            <option value="8:30PM">8:30 PM</option>
+                            <option value="9:00PM">9:00 PM</option>
+                            <option value="9:30PM">9:30 PM</option>
+                            <option value="10:00PM">10:00 PM</option>
+                            <option value="10:30PM">10:30 PM</option>
+                            <option value="11:00PM">11:00 PM</option>
                         </Form.Select>
                     </Form.Group>
                 </Row>
