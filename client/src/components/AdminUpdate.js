@@ -6,13 +6,14 @@ const AdminUpdate = (props) => {
     let {choice, update, id} = props;
 
     if(update === true) {
-        window.scrollTo(0,1000);
+        window.scrollTo(0, document.body.scrollHeight);
     }  else {
         window.scrollTo(0,0);
     }
 
     // User Properties:
     const {old_username, old_email_address, old_first_name, old_last_name, old_phone_number} = props;
+
     const[username, setUsername] = useState(old_username);
     const[email_address, setEmail] = useState(old_email_address);
     const[first_name, setFirstName] = useState(old_first_name);
@@ -66,17 +67,33 @@ const AdminUpdate = (props) => {
     }
 
     // Restaurant Properties:
-    const {old_restaurant_name, old_address1, old_city, old_state, old_restaurant_phone_number} = props;
+    const {old_restaurant_name, old_restaurant_description,  old_restaurant_phone_number, old_star_rating, old_address1, old_city, old_state, old_postal_code, old_country, old_monday, old_tuesday, old_wednesday, old_thursday, old_friday, old_saturday, old_sunday} = props;
+
     const[restaurant_name, setRestaurantName] = useState(old_restaurant_name);
+    const[restaurant_description, setRestaurantDescription] = useState(old_restaurant_description);
+    const[restaurant_phone_number, setRestaurantPhone] = useState(old_restaurant_phone_number);
+    const[star_rating, setStarRating] = useState(old_star_rating);
+
     const[address1, setAddress1] = useState(old_address1);
     const[city, setCity] = useState(old_city);
     const[state, setRestaurantState] = useState(old_state);
-    const[restaurant_phone_number, setRestaurantPhone] = useState(old_restaurant_phone_number);
+    const[postal_code, setPostalCode] = useState(old_postal_code);
+    const country = old_country;
+
+    const monday = old_monday;
+    const tuesday = old_tuesday;
+    const wednesday = old_wednesday;
+    const thursday = old_thursday;
+    const friday = old_friday;
+    const saturday = old_saturday;
+    const sunday = old_sunday;
 
     const handleRestaurantUpdate = () => {
-        const updated_restaurant = {id, restaurant_name, address1, city, state, restaurant_phone_number};
-
-        console.log(JSON.stringify(updated_restaurant));
+        const updated_restaurant = {
+            id, restaurant_name, restaurant_description, restaurant_phone_number, star_rating,
+            address1, city, state, postal_code, country,
+            monday, tuesday, wednesday, thursday, friday, saturday, sunday
+        };
 
         fetch(`${process.env.REACT_APP_API_URL}/api/restaurant/${id}`, {
             method: 'PUT',
@@ -98,6 +115,23 @@ const AdminUpdate = (props) => {
                             <Form.Label>Restaurant Name</Form.Label>
                             <Form.Control type="text" defaultValue={old_restaurant_name} onChange= {(e) => setRestaurantName(e.target.value)} />
                         </Form.Group>
+
+                        <Form.Group as={Col} controlId="restaurant_phone_number">
+                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Control type="text" defaultValue={old_restaurant_phone_number} onChange= {(e) => setRestaurantPhone(e.target.value)} />
+                        </Form.Group>
+                        <Form.Group as={Col} controlId="star_rating">
+                            <Form.Label>Average Review</Form.Label>
+                            <Form.Control type="number" min="1" max="5" defaultValue={old_star_rating} onChange= {(e) => setStarRating(e.target.value)} />
+                        </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
+                        <Form.Group className="mb-3" as={Col} controlId="restaurant_description">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control as="textarea" placeholder="Enter description" defaultValue={old_restaurant_description} onChange= {(e) => setRestaurantDescription(e.target.value)} />
+                        </Form.Group>
+                    </Row>
+                    <Row className="mb-3">
                         <Form.Group as={Col} controlId="address1">
                             <Form.Label>Address</Form.Label>
                             <Form.Control type="text" defaultValue={old_address1} onChange= {(e) => setAddress1(e.target.value)} />
@@ -110,9 +144,9 @@ const AdminUpdate = (props) => {
                             <Form.Label>State</Form.Label>
                             <Form.Control type="text" defaultValue={old_state} onChange= {(e) => setRestaurantState(e.target.value)} />
                         </Form.Group>
-                        <Form.Group as={Col} controlId="restaurant_phone_number">
-                            <Form.Label>Phone Number</Form.Label>
-                            <Form.Control type="text" defaultValue={old_restaurant_phone_number} onChange= {(e) => setRestaurantPhone(e.target.value)} />
+                        <Form.Group as={Col} controlId="postal_code">
+                            <Form.Label>Postal Code</Form.Label>
+                            <Form.Control type="text" defaultValue={old_postal_code} onChange= {(e) => setPostalCode(e.target.value)} />
                         </Form.Group>
                     </Row>
 
