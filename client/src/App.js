@@ -32,7 +32,7 @@ function App() {
 
     const [cookies, setCookie, removeCookie] = useCookies();
     const [userProfileData, setUserProfileData] = useState(cookies.userProfileData ? cookies.userProfileData : userProfile);
-    console.log(`cookie/state value: ${JSON.stringify(userProfileData)}`)
+    // console.log(`cookie/state value: ${JSON.stringify(userProfileData)}`)
 
 
     useEffect(() => {

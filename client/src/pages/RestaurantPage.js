@@ -17,7 +17,7 @@ const RestaurantPage = () => {
 
     //test context for user
     const {userProfileData, setUserProfileData} = useContext(UserContext);
-    console.log(`IN RESTAURANT PAGE: UserState from context ${JSON.stringify(userProfileData)}`)
+    // console.log(`IN RESTAURANT PAGE: UserState from context ${JSON.stringify(userProfileData)}`)
 
 
     useEffect(() => {
