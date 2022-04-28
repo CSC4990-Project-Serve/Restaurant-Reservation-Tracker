@@ -137,7 +137,7 @@ const RegisterPage = (props) => {
                                         <input type="text" id={"phone_number"} name={"phone_number"}
                                                className={"form-control"}
                                                value={state.phone_number}
-                                               placeholder="1-111-111-1111"
+                                               placeholder="xxx-xxx-xxxx"
                                                onChange={onFieldChange}/>
                                         <label htmlFor="password" className={"form-label text-dark"}>Password</label>
                                         <input type="password" id="password" name={"password"}
@@ -146,10 +146,11 @@ const RegisterPage = (props) => {
                                                placeholder="Enter a password"
                                                onChange={onFieldChange}/>
 
+                                        <br/>
                                         <button className="btn btn-primary btn-lg btn-block" type="submit">Register
                                         </button>
                                         {userProfileData.loggedin &&
-                                        <div className={'text-dark'} onLoad={redirect()}>Success.</div>}
+                                        <div className={'text-dark'} onLoad={redirect}>Success.</div>}
                                         {userProfileData.loginError &&
                                         <div className={'text-dark'}>{userProfileData.loginError.message}</div>}
                                     </div>

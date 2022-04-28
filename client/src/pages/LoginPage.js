@@ -115,6 +115,7 @@ const LoginPage = (props) => {
                                                placeholder="Enter your password"
                                                onChange={onFieldChange}/>
 
+                                        <br/>
                                         <button className="btn btn-primary btn-lg btn-block" type="submit">Login
                                         </button>
                                         {!userProfileData.loggedin && <div>Login</div>}
