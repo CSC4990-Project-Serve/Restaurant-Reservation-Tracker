@@ -28,7 +28,7 @@ exports.createANewUser = function (req, res) {
                 console.log(err);
                 res.send(err)
             } else {
-                res.send({error: false, status: `New user created with id: ${results}`})
+                res.send({error: false, status: `New user created with id: ${results}`, userId: `${results}`})
             }
         })
     }
@@ -82,7 +82,7 @@ exports.updateUserByID = (req, res) => {
     } else {
         User.update_a_user(req.params.id, updatedUser, (err, results) => {
             if (err) {
-                res.send(err)
+                res.status(500).send(err)
             } else {
                 results ? res.send({error: false, status: `User ${req.params.id} updated`}) : res.send({
                     error: true,
@@ -101,7 +101,7 @@ exports.deleteUserByID = (req, res) => {
     } else {
         User.delete_user_by_id(userIDtoDelete, (err, results) => {
             if (err) {
-                res.send(err);
+                res.status(500).send(err);
             } else {
                 results ? res.send({
                     error: false,
@@ -125,7 +125,7 @@ exports.validate_user_login = (req, res) => {
     } else {
         User.validate_login(username, email_address, password, (err, results) => {
             if (err) {
-                res.send(err);
+                res.status(500).send(err);
             } else {
                 // if results has a value, then return the user info
                 if (!results) {

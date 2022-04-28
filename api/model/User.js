@@ -1,6 +1,7 @@
 'use strict';
 
 const conn = require('../model/db');
+const bcrypt = require("bcrypt");
 
 const User = function (userInfo) {
     // front end is looking for value on right-hand side to be sent (exact naming)
@@ -55,6 +56,27 @@ User.crate_a_new_user = (newUserToInsert, result) => {
 }
 
 User.update_a_user = (userID, updatedUserInfo, results) => {
+    let update_users_query = `UPDATE users
+                              SET username=?,
+                                  email_address=?,
+                                  first_name=?,
+                                  last_name=?,
+                                  phone_number=?,
+                                  updatedAt=?
+                              WHERE id = ?`;
+    conn.query(update_users_query,
+        [updatedUserInfo.username, updatedUserInfo.email_address, updatedUserInfo.first_name, updatedUserInfo.last_name, updatedUserInfo.phone_number, new Date().toISOString().slice(0, 19).replace('T', ' '), userID],
+        (err, res) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.affectedRows > 0 ? results(null, true) : results(null, false);
+            }
+        }
+    )
+}
+
+User.update_user_with_new_password = (userID, updatedUserInfo, results) => {
     let update_users_query = `UPDATE users
                               SET username=?,
                                   email_address=?,
@@ -170,20 +192,27 @@ User.validate_login = (username, email, password, results) => {
         if (err) {
             console.log(err)
             results(err, null)
-        } else {
+        } else if (saltRes.length > 0) {
             let user_salt = saltRes[0].password_salt;
-            let hash_val = bcrypt.hashSync(password, user_salt);
 
-            conn.query(sql_query, [username, email, hash_val], (err, loginRes) => {
-                if (err) {
-                    console.log(err);
-                    results(err, null);
-                } else if (loginRes.length > 0) {
-                    results(null, loginRes)
-                } else {
-                    results(null, false)
-                }
-            })
+            if (user_salt === null || user_salt === "") {
+                results({error: true, message: "No salt in DB for user! This is a bad error that indicates a server error!"}, null)
+            } else {
+                let hash_val = bcrypt.hashSync(password, user_salt);
+
+                conn.query(sql_query, [username, email, hash_val], (err, loginRes) => {
+                    if (err) {
+                        console.log(err);
+                        results(err, null);
+                    } else if (loginRes.length > 0) {
+                        results(null, loginRes)
+                    } else {
+                        results(null, false)
+                    }
+                })
+            }
+        } else {
+            results({error: true, message: "No user/salt combination found in database!"}, null);
         }
     })
 }

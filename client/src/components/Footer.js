@@ -1,6 +1,4 @@
-import React from "react";
 import {MDBIcon} from 'mdb-react-ui-kit';
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import '../css/Footer.css';
 
 const Footer = () => {

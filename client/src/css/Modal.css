@@ -1,0 +1,22 @@
+.modal-content {
+    background-color: #141414;
+    font-family: 'Open Sans', sans-serif;
+}
+.modal-content .modal-title {
+    margin: 0 auto;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.75em;
+}
+.modal-content .modal-body .form-label {
+    font-size: .95em;
+}
+.modal-content .modal-body form button {
+    margin-top: 1rem;
+    font-family: 'Roboto', sans-serif;
+}
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 450px;
+        margin: 1.75rem auto;
+    }
+}
