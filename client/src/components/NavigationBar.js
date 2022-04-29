@@ -11,7 +11,7 @@ const NavigationBar = () => {
     const {userProfileData, setUserProfileData} = useContext(UserContext);
     // const {logout} = useContext(AuthContext);
 
-    console.log(`userState in NavBar: ${JSON.stringify(userProfileData)}`);
+    // console.log(`userState in NavBar: ${JSON.stringify(userProfileData)}`);
 
     // This is the Log-Out function/route
     const routeLogin = () => {

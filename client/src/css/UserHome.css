@@ -1,7 +1,151 @@
-.mainArea {
-    background-color: #141414;
-
+.nav-tabs {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+    border: none;
 }
-.tableArea {
-    margin: 50px;
+.nav-tabs .tab-info {
+    margin-bottom: 5rem;
+}
+
+.nav-tabs .nav-link {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+    color: #EFEFF1;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    background-color: #FFFAFA;
+    color: black;
+}
+
+
+.user-page-container {
+    min-height: calc(100vh - 310px); /*view port height - size of nav + footer*/
+    font-size: 1.1em;
+}
+.user-page-container h2 {
+    font-family: 'Ubuntu', sans-serif;
+    margin-bottom: 1rem;
+}
+.user-page-container .header-dropdown {
+    padding: 0.25rem;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.1em;
+    width: 150px;
+    margin: 0 auto;
+}
+.all-data-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/*UserTable.js styling*/
+#table-data {
+    justify-content: center;
+}
+.user-page-table {
+    color: #EFEFF1;
+    margin: 1.5rem auto 0 auto;
+    width: 100%;
+    justify-content: center;
+}
+.user-page-table th {
+    font-weight: bold;
+    font-size: 1.1em;
+    border-bottom: 1px solid #EFEFF1;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+.user-page-table td {
+    padding: 0 1rem 1rem 1rem;
+}
+.user-page-table .td-button {
+    padding-right: 0;
+}
+
+
+/*UserInfo styling*/
+.custom-twitter-widget {
+    background-color: #1F1F1F;
+    border-radius: 10px;
+    width: 500px;
+    margin: 0 auto;
+}
+.info-container {
+    text-align: left;
+    padding-top: 1rem;
+    padding-bottom: .9rem;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+}
+.info-container:first-of-type {
+    margin-top: 3rem;
+}
+
+.info-container:hover {
+    background-color: #141414;
+}
+
+.info-container h3 {
+    margin: .25rem 0 -1rem 1rem;
+    font-size: 1em;
+}
+.info-container p {
+    margin: -.5rem 0 0 1rem;
+    font-size: .9em;
+    color: #A9ADB1;
+}
+.info-container .chevron-styles {
+    margin-top: 1rem;
+    margin-left: 450px;
+}
+
+
+/*Update Component styling*/
+.update-user {
+    margin-top: 2.5rem;
+    margin-bottom: 3rem;
+}
+.update-user form label {
+    display: block;
+    text-align: center;
+    margin-bottom: 0;
+    color: #A9ADB1;
+}
+.update-user form input {
+    max-width: 25%;
+    margin: 0 auto;
+    background: transparent;
+    color: #EFEFF1;
+    border: 1px solid #D0CFD2;
+    text-align: center;
+}
+.update-user form button {
+    display: block;
+    min-width: 7%;
+    margin: 0 auto;
+    color: #EFEFF1;
+}
+.update-user form .form-control:focus, .update-user form .form-control:active {
+    background: transparent;
+    color: #EFEFF1;
+    border: 1px solid #D0CFD2;
+}
+
+
+.delete-account {
+    width: 75%;
+    margin: 0 auto;
+}
+.delete-account p {
+    margin-top: 4rem;
+    font-size: 1.15em;
+}
+.delete-account button {
+    display: block;
+    margin: 2rem auto 0 auto;
+    font-size: 1em;
 }

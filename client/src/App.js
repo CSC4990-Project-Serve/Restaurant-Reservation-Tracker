@@ -84,9 +84,8 @@ function App() {
                             <Route path="/" element={<HomePage restaurant_data={restaurant_data}/>}/>
                             <Route path="/search" element={<SearchPage restaurant_data={restaurant_data}/>}/>
                             <Route path="/search/:id" element={<RestaurantPage/>}/>
-                            <Route path="/admin"
-                                   element={<AdminPage restaurant_data={restaurant_data} user_data={user_data}/>}/>
-                            <Route path={"/UserHome"} element={<UserHome/>}/>
+                            <Route path="/admin" element={<AdminPage restaurant_data={restaurant_data} user_data={user_data}/>}/>
+                            <Route path={"/user"} element={<UserHome/>}/>
                         </Routes>
                     </BrowserRouter>
                 </UserContext.Provider>

@@ -1,5 +1,6 @@
 import {useContext, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
+import {UserContext} from "../context/UserContext";
 import axios from "axios";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
@@ -8,7 +9,6 @@ import {Button,Carousel, Col, Container, Form, Row} from "react-bootstrap";
 import {MDBIcon} from "mdb-react-ui-kit";
 import '../css/RestaurantPage.css';
 import carousel_img from '../imgs/carousel-overhead.jpg';
-import {UserContext} from "../context/UserContext";
 
 const RestaurantPage = () => {
     const{id} = useParams();
