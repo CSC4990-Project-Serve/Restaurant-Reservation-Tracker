@@ -145,7 +145,7 @@ exports.validate_user_login = (req, res) => {
     } else {
         User.validate_login(username, email_address, password, (err, results) => {
             if (err) {
-                res.status(500).send(JSON.stringify(err));
+                res.status(500).send(err);
             } else {
                 // if results has a value, then return the user info
                 if (!results) {
