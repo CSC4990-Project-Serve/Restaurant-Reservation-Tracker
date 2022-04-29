@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
@@ -12,13 +12,12 @@ import {UserContext} from "../context/UserContext";
 
 const RestaurantPage = () => {
     const{id} = useParams();
+    let navigate = useNavigate();
     const[modal,setModal] = useState(false);
     const[restaurant_data, setRestaurantData] = useState({ name: "", description: "", phone: "", address: "", city: "", state: "", postal_code: "", mon: "", tue: "", wed: "", thu: "", fri: "", sat: "", sun: "" });
 
     //test context for user
-    const {userProfileData, setUserProfileData} = useContext(UserContext);
-    // console.log(`IN RESTAURANT PAGE: UserState from context ${JSON.stringify(userProfileData)}`)
-
+    const {userProfileData} = useContext(UserContext);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,37 +33,38 @@ const RestaurantPage = () => {
         fetchData()
     }, []);
 
-
-    const[restaurantID, setRestaurantID] = useState(id);
-    const userID = 2; //grab from useContext when logged in... this for sure
+    const restaurantID = id;
+    const userID = userProfileData.user.id;
+    const email_address = useState(userProfileData.user.email_address);
+    const phone_number = useState(userProfileData.user.phone_number);
     const[first_name, setFirstName] = useState("John");
     const[last_name, setLastName] = useState("Doe");
-    const[email_address, setEmailAddress] = useState("project@serve.live"); //grab from useContext when logged in... this for sure
-    const[phone_number, setPhoneNumber] = useState("123-456-7890"); //grab from useContext when logged in... this for sure
-    const[reservation_date, setReservationDate] = useState("2022-01-01");
-    let [reservation_time, setReservationTime] = useState("12:00:00");
     const[purpose, setPurpose] = useState("");
     const[party_size, setPartySize] = useState(1);
+    const[reservation_date, setReservationDate] = useState("2022-01-01");
+    let [reservation_time, setReservationTime] = useState("12:00:00");
     const reservation_status = 0;
 
     const handleReservation = (e) => {
         e.preventDefault();
 
-        reservation_time = reservation_time + ":00";
+        if(userProfileData.loggedIn) {
+            reservation_time = reservation_time + ":00";
+            const new_reservation = {userID, restaurantID, first_name, last_name, email_address, phone_number, reservation_date, reservation_time, purpose, party_size, reservation_status};
 
-        const new_reservation = {userID, restaurantID, first_name, last_name, email_address, phone_number, reservation_date, reservation_time, purpose, party_size, reservation_status};
+            fetch(`${process.env.REACT_APP_API_URL}/api/reservations`, {
+                method: 'POST',
+                headers: {"Content-type": "application/json" },
+                body: JSON.stringify(new_reservation)
+            }).then(() => {
+                console.log("Done")
+            });
 
-        console.log(JSON.stringify(new_reservation));
-
-        fetch(`${process.env.REACT_APP_API_URL}/api/reservations`, {
-            method: 'POST',
-            headers: {"Content-type": "application/json" },
-            body: JSON.stringify(new_reservation)
-        }).then(() => {
-            console.log("Done")
-        });
-
-        setModal(true)
+            setModal(true)
+        } else {
+            alert("You are not logged in.");
+            navigate("/login");
+        }
     }
 
     return (
@@ -130,14 +130,6 @@ const RestaurantPage = () => {
                                     </Col>
                                     <Col>
                                         <Form.Control type="text" placeholder="Last name" onChange= {(e) => setLastName(e.target.value)} />
-                                    </Col>
-                                </Row>
-                                <Row className="mb-3">
-                                    <Col>
-                                        <Form.Control type="email" placeholder="Email" onChange= {(e) => setEmailAddress(e.target.value)} />
-                                    </Col>
-                                    <Col>
-                                        <Form.Control type="tel" placeholder="Phone number" onChange= {(e) => setPhoneNumber(e.target.value)} />
                                     </Col>
                                 </Row>
                                 <Row className="mb-3">
