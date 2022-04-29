@@ -1,0 +1,26 @@
+.error-container {
+    height: calc(100vh - 310px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.error-container h1 {
+    font-size: 2.75em;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.error-container .error-button {
+    font-family: 'Roboto', sans-serif;
+    background-color: #3A3A3D;
+    border: none;
+    font-size: 1.15em;
+    transition: 0.5s ease-in-out;
+}
+.error-container .error-button:hover {
+    background-color: #45454A;
+}
+.error-container .error-button:focus {
+    background-color: #45454A;
+    box-shadow: none;
+}
