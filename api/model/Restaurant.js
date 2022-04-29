@@ -327,7 +327,7 @@ Restaurant.search_by_key_term = (searchTerms, results) => {
     const [restaurantName, description, phoneNumber, address, city, state] = searchTerms;
 
     // language=SQL format=false
-    let sql_query = `select restaurants.id, restaurant_name, restaurant_description, restaurant_phone_number, 
+    let sql_query = `select restaurants.id, restaurant_name, restaurant_description, restaurant_phone_number, star_rating, 
                     location_name, address1, address2, city, state, postal_code, country,
                     monday, tuesday, wednesday, thursday, friday, saturday, sunday
                     from restaurants
