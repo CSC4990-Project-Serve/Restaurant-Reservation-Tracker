@@ -15,7 +15,7 @@ const UserHome = () => {
         var id = 2;
         // eslint-disable-next-line no-restricted-globals
         if(confirm("Delete reservation id: " + id)){
-            axios.delete("http://localhost:5000/api/restaurant/:" + id.toString(), {
+            axios.delete(`${process.env.REACT_APP_API_URL}/api/restaurant/:` + id.toString(), {
                 headers: {
                     "access-control-allow-origin": "*",
                 }

@@ -19,7 +19,7 @@ const ReservedTable = () => {
     useEffect(() => {
         const fetchData = async (id) => {
             try {
-                let restaurant_route = `http://localhost:5000/api/users/${id}?reservations=1`;
+                let restaurant_route = `${process.env.REACT_APP_API_URL}/api/users/${id}?reservations=1`;
                 await axios.get(restaurant_route)
                     .then(response => {
                         // console.log(response.data);

@@ -1,6 +1,6 @@
 import {useState} from "react";
-import {Button, Col, Form, Row} from "react-bootstrap";
 import bcrypt from "bcryptjs";
+import {Button, Col, Form, Row} from "react-bootstrap";
 
 const AdminCreate = () => {
     const[category, setCategory] = useState("Restaurants");
@@ -29,7 +29,7 @@ const AdminCreate = () => {
     const handleRestaurantSubmit = () => {
         const new_restaurant = {restaurant_name, restaurant_phone_number, restaurant_description, address1, city, state, postal_code, star_rating, monday, tuesday, wednesday, thursday, friday, saturday, sunday};
 
-        fetch(`http://localhost:5000/api/restaurant`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/restaurant`, {
             method: 'POST',
             headers: {"Content-type": "application/json" },
             body: JSON.stringify(new_restaurant)
@@ -127,7 +127,7 @@ const AdminCreate = () => {
 
         const new_user = {username, email_address, first_name, last_name, phone_number, hashed_password, password_salt};
 
-        fetch(`http://localhost:5000/api/users`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/users`, {
             method: 'POST',
             headers: {"Content-type": "application/json" },
             body: JSON.stringify(new_user)

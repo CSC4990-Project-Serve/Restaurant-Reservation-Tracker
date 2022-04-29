@@ -32,7 +32,7 @@ function App() {
 
     const [cookies, setCookie, removeCookie] = useCookies();
     const [userProfileData, setUserProfileData] = useState(cookies.userProfileData ? cookies.userProfileData : userProfile);
-    console.log(`cookie/state value: ${JSON.stringify(userProfileData)}`)
+    // console.log(`cookie/state value: ${JSON.stringify(userProfileData)}`)
 
 
     useEffect(() => {
@@ -55,8 +55,8 @@ function App() {
 
     const getData = () => {
         let routes = [
-            `http://localhost:5000/api/restaurant/`,
-            `http://localhost:5000/api/users/`,
+            `${process.env.REACT_APP_API_URL}/api/restaurant/`,
+            `${process.env.REACT_APP_API_URL}/api/users/`,
         ];
         Promise.all(routes.map((route) => axios.get(route))).then(([{data: restaurant_data}, {data: user_data}]) => {
             setRestaurantData(restaurant_data)
