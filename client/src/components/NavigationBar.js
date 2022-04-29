@@ -94,7 +94,6 @@ const NavigationBar = () => {
                             }
                         </Nav>
                     </Navbar.Collapse>
-
                 </Container>
             </Navbar>
         </>

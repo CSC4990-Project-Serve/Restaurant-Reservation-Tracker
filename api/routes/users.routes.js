@@ -1,5 +1,6 @@
 'use strict';
 
+const userController = require("../controller/users.controller");
 module.exports = function (app) {
     const userController = require('../controller/users.controller');
 
@@ -12,6 +13,7 @@ module.exports = function (app) {
     app.route('/api/users/:id')
         .get(userController.getUserByID)
         .put(userController.updateUserByID)
+        .put(userController.updateUserPasswordByID)
         .delete(userController.deleteUserByID)
 
     app.route('/api/login')

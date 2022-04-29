@@ -1,9 +1,10 @@
+import React, {useContext, useState} from "react";
 import {UserContext} from "../context/UserContext";
 import {Button, Form} from "react-bootstrap";
-import {useContext, useState} from "react";
 import {MDBIcon} from "mdb-react-ui-kit";
 
-// TODO: when updating, database updates but cookies dont update client on reload... ask Jared
+// TODO: when updating, database updates but cookies dont update client on reload...
+// TODO: when making multiple updates in one user log in session, db is restoring previous values because of issue above.
 
 const UserInfo = () => {
     const {userProfileData} = useContext(UserContext);
@@ -40,94 +41,86 @@ const UserInfo = () => {
             return (
                 <Form onSubmit={handleUserUpdate}>
                     <Form.Group className="mb-3" controlId="username">
-                        <Form.Label >{choice}</Form.Label>
                         <Form.Control type="text" defaultValue={userProfileData.user.username} className="mb-3" onChange= {(e) => setUsername(e.target.value)} />
-                        <Button variant="primary" type="submit" className="mb-3">Save</Button>
+                        <Button type="submit" className="update-buttons">Save</Button>
+                        <Button type="button" className="update-buttons" onClick={() => window.location.reload()}>Cancel</Button>
                     </Form.Group>
-
                 </Form>
             )
         } else if(choice === "Phone") {
             return (
                 <Form onSubmit={handleUserUpdate}>
                     <Form.Group className="mb-3" controlId="phone_number">
-                        <Form.Label >{choice}</Form.Label>
                         <Form.Control type="text" defaultValue={userProfileData.user.phone_number} className="mb-3" onChange= {(e) => setUserPhone(e.target.value)} />
-                        <Button variant="primary" type="submit" className="mb-3">Save</Button>
+                        <Button type="submit" className="update-buttons">Save</Button>
+                        <Button type="button" className="update-buttons" onClick={() => window.location.reload()}>Cancel</Button>
                     </Form.Group>
-
                 </Form>
             )
         } else if(choice === "Email") {
             return (
                 <Form onSubmit={handleUserUpdate}>
                     <Form.Group className="mb-3" controlId="email_address">
-                        <Form.Label >{choice}</Form.Label>
                         <Form.Control type="text" defaultValue={userProfileData.user.email_address} className="mb-3" onChange= {(e) => setEmail(e.target.value)} />
-                        <Button variant="primary" type="submit" className="mb-3">Save</Button>
+                        <Button type="submit" className="update-buttons">Save</Button>
+                        <Button type="button" className="update-buttons" onClick={() => window.location.reload()}>Cancel</Button>
                     </Form.Group>
-
                 </Form>
             )
         } else if(choice === "First Name") {
             return (
                 <Form onSubmit={handleUserUpdate}>
                     <Form.Group className="mb-3" controlId="first_name">
-                        <Form.Label >{choice}</Form.Label>
                         <Form.Control type="text" defaultValue={userProfileData.user.first_name} className="mb-3" onChange= {(e) => setFirstName(e.target.value)} />
-                        <Button variant="primary" type="submit" className="mb-3">Save</Button>
+                        <Button type="submit" className="update-buttons">Save</Button>
+                        <Button type="button" className="update-buttons" onClick={() => window.location.reload()}>Cancel</Button>
                     </Form.Group>
-
                 </Form>
             )
-        }else if(choice === "Last Name") {
+        } else if(choice === "Last Name") {
             return (
                 <Form onSubmit={handleUserUpdate}>
                     <Form.Group className="mb-3" controlId="last_name">
-                        <Form.Label >{choice}</Form.Label>
                         <Form.Control type="text" defaultValue={userProfileData.user.last_name} className="mb-3" onChange= {(e) => setLastName(e.target.value)} />
-                        <Button variant="primary" type="submit" className="mb-3">Save</Button>
+                        <Button type="submit" className="update-buttons">Save</Button>
+                        <Button type="button" className="update-buttons" onClick={() => window.location.reload()}>Cancel</Button>
                     </Form.Group>
-
                 </Form>
             )
-        }else {
+        } else {
             return null;
         }
     }
 
    return (
        <>
+           <h2>Update account information.</h2>
            <div className="custom-twitter-widget">
                <div className="info-container" onClick={() => showUpdateComponent(setChoice("First Name"))}>
                    <h3>First Name</h3>
-                   <MDBIcon fas icon="chevron-right" className="chevron-styles"/>
-                   <p>{userProfileData.user.first_name}</p>
+                   {!updateActive ? <MDBIcon fas icon="chevron-right" className="chevron-styles"/> : null }
+                   {updateActive && choice === "First Name" ? UpdateForm() : <p className={updateActive ? "updated-text" : "regular-text"}>{userProfileData.user.first_name}</p>}
                </div>
                <div className="info-container" onClick={() => showUpdateComponent(setChoice("Last Name"))}>
                    <h3>Last Name</h3>
-                   <MDBIcon fas icon="chevron-right" className="chevron-styles"/>
-                   <p>{userProfileData.user.last_name}</p>
+                   {!updateActive ? <MDBIcon fas icon="chevron-right" className="chevron-styles"/> : null }
+                   {updateActive && choice === "Last Name" ? UpdateForm() : <p className={updateActive ? "updated-text" : "regular-text"}>{userProfileData.user.last_name}</p>}
                </div>
                <div className="info-container" onClick={() => showUpdateComponent(setChoice("Username"))}>
                    <h3>Username</h3>
-                   <MDBIcon fas icon="chevron-right" className="chevron-styles"/>
-                   <p>{userProfileData.user.username}</p>
+                   {!updateActive ? <MDBIcon fas icon="chevron-right" className="chevron-styles"/> : null }
+                   {updateActive && choice === "Username" ? UpdateForm() : <p className={updateActive ? "updated-text" : "regular-text"}>{userProfileData.user.username}</p>}
                </div>
                <div className="info-container" onClick={() => showUpdateComponent(setChoice("Phone"))}>
                    <h3>Phone</h3>
-                   <MDBIcon fas icon="chevron-right" className="chevron-styles"/>
-                   <p>{userProfileData.user.phone_number}</p>
+                   {!updateActive ? <MDBIcon fas icon="chevron-right" className="chevron-styles"/> : null }
+                   {updateActive && choice === "Phone" ? UpdateForm() : <p className={updateActive ? "updated-text" : "regular-text"}>{userProfileData.user.phone_number}</p>}
                </div>
                <div className="info-container" onClick={() => showUpdateComponent(setChoice("Email"))}>
                    <h3>Email</h3>
-                   <MDBIcon fas icon="chevron-right" className="chevron-styles"/>
-                   <p>{userProfileData.user.email_address}</p>
+                   {!updateActive ? <MDBIcon fas icon="chevron-right" className="chevron-styles"/> : null }
+                   {updateActive && choice === "Email" ? UpdateForm() : <p className={updateActive ? "updated-text" : "regular-text"}>{userProfileData.user.email_address}</p>}
                </div>
-           </div>
-
-           <div className="update-user">
-               {updateActive ? UpdateForm() : null}
            </div>
        </>
    )

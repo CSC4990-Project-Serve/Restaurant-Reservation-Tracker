@@ -7,7 +7,6 @@
 .nav-tabs .tab-info {
     margin-bottom: 5rem;
 }
-
 .nav-tabs .nav-link {
     font-family: 'Ubuntu', sans-serif;
     font-weight: 500;
@@ -17,10 +16,7 @@
     background-color: #FFFAFA;
     color: black;
 }
-
-
 .user-page-container {
-    min-height: calc(100vh - 310px); /*view port height - size of nav + footer*/
     font-size: 1.1em;
 }
 .user-page-container h2 {
@@ -34,15 +30,17 @@
     width: 150px;
     margin: 0 auto;
 }
+
+
+/*UserTable.js styling*/
 .all-data-container {
+    min-height: calc(100vh - 400px); /*view port height - size of (nav + footer + tabs)*/
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     margin-bottom: 2rem;
 }
-
-/*UserTable.js styling*/
 #table-data {
     justify-content: center;
 }
@@ -67,9 +65,17 @@
 }
 
 
-/*UserInfo styling*/
+/* Update Component styling*/
+.account-info {
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+.account-info h2 {
+    text-align: center;
+}
 .custom-twitter-widget {
     background-color: #1F1F1F;
+    border: 1px solid #303032;
     border-radius: 10px;
     width: 500px;
     margin: 0 auto;
@@ -80,20 +86,24 @@
     padding-bottom: .9rem;
     cursor: pointer;
     transition: 0.25s ease-in-out;
+    border-bottom: 1px solid #303032;
 }
-.info-container:first-of-type {
-    margin-top: 3rem;
-}
-
+.info-container:last-of-type {
+     text-align: left;
+     padding-top: 1rem;
+     padding-bottom: .9rem;
+     cursor: pointer;
+     transition: 0.25s ease-in-out;
+     border-bottom: none;
+ }
 .info-container:hover {
     background-color: #141414;
 }
-
 .info-container h3 {
     margin: .25rem 0 -1rem 1rem;
     font-size: 1em;
 }
-.info-container p {
+.info-container .regular-text {
     margin: -.5rem 0 0 1rem;
     font-size: .9em;
     color: #A9ADB1;
@@ -102,50 +112,144 @@
     margin-top: 1rem;
     margin-left: 450px;
 }
-
-
-/*Update Component styling*/
-.update-user {
-    margin-top: 2.5rem;
-    margin-bottom: 3rem;
-}
-.update-user form label {
-    display: block;
-    text-align: center;
-    margin-bottom: 0;
+.info-container .updated-text {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    font-size: .9em;
     color: #A9ADB1;
 }
-.update-user form input {
-    max-width: 25%;
-    margin: 0 auto;
-    background: transparent;
-    color: #EFEFF1;
-    border: 1px solid #D0CFD2;
-    text-align: center;
-}
-.update-user form button {
-    display: block;
-    min-width: 7%;
-    margin: 0 auto;
-    color: #EFEFF1;
-}
-.update-user form .form-control:focus, .update-user form .form-control:active {
-    background: transparent;
-    color: #EFEFF1;
-    border: 1px solid #D0CFD2;
-}
-
-
-.delete-account {
+.info-container form input {
+    margin-top: 1.25rem;
+    margin-left: 1rem;
     width: 75%;
-    margin: 0 auto;
+    background: transparent;
+    color: #EFEFF1;
+}
+.info-container form .update-buttons {
+    font-family: 'Roboto', sans-serif;
+    margin-left: .5rem;
+    width: 15%;
+    background-color: #3A3A3D;
+    color: #D0CFD2;
+    border: none;
+    font-size: 0.97em;
+    transition: 0.5s ease-in-out;
+}
+.info-container form .update-buttons:hover {
+    background-color: #45454A;
+    color: #D0CFD2;
+}
+.info-container form .update-buttons:focus {
+    background-color: #45454A;
+    color: #D0CFD2;
+    box-shadow: none;
+}
+.info-container form .update-buttons:first-of-type {
+    margin-left: 1rem;
+}
+.info-container form .form-control:focus, .info-container form .form-control:active {
+    background: transparent;
+    color: #EFEFF1;
+    border: 1px solid #D0CFD2;
+}
+
+
+/*Delete Component styling*/
+.delete-account {
+    min-height: calc(100vh - 400px); /*view port height - size of (nav + footer + tabs)*/
+    width: 75%;
+    margin: 4rem auto 0 auto;
 }
 .delete-account p {
-    margin-top: 4rem;
     font-size: 1.15em;
 }
 .delete-account button {
     display: block;
     margin: 2rem auto 0 auto;
     font-size: 1em;
+}
+
+/*Password component styling*/
+.change-password {
+    min-height: calc(100vh - 400px); /*view port height - size of (nav + footer + tabs)*/
+}
+.change-password h2 {
+    text-align: center;
+}
+.custom-twitter-widget2 {
+    background-color: #1F1F1F;
+    border: 1px solid #303032;
+    border-radius: 10px;
+    width: 500px;
+    margin: 0 auto;
+}
+.pw-container-current {
+    text-align: left;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+    border-bottom: 1px solid #303032;
+}
+.pw-container-current:hover {
+    background-color: #141414;
+}
+.pw-container-current h3 {
+    font-size: 1em;
+}
+form .pw-container-current input {
+    margin: 1rem auto;
+    width: 75%;
+    background: transparent;
+    color: #EFEFF1;
+}
+form .pw-container-current .form-control:focus, form .pw-container-current .form-control:active {
+    background: transparent;
+    color: #EFEFF1;
+    border: 1px solid #D0CFD2;
+}
+.pw-container {
+    text-align: left;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+}
+.pw-container:hover {
+    background-color: #141414;
+}
+.pw-container h3 {
+    font-size: 1em;
+}
+form .pw-container input {
+    margin: 1rem auto;
+    width: 75%;
+    background: transparent;
+    color: #EFEFF1;
+    border: 1px solid #D0CFD2;
+}
+form .pw-container .form-control:focus, form .pw-container .form-control:active {
+    background: transparent;
+    color: #EFEFF1;
+    border: 1px solid #D0CFD2;
+}
+.custom-twitter-widget2 form .pw-button {
+    display: block;
+    font-family: 'Roboto', sans-serif;
+    margin: 0 auto 1rem auto;
+    width: 20%;
+    background-color: #3A3A3D;
+    color: #D0CFD2;
+    border: none;
+    font-size: 0.97em;
+    transition: 0.5s ease-in-out;
+}
+.custom-twitter-widget2 form .pw-button:hover {
+    background-color: #45454A;
+    color: #D0CFD2;
+}
+.custom-twitter-widget2 form .pw-button:focus {
+    background-color: #45454A;
+    color: #D0CFD2;
+    box-shadow: none;
 }

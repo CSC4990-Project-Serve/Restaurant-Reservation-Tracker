@@ -1,12 +1,12 @@
+import {useContext} from "react";
+import {UserContext} from "../context/UserContext";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import UserTable from "../components/UserTable";
 import UserInfo from "../components/UserInfo";
+import UserPassword from "../components/UserPassword"
 import {Button, Container, Tab, Tabs} from "react-bootstrap";
 import '../css/UserHome.css';
-import {useContext} from "react";
-import {UserContext} from "../context/UserContext";
-
 
 
 const UserHome = () => {
@@ -18,8 +18,7 @@ const UserHome = () => {
 
         // console.log("delete")
 
-        // TODO: error im getting.. DELETE http://localhost:5000/api/users/3 500 (Internal Server Error)
-
+        // TODO: initial error fixed, now dealing with UserContext being null and breaking everything dependent on it.
         // fetch(`${process.env.REACT_APP_API_URL}/api/users/${id}`, {
         //     method: 'DELETE',
         // }).then(() => {
@@ -35,10 +34,14 @@ const UserHome = () => {
             <Container className="user-page-container">
                 <Tabs>
                     <Tab eventKey="info" title="Account Info">
-                        <UserInfo />
+                        <div className="account-info">
+                            <UserInfo />
+                        </div>
                     </Tab>
                     <Tab eventKey="change" title="Change password">
-
+                        <div className="change-password">
+                            <UserPassword />
+                        </div>
                     </Tab>
                     <Tab eventKey="delete" title="Deactivate ">
                         <div className="delete-account">

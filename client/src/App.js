@@ -1,6 +1,8 @@
 import {useEffect, useMemo, useState} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {CookiesProvider, useCookies} from 'react-cookie';
 import axios from "axios";
+import {UserContext} from "./context/UserContext";
 import ScrollToTop from "./components/ScrollToTop";
 import HomePage from './pages/HomePage'
 import SearchPage from "./pages/SearchPage";
@@ -9,10 +11,8 @@ import AdminPage from "./pages/AdminPage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import UserHome from "./pages/UserHome";
-import './css/App.css';
-import {UserContext} from "./context/UserContext";
 import NavigationBar from "./components/NavigationBar";
-import {CookiesProvider, useCookies} from 'react-cookie';
+import './css/App.css';
 
 function App() {
 
