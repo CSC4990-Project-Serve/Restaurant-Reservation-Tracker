@@ -12,7 +12,7 @@ const LoginPage = (props) => {
     const initialState = {
         username: '',
         password: '',
-        loggedin: false,
+        loggedIn: false,
         loginError: null
     }
 
@@ -39,21 +39,30 @@ const LoginPage = (props) => {
             }
         })
             .then(response => {
-                setUserProfileData({
-                    loggedIn: true,
-                    isAdmin: false,
-                    loginError: false,
-                    user: {
-                        id: response.data[0].id,
-                        username: response.data[0].username,
-                        email_address: response.data[0].email_address,
-                        first_name: response.data[0].first_name,
-                        last_name: response.data[0].last_name,
-                        phone_number: response.data[0].phone_number,
-                    },
-                })
+                if (!response.data.error) {
+                    setUserProfileData({
+                        loggedIn: true,
+                        isAdmin: false,
+                        loginError: false,
+                        user: {
+                            id: response.data[0].id,
+                            username: response.data[0].username,
+                            email_address: response.data[0].email_address,
+                            first_name: response.data[0].first_name,
+                            last_name: response.data[0].last_name,
+                            phone_number: response.data[0].phone_number,
+                        },
+                    })
+                    navigate('/');
+                } else {
+                    setUserProfileData({
+                        loggedIn: false,
+                        isAdmin: false,
+                        loginError: null,
+                        user: {}
+                    })
+                }
 
-                redirect();
             })
             //.then(response => console.log(response.data[0]))
             .catch(err => {
@@ -62,16 +71,9 @@ const LoginPage = (props) => {
                         loggedIn: false,
                         isAdmin: false,
                         loginError: null,
-                        user: {
-                            id: null,
-                            username: null,
-                            email_address: null,
-                            first_name: null,
-                            last_name: null,
-                            phone_number: null,
-                        }
+                        user: {}
                     })
-                    console.log(err);
+                    // console.log(err);
                 }
             });
     }
@@ -84,12 +86,9 @@ const LoginPage = (props) => {
         setLoginFormInformation({...loginFormInformation, [name]: value})
     }
 
-    function redirect() {
-        navigate('/')
-    }
-
     return (
-        <><NavigationBar/>
+        <>
+            <NavigationBar/>
             <form onSubmit={onSubmit}>
                 <section className="vh-100 background-area">
                     <div className="container py-5 h-100">
@@ -118,9 +117,9 @@ const LoginPage = (props) => {
                                         <br/>
                                         <button className="btn btn-primary btn-lg btn-block" type="submit">Login
                                         </button>
-                                        {!userProfileData.loggedin && <div>Login</div>}
-                                        {userProfileData.loggedin && <div>Success.</div>}
-                                        {userProfileData.loginError && <div>invalid username/password combo</div>}
+                                        {!userProfileData.loggedIn && <div>Login</div>}
+                                        {userProfileData.loggedIn && <div>Success...</div>}
+                                        {userProfileData.loginError && <div>Invalid Username/Password Combination</div>}
                                     </div>
                                 </div>
                             </div>
