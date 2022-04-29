@@ -39,7 +39,7 @@ const AdminTable = (props) => {
                     <button key={row.id} type="button" className="btn btn-success" onClick={() => handleRestaurantUpdate(row.id, row.restaurant_name, row.restaurant_description, row.star_rating, row.restaurant_phone_number, row.location.address1, row.location.city, row.location.state, row.location.postal_code, row.location.country, row.hours.monday, row.hours.tuesday, row.hours.wednesday, row.hours.thursday, row.hours.friday, row.hours.saturday, row.hours.sunday)}>Update</button>
                 </td>
                 <td className="td-button">
-                    <button key={row.id} type="button" className="btn btn-danger" onClick={() => handleRestaurantDelete(row.id, )}>Delete</button>
+                    <button key={row.id} type="button" className="btn btn-danger" onClick={() => handleRestaurantDelete(row.id)}>Delete</button>
                 </td>
             </tr>
         )
@@ -100,7 +100,6 @@ const AdminTable = (props) => {
             alert("Delete successful.");
             window.location.reload();
         });
-
     }
     const handleUserUpdate = (id, username, email_address, first_name, last_name, phone_number) => {
         setUpdateActive(

@@ -117,7 +117,6 @@ const LoginPage = (props) => {
                                         <br/>
                                         <button className="btn btn-primary btn-lg btn-block" type="submit">Login
                                         </button>
-                                        {!userProfileData.loggedIn && <div>Login</div>}
                                         {userProfileData.loggedIn && <div>Success...</div>}
                                         {userProfileData.loginError && <div>Invalid Username/Password Combination</div>}
                                     </div>

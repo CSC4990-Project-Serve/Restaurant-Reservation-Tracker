@@ -1,10 +1,9 @@
-import {useContext, useEffect} from 'react';
+import {useContext} from 'react';
 import {useNavigate} from "react-router-dom";
 import {UserContext} from "../context/UserContext";
 import {Button, Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import logo from '../imgs/logo.png';
 import '../css/NavigationBar.css';
-import {use} from "bcrypt/promises";
 
 const NavigationBar = () => {
 
@@ -12,7 +11,7 @@ const NavigationBar = () => {
     const {userProfileData, setUserProfileData} = useContext(UserContext);
     // const {logout} = useContext(AuthContext);
 
-    //console.log(`userState in NavBar: ${JSON.stringify(userProfileData)}`);
+    // console.log(`userState in NavBar: ${JSON.stringify(userProfileData)}`);
 
     // This is the Log-Out function/route
     const routeLogin = () => {
@@ -23,8 +22,8 @@ const NavigationBar = () => {
             let path = '/';
             // eslint-disable-next-line no-restricted-globals
             if (confirm("Logging out?")) {
-                    setUserProfileData({loggedIn: false, user: null});
-                    navigate(path);
+                setUserProfileData({loggedIn: false, user: null});
+                navigate(path);
             } else {
                 console.log('did not log out');
             }
@@ -38,6 +37,21 @@ const NavigationBar = () => {
         } else {
             alert("Already Logged in, logout to RegisterPage")
         }
+    }
+
+    const UserHome = () => {
+        if(!userProfileData.loggedIn) {
+            return null;
+        } else {
+            return (
+                <NavDropdown.Item href="/user">User Home</NavDropdown.Item>
+            )
+        }
+    }
+    const AdminTools = () => {
+        return (
+            <NavDropdown.Item href="/admin">Administrator Tools</NavDropdown.Item>
+        )
     }
 
     return (
@@ -57,17 +71,14 @@ const NavigationBar = () => {
                     <Navbar.Brand className="nav-title">Project Serve</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll"/>
                     <Navbar.Collapse id="navbarScroll">
-                        <Nav
-                            className="container-fluid"
-                            style={{maxHeight: '100px'}}
-                            navbarScroll
-                        >
+                        <Nav className="container-fluid" style={{maxHeight: '100px'}} navbarScroll>
                             <NavDropdown title="More" id="collapsible-nav-dropdown" className="ms-auto">
                                 <NavDropdown.Item href="/">Home</NavDropdown.Item>
                                 <NavDropdown.Item href="/search">Search</NavDropdown.Item>
 
-                                <NavDropdown.Divider/>
-                                <NavDropdown.Item href="/admin">Administrator Tools</NavDropdown.Item>
+                                {userProfileData.loggedIn ?  <NavDropdown.Divider/> : null}
+                                {userProfileData.isAdmin ? AdminTools() : UserHome()}
+
                             </NavDropdown>
                             <Nav.Item className="nav-button">
                                 <Button variant="outline-success" onClick={routeLogin}>
@@ -83,12 +94,10 @@ const NavigationBar = () => {
                             }
                         </Nav>
                     </Navbar.Collapse>
-
                 </Container>
             </Navbar>
         </>
     )
 };
-
 
 export default NavigationBar;

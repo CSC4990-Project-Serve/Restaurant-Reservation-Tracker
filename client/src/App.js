@@ -1,6 +1,8 @@
 import {useEffect, useMemo, useState} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {CookiesProvider, useCookies} from 'react-cookie';
 import axios from "axios";
+import {UserContext} from "./context/UserContext";
 import ScrollToTop from "./components/ScrollToTop";
 import HomePage from './pages/HomePage'
 import SearchPage from "./pages/SearchPage";
@@ -9,10 +11,9 @@ import AdminPage from "./pages/AdminPage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import UserHome from "./pages/UserHome";
-import './css/App.css';
-import {UserContext} from "./context/UserContext";
 import NavigationBar from "./components/NavigationBar";
-import {CookiesProvider, useCookies} from 'react-cookie';
+import PageNotFound from "./components/PageNotFound";
+import './css/App.css';
 
 function App() {
 
@@ -78,15 +79,20 @@ function App() {
                     <BrowserRouter>
                         <ScrollToTop/>
                         <Routes>
-                            <Route path={"/navbar"} element={<NavigationBar/>}/>
+                            <Route path="/navbar" element={<NavigationBar/>}/>
                             <Route path="/register" element={<RegisterPage/>}/>
                             <Route path="/login" element={<LoginPage/>}/>
-                            <Route path="/" element={<HomePage restaurant_data={restaurant_data}/>}/>
+                            <Route exact path="/" element={<HomePage restaurant_data={restaurant_data}/>}/>
                             <Route path="/search" element={<SearchPage restaurant_data={restaurant_data}/>}/>
                             <Route path="/search/:id" element={<RestaurantPage/>}/>
-                            <Route path="/admin"
-                                   element={<AdminPage restaurant_data={restaurant_data} user_data={user_data}/>}/>
-                            <Route path={"/UserHome"} element={<UserHome/>}/>
+
+                            {
+                                userProfileData.loggedIn &&  <Route path="/admin" element={<AdminPage restaurant_data={restaurant_data} user_data={user_data}/>} />
+                            }
+                            {
+                                userProfileData.loggedIn &&  <Route path="/user" element={<UserHome/>} />
+                            }
+                            <Route path='*' element={<PageNotFound/>} />
                         </Routes>
                     </BrowserRouter>
                 </UserContext.Provider>

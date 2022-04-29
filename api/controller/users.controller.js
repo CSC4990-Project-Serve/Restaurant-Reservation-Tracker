@@ -93,6 +93,26 @@ exports.updateUserByID = (req, res) => {
     }
 }
 
+exports.updateUserPasswordByID = (req, res) => {
+    let updatedUser = new User(req.body);
+
+    // isNaN make sure the user id from the url is a number, if not throw the error below
+    if (!updatedUser.username || !updatedUser.first_name || !updatedUser.last_name || !updatedUser.phone_number || !updatedUser.hashed_password || !updatedUser.password_salt || isNaN(req.params.id)) {
+        res.status(400).send({error: true, status: "Error: Not fully detailed update"})
+    } else {
+        User.update_a_user(req.params.id, updatedUser, (err, results) => {
+            if (err) {
+                res.status(500).send(err)
+            } else {
+                results ? res.send({error: false, status: `User ${req.params.id} password updated`}) : res.send({
+                    error: true,
+                    status: `User not updated or not found`
+                })
+            }
+        })
+    }
+}
+
 exports.deleteUserByID = (req, res) => {
     let userIDtoDelete = req.params.id;
 
