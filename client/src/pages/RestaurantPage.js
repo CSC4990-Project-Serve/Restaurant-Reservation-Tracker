@@ -8,7 +8,10 @@ import Modal from '../components/Modal';
 import {Button,Carousel, Col, Container, Form, Row} from "react-bootstrap";
 import {MDBIcon} from "mdb-react-ui-kit";
 import '../css/RestaurantPage.css';
-import carousel_img from '../imgs/carousel-overhead.jpg';
+import carousel01 from '../imgs/carousel-outdoor2.jpg';
+import carousel02 from '../imgs/carousel-indoor.jpg';
+import carousel03 from '../imgs/carousel-indoor2.jpg';
+
 
 const RestaurantPage = () => {
     const{id} = useParams();
@@ -80,21 +83,21 @@ const RestaurantPage = () => {
                             <Carousel.Item interval={5000}>
                                 <img
                                     className="carousel-img"
-                                    src={carousel_img}
+                                    src={carousel01}
                                     alt="Overhead of Restaurant"
                                 />
                             </Carousel.Item>
                             <Carousel.Item interval={5000}>
                                 <img
                                     className="carousel-img"
-                                    src={carousel_img}
+                                    src={carousel02}
                                     alt="Overhead of Restaurant"
                                 />
                             </Carousel.Item>
                             <Carousel.Item interval={5000}>
                                 <img
                                     className="carousel-img"
-                                    src={carousel_img}
+                                    src={carousel03}
                                     alt="Overhead of Restaurant"
                                 />
                             </Carousel.Item>
