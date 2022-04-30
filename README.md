@@ -1,5 +1,3 @@
 # CSC4990 Restaurant-Reservation-Tracker
 
 Our proposed project is going to be a Restaurant Reservation Application. In our vision of this idea, restaurants will be able to make their information available on the application for end users to view. Information about restaurants may include hours of operation, a general description, reservation availability, food type, pricing, and if available the restaurant's menu. General registered users will be able to view the restaurant information as well as make reservations for a specified date and time. This application will also allow restaurants to register an account which will allow them to add and update any relevant information about their establishment. The overall goal of this project is to create a solution that allows restaurants a way to create an online presence with all their associated information as well as allowing them an easy way to take and track reservations.
-
-this is a test commit to be deleted later
