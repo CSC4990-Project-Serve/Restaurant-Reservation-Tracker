@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import {useSetState} from 'react-use';
 import {useNavigate} from 'react-router-dom';
 import Footer from "../components/Footer";
@@ -7,7 +7,7 @@ import '../css/Login.css';
 import {UserContext} from "../context/UserContext";
 import axios from "axios";
 
-const LoginPage = (props) => {
+const LoginPage = () => {
     // need a better solution than setting defaults to []
     const initialState = {
         username: '',
@@ -42,7 +42,7 @@ const LoginPage = (props) => {
                 if (!response.data.error) {
                     setUserProfileData({
                         loggedIn: true,
-                        isAdmin: false,
+                        isAdmin: (response.data[0].username === "Admin"), //hacky fix. username with Admin will be assigned as Admin
                         loginError: false,
                         user: {
                             id: response.data[0].id,
