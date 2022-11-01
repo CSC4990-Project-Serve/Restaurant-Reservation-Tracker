@@ -56,12 +56,10 @@ function App() {
 
     const getData = () => {
         let routes = [
-            `${process.env.REACT_APP_API_URL}/api/restaurant/`,
-            `${process.env.REACT_APP_API_URL}/api/users/`,
+            `${process.env.REACT_APP_API_URL}/api/restaurant/`
         ];
-        Promise.all(routes.map((route) => axios.get(route))).then(([{data: restaurant_data}, {data: user_data}]) => {
+        Promise.all(routes.map((route) => axios.get(route))).then(([{data: restaurant_data}]) => {
             setRestaurantData(restaurant_data)
-            setUserData(user_data)
         });
     }
 

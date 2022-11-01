@@ -1,7 +1,6 @@
 'use strict';
 
 const conn = require('../model/db');
-const bcrypt = require("bcrypt");
 
 const User = function (userInfo) {
     // front end is looking for value on right-hand side to be sent (exact naming)
